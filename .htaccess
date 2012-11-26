@@ -1,0 +1,26 @@
+#Options +Indexes
+#RemoveHandler .html
+#RemoveType .html
+#AddType text/html .html
+#Satisfy any
+#Order Deny,Allow
+#Allow from 212.227.112.228
+#Deny from all
+#AuthType Basic
+#AuthName "Access to /logs"
+#AuthUserFile /kunden/homepages/0/d396478511/htpasswd
+#Require user u67225760
+RewriteEngine On
+
+# this will allow access for one IP
+# RewriteCond %{REMOTE_ADDR} ^111\.222\.111\.222$
+# this sends everyone else to index.html
+RewriteCond %{REQUEST_URI} !^/index\.html$
+RewriteCond %{REQUEST_URI} !^/js/.*$
+RewriteCond %{REQUEST_URI} !^/css/.*$
+RewriteCond %{REQUEST_URI} !^/images/.*$
+RewriteCond %{REQUEST_URI} !^/fonts/.*$
+RewriteCond %{REQUEST_URI} !^/robots\.txt$
+RewriteCond %{REQUEST_URI} !^/blog\.txt$
+# Rewrite, so the full URL is not used.
+RewriteRule ^(.*)$ /index\.html [R,L]
