@@ -1,5 +1,29 @@
 /* CSS of CodeSpain main page : index.html 
 	Created by CodeSpain member: @Pablo_1990 */
-/* Header   */
-/* Content */
-/* Footer */
+header {
+  width: 100%;
+  height: 20%;
+}
+#content {
+  width: 100%;
+}
+#img {
+  width: 300px;
+  height: 300px;
+  transition: width 2s, height 2s;
+  -moz-transition: width 2s, height 2s, -moz-transform 2s;
+  -webkit-transition: width 2s, height 2s, -webkit-transform 2s;
+  -o-transition: width 2s, height 2s, -o-transform 2s;
+}
+#img:hover {
+  width: 700px;
+  height: 700px;
+  transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
+footer {
+  width: 100%;
+  min-height: 10%;
+}
