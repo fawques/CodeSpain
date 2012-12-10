@@ -1,8 +1,41 @@
 /* CSS of CodeSpain main page : index.html 
 	Created by CodeSpain member: @Pablo_1990 */
+body {
+  margin: 0px auto 0px auto;
+}
 header {
-  width: 100%;
+  background-color: #d80406;
   height: 20%;
+}
+header .img {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  transition: width 2s, height 2s;
+  -moz-transition: width 2s, height 2s, -moz-transform 2s;
+  /* Firefox 4 */
+
+  -webkit-transition: width 2s, height 2s, -webkit-transform 2s;
+  /* Safari and Chrome */
+
+  -o-transition: width 2s, height 2s, -o-transform 2s;
+  /* Opera */
+
+}
+header .img:hover {
+  transform: scale(1.2, 1.2);
+  -ms-transform: scale(1.2, 1.2);
+  /* IE 9 */
+
+  -webkit-transform: scale(1.2, 1.2);
+  /* Safari and Chrome */
+
+  -o-transform: scale(1.2, 1.2);
+  /* Opera */
+
+  -moz-transform: scale(1.2, 1.2);
+  /* Firefox */
+
 }
 #content {
   width: 100%;
@@ -25,5 +58,5 @@ header {
 }
 footer {
   width: 100%;
-  min-height: 10%;
+  min-height: 30%;
 }
