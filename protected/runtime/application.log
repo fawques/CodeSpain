@@ -1,0 +1,138 @@
+2012/12/10 00:27:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "user".' in /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php:484
+Stack trace:
+#0 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(271): CController->missingAction('user')
+#1 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(283): CController->run('user')
+#2 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(142): CWebApplication->runController('site/user')
+#3 /opt/lampp/yii-1.1.12.b600af/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#4 /opt/lampp/htdocs/CodeSpain/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/CodeSpain/index.php/site/user
+---
+2012/12/10 00:27:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "gii".' in /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php:484
+Stack trace:
+#0 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(271): CController->missingAction('gii')
+#1 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(283): CController->run('gii')
+#2 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(142): CWebApplication->runController('site/gii')
+#3 /opt/lampp/yii-1.1.12.b600af/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#4 /opt/lampp/htdocs/CodeSpain/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/CodeSpain/index.php/site/gii
+---
+2012/12/10 00:33:48 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php:170
+Stack trace:
+#0 /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(292): CFilterChain->run()
+#6 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(283): CController->run('admin')
+#8 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(142): CWebApplication->runController('user/admin')
+#9 /opt/lampp/yii-1.1.12.b600af/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /opt/lampp/htdocs/CodeSpain/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/CodeSpain/index.php/user/admin
+HTTP_REFERER=http://localhost/CodeSpain/index.php/user/create
+---
+2012/12/10 00:34:30 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php:170
+Stack trace:
+#0 /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(292): CFilterChain->run()
+#6 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(283): CController->run('admin')
+#8 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(142): CWebApplication->runController('user/admin')
+#9 /opt/lampp/yii-1.1.12.b600af/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /opt/lampp/htdocs/CodeSpain/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/CodeSpain/index.php/user/admin
+HTTP_REFERER=http://localhost/CodeSpain/index.php/user/index
+---
+2012/12/10 00:42:51 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php:170
+Stack trace:
+#0 /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(292): CFilterChain->run()
+#6 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(283): CController->run('')
+#8 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(142): CWebApplication->runController('user')
+#9 /opt/lampp/yii-1.1.12.b600af/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /opt/lampp/htdocs/CodeSpain/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/CodeSpain/index.php/user/
+---
+2012/12/10 00:42:54 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php:170
+Stack trace:
+#0 /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(292): CFilterChain->run()
+#6 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(283): CController->run('index')
+#8 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(142): CWebApplication->runController('user/index')
+#9 /opt/lampp/yii-1.1.12.b600af/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /opt/lampp/htdocs/CodeSpain/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/CodeSpain/index.php/user/index
+HTTP_REFERER=http://localhost/CodeSpain/index.php/user/create
+---
+2012/12/10 00:42:56 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php:170
+Stack trace:
+#0 /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(292): CFilterChain->run()
+#6 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(283): CController->run('admin')
+#8 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(142): CWebApplication->runController('user/admin')
+#9 /opt/lampp/yii-1.1.12.b600af/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /opt/lampp/htdocs/CodeSpain/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/CodeSpain/index.php/user/admin
+HTTP_REFERER=http://localhost/CodeSpain/index.php/user/create
+---
+2012/12/10 00:43:09 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php:170
+Stack trace:
+#0 /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(292): CFilterChain->run()
+#6 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(283): CController->run('create')
+#8 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(142): CWebApplication->runController('user/create')
+#9 /opt/lampp/yii-1.1.12.b600af/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /opt/lampp/htdocs/CodeSpain/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/CodeSpain/index.php/user/create
+HTTP_REFERER=http://localhost/CodeSpain/index.php/site/login
+---
+2012/12/10 00:43:51 [error] [exception.CHttpException.403] exception 'CHttpException' with message 'You are not authorized to perform this action.' in /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php:170
+Stack trace:
+#0 /opt/lampp/yii-1.1.12.b600af/framework/web/auth/CAccessControlFilter.php(133): CAccessControlFilter->accessDenied(Object(CWebUser), 'You are not aut...')
+#1 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilter.php(39): CAccessControlFilter->preFilter(Object(CFilterChain))
+#2 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(1146): CFilter->filter(Object(CFilterChain))
+#3 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CInlineFilter.php(59): CController->filterAccessControl(Object(CFilterChain))
+#4 /opt/lampp/yii-1.1.12.b600af/framework/web/filters/CFilterChain.php(131): CInlineFilter->filter(Object(CFilterChain))
+#5 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(292): CFilterChain->run()
+#6 /opt/lampp/yii-1.1.12.b600af/framework/web/CController.php(266): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(283): CController->run('update')
+#8 /opt/lampp/yii-1.1.12.b600af/framework/web/CWebApplication.php(142): CWebApplication->runController('user/update')
+#9 /opt/lampp/yii-1.1.12.b600af/framework/base/CApplication.php(162): CWebApplication->processRequest()
+#10 /opt/lampp/htdocs/CodeSpain/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/CodeSpain/index.php/user/update/1
+HTTP_REFERER=http://localhost/CodeSpain/index.php/site/login
+---
