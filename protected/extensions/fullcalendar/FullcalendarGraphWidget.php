@@ -17,7 +17,7 @@ class FullcalendarGraphWidget extends FullcalendarWidget{
 		echo CHtml::openTag($this->tagName,$this->htmlOptions);
 		echo CHtml::closeTag($this->tagName);
 
-		$encodeoptions=CJavaScript::encode($this->options+array('events'=>array($this->data)));
+		$encodeoptions=CJavaScript::encode($this->options+array('events'=>$this->data));
 		
 		Yii::app()->getClientScript()->registerScript(__CLASS__.'#'.$id,"$('#$id').fullCalendar($encodeoptions);");
 	}
