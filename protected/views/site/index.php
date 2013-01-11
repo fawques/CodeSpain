@@ -6,6 +6,21 @@ $this->pageTitle=Yii::app()->name;
 
 <h1>Bienvenido a <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
+<div class="btn-toolbar">
+    <?php echo $this->widget('bootstrap.widgets.TbButtonGroup', array(
+        'type'=>'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+        'buttons'=>array(
+            array('label'=>'Action', 'items'=>array(
+                array('label'=>'Action', 'url'=>'#'),
+                array('label'=>'Another action', 'url'=>'#'),
+                array('label'=>'Something else', 'url'=>'#'),
+                '---',
+                array('label'=>'Separate link', 'url'=>'#'),
+            )),
+        ),
+    )); ?>
+</div>
+
 <p>Esto es una aplicación recién creada en Yii Framework.</p>
 
 <p>You may change the content of this page by modifying the following two files:</p>
