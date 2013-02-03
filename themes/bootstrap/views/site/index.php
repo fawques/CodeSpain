@@ -6,6 +6,7 @@ $this->pageTitle=Yii::app()->name;
 
 <h1>Bienvenido a <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
+
 <?php  $this->widget('bootstrap.widgets.TbButton', array(
     'label'=>'Primary',
     'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
