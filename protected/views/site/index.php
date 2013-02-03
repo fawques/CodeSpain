@@ -4,32 +4,36 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<h1>Bienvenido a <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
+<h1><a href="codespain.es"><img src="images/cover.png" class="img"></a></h1>
 
 <div class="btn-toolbar">
-    <?php echo $this->widget('bootstrap.widgets.TbButtonGroup', array(
+    <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
         'type'=>'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
         'buttons'=>array(
-            array('label'=>'Action', 'items'=>array(
-                array('label'=>'Action', 'url'=>'#'),
-                array('label'=>'Another action', 'url'=>'#'),
-                array('label'=>'Something else', 'url'=>'#'),
-                '---',
-                array('label'=>'Separate link', 'url'=>'#'),
+            array('label'=>'Home', 'url'=>'#'),
+            array('label'=> 'Noticias', 'url'=>'#'),
+            array('label'=>'F.A.Q.', 'items'=>array(
+                array('label'=>'¿Qué es esto?', 'url'=>'#'),
+                array('label'=>'¿De dónde hemos salido?', 'url'=>'#'),
+                array('label'=>'Are you Open?', 'url'=>'#'),
             )),
         ),
     )); ?>
 </div>
 
-<p>Esto es una aplicación recién creada en Yii Framework.</p>
+<p>Bienvenido a CodeSpain.</p>
 
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <code><?php echo __FILE__; ?></code></li>
-	<li>Layout file: <code><?php echo $this->getLayoutFile('main'); ?></code></li>
-</ul>
+<p>En este proyecto pretendemos aunar todos los posibles eventos existentes en españa para developers tales como <a href="codemotion.es">Code Motion</a>, <a href="http://www.ignitevlc.com/">Ignite Valencia</a>, o cualquier hackaton desarrolado en este, nuestro país. También, nos gustaría promover la asistencia a estos eventos ayudando en la difusión e intentando facilitar una forma más económica de asistir.
 
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
+<p>Nos puedes seguir en nuestro Twitter: <a href="https://twitter.com/CodeSpain">CodeSpain</a></p>
+
+
+<?php $this->widget('bootstrap.widgets.TbTabs', array(
+    'type'=>'tabs',
+    'tabs'=>array(
+        array('label'=>'Noticia 1', 'content'=>'Pronto esperamos tener la web
+            operativa y bla bla bla bla', 'active'=>true),
+        array('label'=>'To Escolaneitor', 'content'=>'Escolano judas.'),
+        array('label'=>'To Victoriuous', 'content'=>'Victor putilla.'),
+        ),)); ?>
+
