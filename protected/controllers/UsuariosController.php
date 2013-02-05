@@ -168,4 +168,27 @@ class UsuariosController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+	public function BuscarPorNombre($name)
+	{
+		$model = Usuarios::model()->findByAttributes(array('Nombre'=>$name));
+		return $model;
+	}
+
+	public function Create($name,$token)
+	{
+		$model=new Usuarios;
+		$idSig = Yii::app()->db->getLastInsertId() + 1;
+		$model->attributes = array('idUsuarios' => $idSig ,'Nombre' => $name, 'Token' => $token);
+		$model->save();
+	}
+
+	public function Update($id,$token)
+	{
+		$model=$this->loadModel($id);
+		$model->attributes = array('Token' => $token);
+		$model->save();
+
+	}
+
 }

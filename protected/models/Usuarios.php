@@ -12,8 +12,6 @@
  *
  * The followings are the available model relations:
  * @property Eventos[] $eventoses
- * @property Eventos $eventosIdEventos
- * @property Preferencias $preferenciasIdPreferencias
  */
 class Usuarios extends CActiveRecord
 {
@@ -43,10 +41,10 @@ class Usuarios extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('idUsuarios, Preferencias_idPreferencias, Eventos_idEventos', 'required'),
+			array('idUsuarios, Nombre', 'required'),
 			array('idUsuarios, Preferencias_idPreferencias, Eventos_idEventos', 'numerical', 'integerOnly'=>true),
 			array('Nombre', 'length', 'max'=>50),
-			array('Token', 'length', 'max'=>45),
+			array('Token', 'length', 'max'=>250),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('idUsuarios, Nombre, Token, Preferencias_idPreferencias, Eventos_idEventos', 'safe', 'on'=>'search'),
@@ -62,8 +60,6 @@ class Usuarios extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'eventoses' => array(self::MANY_MANY, 'Eventos', 'Reportar(Usuarios_idUsuarios, Eventos_idEventos)'),
-			'eventosIdEventos' => array(self::BELONGS_TO, 'Eventos', 'Eventos_idEventos'),
-			'preferenciasIdPreferencias' => array(self::BELONGS_TO, 'Preferencias', 'Preferencias_idPreferencias'),
 		);
 	}
 

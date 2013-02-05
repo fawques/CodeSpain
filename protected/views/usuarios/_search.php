@@ -23,7 +23,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'Token'); ?>
-		<?php echo $form->textField($model,'Token',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->textField($model,'Token',array('size'=>60,'maxlength'=>250)); ?>
 	</div>
 
 	<div class="row">
