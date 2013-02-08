@@ -1,8 +1,7 @@
 <?php
 
 
-require_once('protected/vendors/twitteroauth-master/twitteroauth/twitteroauth.php');
-require_once('protected/vendors/twitteroauth-master/config.php');
+
 
 class AccesoController extends Controller
 {
@@ -10,12 +9,77 @@ class AccesoController extends Controller
 
 	public function actionGoogle()
 	{
+        require_once ('protected/vendors/google-api-php-client/src/Google_Client.php');
+        require_once ('protected/vendors/google-api-php-client/src/contrib/Google_PlusService.php');
+
+        session_start();
+        
+        $client = new Google_Client();
+        $client->setClientId('489451579759.apps.googleusercontent.com');
+        $client->setClientSecret('vB3LeyMP06S0aHoSw5vYPxJ5');
+        $client->setRedirectUri('http://localhost/CodeSpain/index.php/Acceso/Google');
+        $client->setDeveloperKey('AIzaSyAm4Db2U-kRW0PjdAlvedYt2eEF8sEzfuU');
+
+        $plus = new Google_PlusService($client);
+
+        if (isset($_REQUEST['logout'])) {
+          unset($_SESSION['access_token']);
+        }
+
+        if (isset($_GET['code'])) {
+          $client->authenticate($_GET['code']);
+          $_SESSION['access_token'] = $client->getAccessToken();
+          header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
+        }
+
+        if (isset($_SESSION['access_token'])) {
+          $client->setAccessToken($_SESSION['access_token']);
+        }
+
+        if ($client->getAccessToken()) {
+          $me = $plus->people->get('me');
+
+          // These fields are currently filtered through the PHP sanitize filters.
+          // See http://www.php.net/manual/en/filter.filters.sanitize.php
+          //$url = filter_var($me['url'], FILTER_VALIDATE_URL);
+          //$img = filter_var($me['image']['url'], FILTER_VALIDATE_URL);
+          $name = filter_var($me['displayName'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+          //$personMarkup = "<a rel='me' href='$url'>$name</a><div><img src='$img'></div>";
+
+
+          /*Insertar en BD*/
+          $decode = json_decode($_SESSION['access_token'], true);
+          $this->GuardarEnBD($name,$decode['access_token']);
+
+          /*$optParams = array('maxResults' => 100);
+          $activities = $plus->activities->listActivities('me', 'public', $optParams);
+          $activityMarkup = '';
+          foreach($activities['items'] as $activity) {
+            // These fields are currently filtered through the PHP sanitize filters.
+            // See http://www.php.net/manual/en/filter.filters.sanitize.php
+            $url = filter_var($activity['url'], FILTER_VALIDATE_URL);
+            $title = filter_var($activity['title'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+            $content = filter_var($activity['object']['content'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+            $activityMarkup .= "<div class='activity'><a href='$url'>$title</a><div>$content</div></div>";*/
+
+          // The access token may have been updated lazily.
+          $_SESSION['access_token'] = $client->getAccessToken();
+        } else {
+          $authUrl = $client->createAuthUrl();
+          header('Location: ' . $authUrl);
+        }
 
 	}
 
+  public function actionGoogleCallback()
+  {
+
+  }
 
 	public function actionTwitter()
 	{
+        require_once('protected/vendors/twitteroauth-master/twitteroauth/twitteroauth.php');
+        require_once('protected/vendors/twitteroauth-master/config.php');
         /* Start session and load library. */
         session_start();
 
@@ -93,33 +157,36 @@ class AccesoController extends Controller
           $_SESSION['status'] = 'verified';
 
           $user = $connection->get('account/verify_credentials');
-
-          $identity=new UserIdentity($user->name,$_SESSION['access_token']);
-
-          $login=Yii::app()->user;
-          $login->login($identity);
-
-
-          /*TODO Añadir Usuario a la BD*/
-          //require_once('protected/controllers/UsuariosController.php');
-          $ctrlUsuarios = new UsuariosController('usuarios');
-          $model = $ctrlUsuarios->buscarPorNombre($user->name);
-
-          if($model == null)
-          {
-            $ctrlUsuarios->Create($user->name,$access_token["oauth_token_secret"]);
-          }
-          else
-          {
-            $ctrlUsuarios->Update($model->idUsuarios,$access_token["oauth_token_secret"]);
-          }
-
-          header('Location: ..');
+          $this->GuardarEnBD($user->name,$access_token["oauth_token_secret"]);
+          
         } else 
         {
           /* Save HTTP status for error dialog on connnect page.*/
           unset($_SESSION['access_token']);
           header('Location: ..');
         }
+    }
+
+    public function GuardarEnBD($nombre,$token)
+    {
+          $identity=new UserIdentity($nombre,$token);
+
+          $login=Yii::app()->user;
+          $login->login($identity);
+
+
+          $ctrlUsuarios = new UsuariosController('usuarios');
+          $model = $ctrlUsuarios->buscarPorNombre($nombre);
+
+          if($model == null)
+          {
+            $ctrlUsuarios->Create($nombre,$token);
+          }
+          else
+          {
+            $ctrlUsuarios->Update($model->idUsuarios,$token);
+          }
+
+          header('Location: ..');
     }
 }

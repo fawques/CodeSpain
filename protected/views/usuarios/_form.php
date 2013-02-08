@@ -16,12 +16,6 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'idUsuarios'); ?>
-		<?php echo $form->textField($model,'idUsuarios'); ?>
-		<?php echo $form->error($model,'idUsuarios'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'Nombre'); ?>
 		<?php echo $form->textField($model,'Nombre',array('size'=>50,'maxlength'=>50)); ?>
 		<?php echo $form->error($model,'Nombre'); ?>

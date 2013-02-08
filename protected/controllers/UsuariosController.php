@@ -178,8 +178,7 @@ class UsuariosController extends Controller
 	public function Create($name,$token)
 	{
 		$model=new Usuarios;
-		$idSig = Yii::app()->db->getLastInsertId() + 1;
-		$model->attributes = array('idUsuarios' => $idSig ,'Nombre' => $name, 'Token' => $token);
+		$model->attributes = array('Nombre' => $name, 'Token' => $token);
 		$model->save();
 	}
 
@@ -190,5 +189,4 @@ class UsuariosController extends Controller
 		$model->save();
 
 	}
-
 }
