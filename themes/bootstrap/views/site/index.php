@@ -3,25 +3,12 @@
 
 $this->pageTitle=Yii::app()->name;
 ?>
+<h1>¡Bienvenido desarrollador!</h1>
+<br>
+<p>En este proyecto pretendemos aunar todos los posibles eventos existentes en españa para developers tales como <a href="codemotion.es">Code Motion</a>, <a href="www.ignitevlc.com">Ignite Valencia</a>, o cualquier hackaton desarrolado en este, nuestro país. También, nos gustaría promover la asistencia a estos eventos ayudando en la difusión e intentando facilitar una forma más económica de asistir.</p>
+<div id="search">
+	<input placeholder="Escriba aqu&iacute" id="inputSearch">
+	<button id="BtSearch">¡Busca eventos!</button>
+</div>
 
-<h1>Bienvenido a <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
-
-<?php  $this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'Primary',
-    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'small', // null, 'large', 'small' or 'mini'
-    'url'=>'javascript:alert("hola!")',
-)); ?>
-
-<p>Esto es una aplicación recién creada en Yii Framework.</p>
-
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <code><?php echo __FILE__; ?></code></li>
-	<li>Layout file: <code><?php echo $this->getLayoutFile('main'); ?></code></li>
-</ul>
-
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
+<p>Nos puedes seguir en nuestro Twitter: <a href="https://twitter.com/CodeSpain">CodeSpain</a></p>

@@ -22,6 +22,11 @@
                 array('label'=>'Home', 'url'=>array('/site/index')),
                 array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 array('label'=>'Contact', 'url'=>array('/site/contact')),
+                array('label'=>'F.A.Q.', 'url'=>array('/site/FAQ'), 'items'=>array(
+                    array('label'=>'¿Qué es esto?', 'url'=>'/site/FAQ#cont1'),
+                    array('label'=>'¿Quien está detrás?', 'url'=>'#'),
+                    array('label'=>'¿OpenSource?', 'url'=>'#')
+                    ,),),
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
             ),
@@ -42,9 +47,9 @@
 	<div class="clear"></div>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
+	       <br>
+           <hr>
+           Created and designed by <a href="http://twitter.com/fawques">Victor Guzman</a>, <a href="http://twitter.com/AzureFlameK1t3">Adri&aacuten Escolano</a> y <a href="http://twitter.com/Pablo_1990">Pablo Vicente.</a>
 	</div><!-- footer -->
 
 </div><!-- page -->
