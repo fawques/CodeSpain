@@ -14,9 +14,15 @@ $this->pageTitle=Yii::app()->name;
 <div id="ctWhoAre">
 	<h2>¿Qui&eacuten est&aacute detr&aacute de esto?</h2>
 	<p>Somos unos universitarios, interesados en asistir a estos eventos, y que, al no encontrar una página que reuna a todos (o la mayoría de ellos), nos hemos visto casi obligados, a realizar este proyecto.</p>
+	<p>Para m&aacutes go to the <a href="site/page/about">About</a></p>
 </div>
+<br>
 <br>
 <div id="ctOpen">
 	<h2>OpenSource... ¡Venga! ¿y qu&eacute m&aacutes?</h2>
 	<p>Pues sí, así es. Está web es Open Source, de hecho, si quieres o simplemente tienes curiosidad por ver cómo se ha realizado y cómo está hecha la misma, puedes ser ir: o bien, a nuestro <a href="codespain.es/blog">blog</a> o, por otro lado, puedes ir a nuestro <a href="https://github.com/fawques/CodeSpain">repositorio</a>.</p>
+</div>
+<br>
+<div>
+	<h2>Tipos de eventos</h2>
 </div>
