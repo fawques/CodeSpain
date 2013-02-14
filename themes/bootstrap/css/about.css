@@ -1,0 +1,19 @@
+/* Made by CodeSpain, codespain.es/about */
+.imgAbout {
+  margin-left: -25%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.spanTitle {
+  margin-right: 0%;
+  margin-left: 15%;
+  margin-top: 1%;
+  font-size: x-large;
+  font-weight: bold;
+}
+.spanText {
+  margin-right: 0%;
+  margin-left: 15%;
+  margin-top: -9%;
+}
