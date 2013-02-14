@@ -27,9 +27,29 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$model = new Evento;
+		//$results = $model.search_prueba('Nuevo');
+		$data = array(
+	        'data'=>array(
+	        			array(
+			                'title'=> 'Evento de todo el día',
+			                'start'=> date('Y-m-j')
+			            ),
+	                	array(
+	                		'title'=> 'Año Nuevo',
+	                		'start'=> date('2013-01-01')
+	                	),
+	        ),
+	        'options'=>array(
+	            'editable'=>false,
+	        ),
+	        'htmlOptions'=>array(
+	               'style'=>'width:800px;margin: 0 auto;'
+	        ),
+	    );
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		$this->render('index', array('data'=>$data));
 	}
 
 	/**

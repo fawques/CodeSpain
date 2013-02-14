@@ -45,27 +45,6 @@
 
 	<?php echo $content; ?>
 
-	<?php $this->widget('application.extensions.fullcalendar.FullcalendarGraphWidget', 
-	    array(
-	        'data'=>array(
-	        			array(
-			                'title'=> 'All Day Event',
-			                'start'=> date('Y-m-j')
-			            ),
-	                	array(
-	                		'title'=> 'Año Nuevo',
-	                		'start'=> date('2013-01-01')
-	                	),
-	        ),
-	        'options'=>array(
-	            'editable'=>true,
-	        ),
-	        'htmlOptions'=>array(
-	               'style'=>'width:800px;margin: 0 auto;'
-	        ),
-	    )
-	);?>
-
 	<div class="clear"></div>
 
 	<div id="footer">
