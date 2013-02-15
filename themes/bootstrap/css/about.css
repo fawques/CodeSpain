@@ -1,9 +1,19 @@
 /* Made by CodeSpain, codespain.es/about */
 .imgAbout {
-  margin-left: -25%;
+  margin-left: -24.5%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+.divEpic {
+  background: "../images/imagebot.jpg";
+  box-shadow: 2px 2px 2px 2px #cdc9c9;
+  -moz-box-shadow: 2px 2px 2px 2px #cdc9c9;
+  -webkit-box-shadow: 2px 2px 2px 2px #cdc9c9;
+  padding: 1%;
+  -moz-border-radius: 5%;
+  -webkit-border-radius: 5%;
+  border-radius: 5%;
 }
 .spanTitle {
   margin-right: 0%;
