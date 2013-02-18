@@ -38,7 +38,7 @@ class SiteController extends Controller
 	            'editable'=>false,
 	        ),
 	        'htmlOptions'=>array(
-	               'style'=>'width:800px;margin: 0 auto;',
+	               'style'=>'width:350px;margin: 0 auto;',
 	               'class'=>'well well-small',
 	        ),
 	    );
@@ -48,7 +48,7 @@ class SiteController extends Controller
 			$nuevoElemento = array(
 			                'title'=> $array_eventos[$i]->Nombre,
 			                'start'=> $array_eventos[$i]->Fecha,
-			                'url'=>'javascript:alert(datos);',
+			                'url'=>'javascript:alert("Hola!");',
 			            );
 			$data['data'][$i] = $nuevoElemento;
 		}
