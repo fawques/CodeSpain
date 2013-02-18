@@ -27,9 +27,35 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$controlador = new EventoController('Evento');
+		$array_eventos = $controlador->GetAll();
+
+		// Inicializamos los datos del calendario
+		$data = array(
+	        'data'=>array(
+			),
+	        'options'=>array(
+	            'editable'=>false,
+	        ),
+	        'htmlOptions'=>array(
+	               'style'=>'width:800px;margin: 0 auto;',
+	               'class'=>'well well-small',
+	        ),
+	    );
+
+		// Añadimos los eventos que toque al calendario
+		for ($i=0; $i < count($array_eventos); $i++) { 
+			$nuevoElemento = array(
+			                'title'=> $array_eventos[$i]->Nombre,
+			                'start'=> $array_eventos[$i]->Fecha,
+			                'url'=>'javascript:alert(datos);',
+			            );
+			$data['data'][$i] = $nuevoElemento;
+		}
+
 		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		// using the default layout 'protected/views/layouts/main.php'*/
+		$this->render('index', array('data'=>$data));
 	}
 
 	/**
