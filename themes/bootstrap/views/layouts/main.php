@@ -22,11 +22,14 @@
                 array('label'=>'Home', 'url'=>array('/site/index')),
                 array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 array('label'=>'Contact', 'url'=>array('/site/contact')),
-                array('label'=>'F.A.Q.', 'items'=>array(
-                    array('label'=>'¿Qué es esto?', 'url'=>'faq?id=ctQueEs'),
-                    array('label'=>'¿Quien está detrás?', 'url'=>'faq?id=ctWhoAre'),
-                    array('label'=>'¿OpenSource?', 'url'=>'faq?id=ctOpen')
-                    ,),),
+                array('label'=>'F.A.Q.', 'url'=>array('/site/page', 'view'=>'faq')
+                    /* ========== No he conseguido que vaya el scroll automático al punto concreto, lo dejo comentado ============= */
+                    /*'items'=>array(
+                    array('label'=>'¿Qué es esto?', 'url'=>array('/site/page',  'view'=>'faq', 'id'=>'ctQueEs')),
+                    array('label'=>'¿Quien está detrás?', 'url'=>array('/site/page', 'view'=>'faq', 'id'=>'ctWhoAre')),
+                    array('label'=>'¿OpenSource?', 'url'=>array('/site/page', 'view'=>'faq', 'id'=>'ctOpen'))
+                    ,)*/
+                ,),
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
             ),
