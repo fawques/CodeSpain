@@ -1,3 +1,32 @@
+/* Made by CodeSpain, para codespain.es/home */
 #page {
-    padding-top: 60px;
+  padding-top: 3%;
+}
+/***********************************************/
+/************************************************/
+#search {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  text-align: center;
+}
+#inputSearch {
+  font-size: 28px;
+}
+#BtSearch {
+  font-size: 22px;
+  cursor: pointer;
+  border: 1px solid #999999;
+  padding: 6px 6px 6px 6px;
+  color: #ffffff;
+  text-shadow: 0px 0px 0px #ffffff;
+  border-radius: 0px 6px 6px 0px;
+  -moz-border-radius: 0px 6px 6px 0px;
+  -webkit-border-radius: 0px 6px 6px 0px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+  background-color: #ffffff;
+  background-image: linear-gradient(0deg, rgba(0, 51, 255, 0.9), #ffffff);
+  background-image: -webkit-gradient(linear, 50% 50%, 50% 50%, from(rgba(0, 51, 255, 0.9)), to(#ffffff));
+  background-image: -moz-linear-gradient(0deg, rgba(0, 51, 255, 0.9), #ffffff);
 }
