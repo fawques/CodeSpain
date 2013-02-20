@@ -44,7 +44,7 @@ function Geolocalizar()
 {
 	var direccion = document.getElementById("target").value;
    	$.ajax({
-		url: "mapa/Geolocalizar",
+		url: "index.php/mapa/Geolocalizar",
 		data: "direccion=" + direccion,
 		type: "POST",
 		dataType: "json",

@@ -20,3 +20,13 @@ $this->pageTitle=Yii::app()->name;
 <?php $this->widget('application.extensions.fullcalendar.FullcalendarGraphWidget', 
 	    $data
 	);?>
+
+
+<p> Mapa de Eventos </p>
+
+<?php 
+
+Yii::import('mapa');
+$mapa = new MapaController('mapa');
+$mapa->actionIndex();
+?>
