@@ -25,8 +25,39 @@ $this->pageTitle=Yii::app()->name;
 <p> Mapa de Eventos </p>
 
 <?php 
+	Yii::import('mapa');
+	$mapa = new MapaController('mapa');
+	$mapa->actionIndex();
+?>
 
-Yii::import('mapa');
-$mapa = new MapaController('mapa');
-$mapa->actionIndex();
+<?php /*$this->widget('bootstrap.widgets.TbGridView', array(
+    'type'=>'striped bordered',
+    'dataProvider'=>$ArrayListaEventos,
+    'template'=>"{items}",
+    'columns'=>array(
+        array('name'=>'Nombre', 'header'=>'Evento'),
+        array('name'=>'Fecha', 'header'=>'Fecha'),
+        array('name'=>'Lugar', 'header'=>'Lugar'),
+        array(
+            'class'=>'bootstrap.widgets.TbButtonColumn',
+            'htmlOptions'=>array('style'=>'width: 50px'),
+        ),
+    ),
+    'selectionChanged' => 'CentrarEnCoordenadas(1)',
+));*/ 
+
+$this->widget('bootstrap.widgets.TbGridView', array(
+	'type'=>'bordered',
+	'id'=>'evento',
+	'selectableRows'=>1,
+	'selectionChanged'=>'CentrarEnCoordenadas',	// via 1: para mostrar detalles al seleccionar
+    'dataProvider'=>$ArrayListaEventos,
+    'columns'=>array(
+    	'Nombre','Lugar','Fecha'
+
+    ),
+));
+
+
+
 ?>

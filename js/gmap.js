@@ -60,5 +60,27 @@ function Geolocalizar()
 
 }
 
+function CentrarEnCoordenadas()
+{
+	var id = $.fn.yiiGridView.getSelection('evento');
+
+	if(id != "")
+	{
+	   	$.ajax({
+			url: "index.php/site/ObtenerCoordenadasLista",
+			data: "idLista=" + id,
+			type: "POST",
+			dataType: "json",
+			success: function(source){
+				var coordenadas = new google.maps.LatLng(source["latitud"], source["longitud"]);
+				map.setCenter(coordenadas);
+			},
+			error: function(dato){
+				alert("ERROR");
+			}
+		});			
+	}
+}
+
 google.maps.event.addDomListener(window, 'load', initialize);
 google.maps.event.addDomListener(document.getElementById("target"), 'change', Geolocalizar);

@@ -53,9 +53,12 @@ class SiteController extends Controller
 			$data['data'][$i] = $nuevoElemento;
 		}
 
+		$ArrayListaEventos = $this->CrearListaEventos($array_eventos);
+
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'*/
-		$this->render('index', array('data'=>$data));
+		//echo json_encode(array('data'=>$data,'ArrayListaEventos' => $ArrayListaEventos));
+		$this->render('index', array('data'=>$data,'ArrayListaEventos' => $ArrayListaEventos));
 	}
 
 	/**
@@ -105,46 +108,6 @@ class SiteController extends Controller
 	{
 		$model=new LoginForm;
 		$this->render('login',array('model'=>$model));
-		/*Yii::import('ext.eoauth.*');
- 
-        $ui = new EOAuthUserIdentity(
-                array(
-                    //Set the "scope" to the service you want to use
-                        'scope'=>'https://www.googleapis.com/auth/userinfo.email',
-                        'provider'=>array(
-                                'request'=>'https://www.google.com/accounts/OAuthGetRequestToken',
-                                'authorize'=>'https://www.google.com/accounts/OAuthAuthorizeToken',
-                                'access'=>'https://www.google.com/accounts/OAuthGetAccessToken',
-                        )
-                )
-        );
- 
-        if ($ui->authenticate()) {
-            $user=Yii::app()->user;
-            $user->login($ui);
-            $this->redirect($user->returnUrl);
-        }
-        else throw new CHttpException(401, $ui->error);*/
-
-		/*$model=new LoginForm;
-
-		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-
-		// collect user input data
-		if(isset($_POST['LoginForm']))
-		{
-			$model->attributes=$_POST['LoginForm'];
-			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
-		}
-		// display the login form
-		$this->render('login',array('model'=>$model));*/
 	}
 
 	/**
@@ -155,4 +118,34 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+	private function CrearListaEventos($array)
+	{
+
+		$dataProvider=new CActiveDataProvider(Evento::model(), array(
+					'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
+					'criteria'=>array(
+						//'condition'=>'cualquier condicion where de tu sql iria aqui',
+					),
+					'pagination'=>array(
+						'pageSize'=>20,
+					),
+					'sort'=>array(
+						'defaultOrder'=>array('nombre'=>true),
+					),
+		));
+
+		return $dataProvider;
+
+
+	}
+
+	public function actionObtenerCoordenadasLista()
+	{
+		$controladorEvento = new EventoController('Evento');
+		$evento = $controladorEvento->loadModel($_POST["idLista"]);
+
+		echo json_encode(array('latitud' => $evento->CoordX, 'longitud' => $evento->CoordY));
+	}
+
 }

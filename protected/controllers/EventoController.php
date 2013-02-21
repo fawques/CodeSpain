@@ -135,6 +135,7 @@ class EventoController extends Controller
 		return $array_eventos;
 	}	
 
+
 	/**
 	 * Manages all models.
 	 */
