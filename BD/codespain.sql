@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-02-2013 a las 09:41:55
+-- Tiempo de generación: 22-02-2013 a las 10:01:03
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -46,8 +46,18 @@ CREATE TABLE IF NOT EXISTS `Eventos` (
   `Descripcion` varchar(150) DEFAULT NULL,
   `Lugar` varchar(45) DEFAULT NULL,
   `Fecha` date DEFAULT NULL,
+  `CoordX` double DEFAULT NULL,
+  `CoordY` double DEFAULT NULL,
   PRIMARY KEY (`idEventos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `Eventos`
+--
+
+INSERT INTO `Eventos` (`idEventos`, `Nombre`, `Descripcion`, `Lugar`, `Fecha`, `CoordX`, `CoordY`) VALUES
+(1, 'CodeMotion', 'CodeMotion Madrid', 'Madrid', '2013-02-23', 0, 0),
+(2, 'BetABeers', 'Birras y código!', 'Alicante', '2013-02-24', 1, 1);
 
 -- --------------------------------------------------------
 

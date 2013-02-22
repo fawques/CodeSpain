@@ -30,21 +30,7 @@ $this->pageTitle=Yii::app()->name;
 	$mapa->actionIndex();
 ?>
 
-<?php /*$this->widget('bootstrap.widgets.TbGridView', array(
-    'type'=>'striped bordered',
-    'dataProvider'=>$ArrayListaEventos,
-    'template'=>"{items}",
-    'columns'=>array(
-        array('name'=>'Nombre', 'header'=>'Evento'),
-        array('name'=>'Fecha', 'header'=>'Fecha'),
-        array('name'=>'Lugar', 'header'=>'Lugar'),
-        array(
-            'class'=>'bootstrap.widgets.TbButtonColumn',
-            'htmlOptions'=>array('style'=>'width: 50px'),
-        ),
-    ),
-    'selectionChanged' => 'CentrarEnCoordenadas(1)',
-));*/ 
+<?php 
 
 $this->widget('bootstrap.widgets.TbGridView', array(
 	'type'=>'bordered',

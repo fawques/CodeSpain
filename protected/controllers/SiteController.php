@@ -41,6 +41,7 @@ class SiteController extends Controller
 	               'style'=>'width:350px;margin: 0 auto;',
 	               'class'=>'well well-small',
 	        ),
+	        'id' => 'CalendarioIndex',
 	    );
 
 		// Añadimos los eventos que toque al calendario
@@ -140,12 +141,14 @@ class SiteController extends Controller
 
 	}
 
-	public function actionObtenerCoordenadasLista()
+	public function actionObtenerDatosLista()
 	{
 		$controladorEvento = new EventoController('Evento');
 		$evento = $controladorEvento->loadModel($_POST["idLista"]);
+		
+		list($anyo, $mes, $dia) = explode("-", $evento->Fecha);
 
-		echo json_encode(array('latitud' => $evento->CoordX, 'longitud' => $evento->CoordY));
+		echo json_encode(array('latitud' => $evento->CoordX, 'longitud' => $evento->CoordY, 'dia' => $dia, 'mes' => $mes, 'anyo' => $anyo));
 	}
 
 }

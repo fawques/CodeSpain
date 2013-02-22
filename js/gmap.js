@@ -67,13 +67,17 @@ function CentrarEnCoordenadas()
 	if(id != "")
 	{
 	   	$.ajax({
-			url: "index.php/site/ObtenerCoordenadasLista",
+			url: "index.php/site/ObtenerDatosLista",
 			data: "idLista=" + id,
 			type: "POST",
 			dataType: "json",
 			success: function(source){
 				var coordenadas = new google.maps.LatLng(source["latitud"], source["longitud"]);
 				map.setCenter(coordenadas);
+
+				var mes = source['mes'] -1;
+				$('#CalendarioIndex').fullCalendar( 'gotoDate',source['anyo'],mes,source['dia']);
+
 			},
 			error: function(dato){
 				alert("ERROR");
