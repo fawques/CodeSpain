@@ -27,9 +27,35 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$controlador = new EventoController('Eventos');
+		$array_eventos = $controlador->GetAll();
+
+		// Inicializamos los datos del calendario
+		$data = array(
+	        'data'=>array(
+			),
+	        'options'=>array(
+	            'editable'=>false,
+	        ),
+	        'htmlOptions'=>array(
+	               'style'=>'width:350px;margin: 0 auto;',
+	               'class'=>'well well-small',
+	        ),
+	    );
+
+		// Añadimos los eventos que toque al calendario
+		for ($i=0; $i < count($array_eventos); $i++) { 
+			$nuevoElemento = array(
+			                'title'=> $array_eventos[$i]->Nombre,
+			                'start'=> $array_eventos[$i]->Fecha,
+			                'url'=>'javascript:alert("Hola!");',
+			            );
+			$data['data'][$i] = $nuevoElemento;
+		}
+
 		// renders the view file 'protected/views/site/index.php'
-		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		// using the default layout 'protected/views/layouts/main.php'*/
+		$this->render('index', array('data'=>$data));
 	}
 
 	/**
@@ -78,6 +104,29 @@ class SiteController extends Controller
 	public function actionLogin()
 	{
 		$model=new LoginForm;
+		$this->render('login',array('model'=>$model));
+		/*Yii::import('ext.eoauth.*');
+ 
+        $ui = new EOAuthUserIdentity(
+                array(
+                    //Set the "scope" to the service you want to use
+                        'scope'=>'https://www.googleapis.com/auth/userinfo.email',
+                        'provider'=>array(
+                                'request'=>'https://www.google.com/accounts/OAuthGetRequestToken',
+                                'authorize'=>'https://www.google.com/accounts/OAuthAuthorizeToken',
+                                'access'=>'https://www.google.com/accounts/OAuthGetAccessToken',
+                        )
+                )
+        );
+ 
+        if ($ui->authenticate()) {
+            $user=Yii::app()->user;
+            $user->login($ui);
+            $this->redirect($user->returnUrl);
+        }
+        else throw new CHttpException(401, $ui->error);*/
+
+		/*$model=new LoginForm;
 
 		// if it is ajax validation request
 		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
@@ -95,7 +144,7 @@ class SiteController extends Controller
 				$this->redirect(Yii::app()->user->returnUrl);
 		}
 		// display the login form
-		$this->render('login',array('model'=>$model));
+		$this->render('login',array('model'=>$model));*/
 	}
 
 	/**
