@@ -123,7 +123,7 @@ class SiteController extends Controller
 	private function CrearListaEventos($array)
 	{
 
-		$dataProvider=new CActiveDataProvider(Evento::model(), array(
+		$dataProvider=new CActiveDataProvider(Eventos::model(), array(
 					'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
 					'criteria'=>array(
 						//'condition'=>'cualquier condicion where de tu sql iria aqui',
@@ -143,7 +143,7 @@ class SiteController extends Controller
 
 	public function actionObtenerDatosLista()
 	{
-		$controladorEvento = new EventoController('Evento');
+		$controladorEvento = new EventoController('Eventos');
 		$evento = $controladorEvento->loadModel($_POST["idLista"]);
 		
 		list($anyo, $mes, $dia) = explode("-", $evento->Fecha);
