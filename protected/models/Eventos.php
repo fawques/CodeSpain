@@ -9,11 +9,13 @@
  * @property string $Descripcion
  * @property string $Lugar
  * @property string $Fecha
+ * @property double $CoordX
+ * @property double $CoordY
  *
  * The followings are the available model relations:
  * @property Usuarios[] $usuarioses
+ * @property Tag[] $tags
  * @property Oficiales $oficiales
- * @property Usuarios[] $usuarioses1
  */
 class Eventos extends CActiveRecord
 {
@@ -43,15 +45,14 @@ class Eventos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('idEventos', 'required'),
-			array('idEventos', 'numerical', 'integerOnly'=>true),
+			array('CoordX, CoordY', 'numerical'),
 			array('Nombre', 'length', 'max'=>50),
 			array('Descripcion', 'length', 'max'=>150),
 			array('Lugar', 'length', 'max'=>45),
 			array('Fecha', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('idEventos, Nombre, Descripcion, Lugar, Fecha', 'safe', 'on'=>'search'),
+			array('idEventos, Nombre, Descripcion, Lugar, Fecha, CoordX, CoordY', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,8 +65,8 @@ class Eventos extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'usuarioses' => array(self::MANY_MANY, 'Usuarios', 'Reportar(Eventos_idEventos, Usuarios_idUsuarios)'),
+			'tags' => array(self::MANY_MANY, 'Tag', 'Eventos_has_Tag(Eventos_idEventos, Tag_Etiqueta)'),
 			'oficiales' => array(self::HAS_ONE, 'Oficiales', 'Eventos_idEventos'),
-			'usuarioses1' => array(self::HAS_MANY, 'Usuarios', 'Eventos_idEventos'),
 		);
 	}
 
@@ -80,6 +81,8 @@ class Eventos extends CActiveRecord
 			'Descripcion' => 'Descripcion',
 			'Lugar' => 'Lugar',
 			'Fecha' => 'Fecha',
+			'CoordX' => 'Coord X',
+			'CoordY' => 'Coord Y',
 		);
 	}
 
@@ -99,6 +102,8 @@ class Eventos extends CActiveRecord
 		$criteria->compare('Descripcion',$this->Descripcion,true);
 		$criteria->compare('Lugar',$this->Lugar,true);
 		$criteria->compare('Fecha',$this->Fecha,true);
+		$criteria->compare('CoordX',$this->CoordX);
+		$criteria->compare('CoordY',$this->CoordY);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
