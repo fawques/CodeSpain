@@ -67,9 +67,9 @@ class EventoController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Evento']))
+		if(isset($_POST['Eventos']))
 		{
-			$model->attributes=$_POST['Evento'];
+			$model->attributes=$_POST['Eventos'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->idEventos));
 		}
@@ -91,9 +91,9 @@ class EventoController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Evento']))
+		if(isset($_POST['Eventos']))
 		{
-			$model->attributes=$_POST['Evento'];
+			$model->attributes=$_POST['Eventos'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->idEventos));
 		}
@@ -122,7 +122,7 @@ class EventoController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Evento');
+		$dataProvider=new CActiveDataProvider('Eventos');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -130,7 +130,7 @@ class EventoController extends Controller
 
 	public function GetAll()
 	{
-		$dataProvider = new CActiveDataProvider('Evento');
+		$dataProvider = new CActiveDataProvider('Eventos');
 		$array_eventos = $dataProvider->getData();
 		return $array_eventos;
 	}	
@@ -143,8 +143,8 @@ class EventoController extends Controller
 	{
 		$model=new Evento('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Evento']))
-			$model->attributes=$_GET['Evento'];
+		if(isset($_GET['Eventos']))
+			$model->attributes=$_GET['Eventos'];
 
 		$this->render('admin',array(
 			'model'=>$model,
