@@ -64,6 +64,8 @@ class EventoController extends Controller
 	{
 		$model=new Eventos;
 
+		$TagController = new TagController('Tag');
+		$data = array();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -74,8 +76,21 @@ class EventoController extends Controller
 				$this->redirect(array('view','id'=>$model->idEventos));
 		}
 
+		$tags = $TagController.GetAll();
+echo "hola";
+		// Añadimos los eventos que toque al calendario
+		for ($i=0; $i < count($tags); $i++) { 
+			$nuevoElemento = array(
+			                'id'=> $i,
+			                'text'=> $tags[$i]->Etiqueta,
+			            );
+			$data['data'][$i] = $nuevoElemento;
+		}
+
+
 		$this->render('create',array(
 			'model'=>$model,
+			'data'=>$data,
 		));
 	}
 
@@ -87,7 +102,6 @@ class EventoController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -97,6 +111,7 @@ class EventoController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->idEventos));
 		}
+		
 
 		$this->render('update',array(
 			'model'=>$model,
@@ -175,4 +190,7 @@ class EventoController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+	
+
 }
