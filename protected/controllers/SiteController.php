@@ -27,7 +27,7 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$controlador = new EventoController('Evento');
+		$controlador = new EventoController('Eventos');
 		$array_eventos = $controlador->GetAll();
 
 		// Inicializamos los datos del calendario
