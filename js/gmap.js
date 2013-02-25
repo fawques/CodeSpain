@@ -72,11 +72,18 @@ function CentrarEnCoordenadas()
 			type: "POST",
 			dataType: "json",
 			success: function(source){
+
+				//Actualizar mapa
 				var coordenadas = new google.maps.LatLng(source["latitud"], source["longitud"]);
 				map.setCenter(coordenadas);
 
+
+				//Actualizar calendario
 				var mes = source['mes'] -1;
 				$('#CalendarioIndex').fullCalendar( 'gotoDate',source['anyo'],mes,source['dia']);
+
+				//Actualizar Lista de eventos
+				
 
 			},
 			error: function(dato){

@@ -62,7 +62,7 @@ class EventoController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Evento;
+		$model=new Eventos;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -135,13 +135,12 @@ class EventoController extends Controller
 		return $array_eventos;
 	}	
 
-
 	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
 	{
-		$model=new Evento('search');
+		$model=new Eventos('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Eventos']))
 			$model->attributes=$_GET['Eventos'];
@@ -158,7 +157,7 @@ class EventoController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Evento::model()->findByPk($id);
+		$model=Eventos::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -170,7 +169,7 @@ class EventoController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='evento-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='eventos-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

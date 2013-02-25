@@ -42,6 +42,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     	'Nombre','Lugar','Fecha'
 
     ),
+    'template' => "{items}",
 ));
 
 

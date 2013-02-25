@@ -146,9 +146,9 @@ class SiteController extends Controller
 		$controladorEvento = new EventoController('Eventos');
 		$evento = $controladorEvento->loadModel($_POST["idLista"]);
 		
-		list($anyo, $mes, $dia) = explode("-", $evento->Fecha);
+		/*list($anyo, $mes, $dia) = explode("-", $evento->Fecha);
 
-		echo json_encode(array('latitud' => $evento->CoordX, 'longitud' => $evento->CoordY, 'dia' => $dia, 'mes' => $mes, 'anyo' => $anyo));
+		echo json_encode(array('latitud' => $evento->CoordX, 'longitud' => $evento->CoordY, 'dia' => $dia, 'mes' => $mes, 'anyo' => $anyo));*/
 	}
 
 }
