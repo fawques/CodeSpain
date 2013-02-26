@@ -17,6 +17,7 @@
  */
 class Eventos extends CActiveRecord
 {
+	public $validacion;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -52,6 +53,9 @@ class Eventos extends CActiveRecord
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('idEventos, Nombre, Descripcion, Lugar, Fecha', 'safe', 'on'=>'search'),
+			array('validacion', 
+			       'application.extensions.recaptcha.EReCaptchaValidator', 
+			       'privateKey'=>'6LemVd0SAAAAAEDQIawNw4SKuq_6S6PK7nLe6NB4'),
 		);
 	}
 
@@ -80,6 +84,7 @@ class Eventos extends CActiveRecord
 			'Descripcion' => 'Descripcion',
 			'Lugar' => 'Lugar',
 			'Fecha' => 'Fecha',
+			'validacion'=>Yii::t('demo', 'Introduce las dos palabras separadas por un espacio:'),
 		);
 	}
 

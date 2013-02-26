@@ -51,12 +51,16 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 			)); ?>
 		</div>
     </div>
-     <?php /*echo CHtml::activeLabel($model, 'validacion'); ?>
-		<?php $this->widget('application.extensions.recaptcha.EReCaptcha', 
-		   array('model'=>$model, 'attribute'=>'validacion',
-		         'theme'=>'red', 'language'=>'es_ES', 
-		         'publicKey'=>'6LemVd0SAAAAALWoJdj_2skhhO22FBpXxPyczwS1')) ?>
-		<?php echo CHtml::error($model, 'validacion'); */?> 
+    <div class="control-group">
+    	<div class="controls">
+    		<?php echo CHtml::activeLabel($model, 'validacion'); ?>
+			<?php $this->widget('application.extensions.recaptcha.EReCaptcha', 
+			   array('model'=>$model, 'attribute'=>'validacion',
+			         'theme'=>'red', 'language'=>'es_ES', 
+			         'publicKey'=>'6LemVd0SAAAAALWoJdj_2skhhO22FBpXxPyczwS1')) ?>
+			<?php echo CHtml::error($model, 'validacion'); ?> 
+    	</div>
+    </div>
 </fieldset>
  
 <div class="form-actions">
