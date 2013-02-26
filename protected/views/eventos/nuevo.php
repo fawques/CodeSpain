@@ -2,7 +2,7 @@
 /* @var $this EventosController */
 
 $this->breadcrumbs=array(
-	'Evento'=>array('/evento'),
+	'Eventos'=>array('/eventos'),
 	'Nuevo',
 );
 ?>
@@ -18,8 +18,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
  
     <legend>Nuevo Evento</legend>
  	<!-- Necesito Nombre, Descripcion, Lugar, Fecha, CoordX, Coordy, tags-->
-
-
     <?php echo $form->textFieldRow($model, 'Nombre'); ?>
     <?php echo $form->textAreaRow($model, 'Descripcion', array('class'=>'span8', 'rows'=>5, )); ?>
     <div class="control-group">
@@ -38,25 +36,21 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 		</div>
     </div>
     <?php echo $form->textFieldRow($model, 'Fecha'); ?>
-    <div class="control-group">
-    	<label class="control-label">Etiquetas</label>
+   	<div class="control-group">
+    	<label class="control-label">Tags</label>
     	<div class="controls">
-			<?php
-			//$tags=array(array('id'=>'1','text'=>'Satu'),array('id'=>'2','text'=>'Dua'),array('id'=>'3','text'=>'Tiga'));
-
-			echo CHtml::textField('test','',array('id'=>'test'));
-			$this->widget('ext.select2.ESelect2',array(
-			  'selector'=>'#test',
-			  'options'=>array(
-			    'data'=>$data,
-			    'width'=>'200px',
-			    'multiple'=>'true'
-			  ),
-			));
-			?>
-			</div>
+	    	<?php $this->widget('bootstrap.widgets.TbTypeahead', array(
+			    'name'=>'WTags',
+			    'options'=>array(
+			        'source'=>array('C', 'C++', 'Objective C', 'C#', 'Web', 'Java', 'Javascript', 'Ruby','Perl', 'PHP', 'Python', 'Agile/Metodologías Ágiles'),
+			        'items'=>4,
+			        'matcher'=>"js:function(item) {
+			            return ~item.toLowerCase().indexOf(this.query.toLowerCase());
+			        }",
+			    ),
+			)); ?>
+		</div>
     </div>
-   	
      <?php /*echo CHtml::activeLabel($model, 'validacion'); ?>
 		<?php $this->widget('application.extensions.recaptcha.EReCaptcha', 
 		   array('model'=>$model, 'attribute'=>'validacion',

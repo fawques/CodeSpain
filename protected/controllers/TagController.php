@@ -1,6 +1,6 @@
 <?php
 
-class EventoController extends Controller
+class TagController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -62,35 +62,20 @@ class EventoController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Eventos;
+		$model=new Tag;
 
-		$TagController = new TagController('Tag');
-		$data = array();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Eventos']))
+		if(isset($_POST['Tag']))
 		{
-			$model->attributes=$_POST['Eventos'];
+			$model->attributes=$_POST['Tag'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->idEventos));
+				$this->redirect(array('view','id'=>$model->Etiqueta));
 		}
-
-		$tags = $TagController.GetAll();
-echo "hola";
-		// Añadimos los eventos que toque al calendario
-		for ($i=0; $i < count($tags); $i++) { 
-			$nuevoElemento = array(
-			                'id'=> $i,
-			                'text'=> $tags[$i]->Etiqueta,
-			            );
-			$data['data'][$i] = $nuevoElemento;
-		}
-
 
 		$this->render('create',array(
 			'model'=>$model,
-			'data'=>$data,
 		));
 	}
 
@@ -102,16 +87,16 @@ echo "hola";
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Eventos']))
+		if(isset($_POST['Tag']))
 		{
-			$model->attributes=$_POST['Eventos'];
+			$model->attributes=$_POST['Tag'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->idEventos));
+				$this->redirect(array('view','id'=>$model->Etiqueta));
 		}
-		
 
 		$this->render('update',array(
 			'model'=>$model,
@@ -137,28 +122,21 @@ echo "hola";
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Eventos');
+		$dataProvider=new CActiveDataProvider('Tag');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
 	}
-
-	public function GetAll()
-	{
-		$dataProvider = new CActiveDataProvider('Eventos');
-		$array_eventos = $dataProvider->getData();
-		return $array_eventos;
-	}	
 
 	/**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
 	{
-		$model=new Eventos('search');
+		$model=new Tag('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Eventos']))
-			$model->attributes=$_GET['Eventos'];
+		if(isset($_GET['Tag']))
+			$model->attributes=$_GET['Tag'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -172,7 +150,7 @@ echo "hola";
 	 */
 	public function loadModel($id)
 	{
-		$model=Eventos::model()->findByPk($id);
+		$model=Tag::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -184,13 +162,20 @@ echo "hola";
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='eventos-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='tag-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
 	}
 
-	
+	public function GetAll()
+	{
+		echo "hola";
+		$dataProvider = new CActiveDataProvider('Tag');
+		$array_tags = $dataProvider->getData();
+		echo "hola";
+		return $array_tags;
+	}	
 
 }
