@@ -49,15 +49,19 @@ class Eventos extends CActiveRecord
 			array('Descripcion', 'length', 'max'=>150),
 			array('Lugar', 'length', 'max'=>45),
 			array('Fecha', 'safe'),
-			
+
 			// name, email, subject and body are required
-			array('Nombre, Descripcion, Lugar, Fecha', 'required'),
+			array('Nombre, Descripcion, Lugar, Fecha', 'required',
+				'message'=>'{attribute} no puede ser vacio.'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('idEventos, Nombre, Descripcion, Lugar, Fecha', 'safe', 'on'=>'search'),
-			array('validacion', 
-			       'application.extensions.recaptcha.EReCaptchaValidator', 
-			       'privateKey'=>'6LemVd0SAAAAAEDQIawNw4SKuq_6S6PK7nLe6NB4'),
+			 array(
+                     'validacion',
+                     'application.extensions.recaptcha.EReCaptchaValidator',
+                     'privateKey'=> '6LemVd0SAAAAAEDQIawNw4SKuq_6S6PK7nLe6NB4', 
+                     'on' => 'registerwcaptcha'
+                 ),
 		);
 	}
 

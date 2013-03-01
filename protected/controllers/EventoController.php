@@ -65,7 +65,16 @@ class EventoController extends Controller
 		$model=new Eventos;
 
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
+		$model->scenario = 'registerwcaptcha';
+		if($model->validate())
+		{
+		    // and here is the actual HACKY part
+		    $model->scenario = NULL;
+		 
+		    // save user registration
+		    $model->save();
+		}
 
 		if(isset($_POST['Eventos']))
 		{
