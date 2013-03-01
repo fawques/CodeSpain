@@ -19,6 +19,7 @@
  */
 class Eventos extends CActiveRecord
 {
+	public $validacion;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -46,13 +47,25 @@ class Eventos extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('CoordX, CoordY', 'numerical'),
+			array('idEventos', 'numerical', 'integerOnly'=>true),
 			array('Nombre', 'length', 'max'=>50),
 			array('Descripcion', 'length', 'max'=>150),
 			array('Lugar', 'length', 'max'=>45),
 			array('Fecha', 'safe'),
+
+			// name, email, subject and body are required
+			array('Nombre, Descripcion, Lugar, Fecha', 'required',
+				'message'=>'{attribute} no puede ser vacio.'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('idEventos, Nombre, Descripcion, Lugar, Fecha, CoordX, CoordY', 'safe', 'on'=>'search'),
+			array('idEventos, Nombre, Descripcion, Lugar, Fecha', 'safe', 'on'=>'search'),
+			 array(
+                     'validacion',
+                     'application.extensions.recaptcha.EReCaptchaValidator',
+                     'privateKey'=> '6LemVd0SAAAAAEDQIawNw4SKuq_6S6PK7nLe6NB4', 
+                     'on' => 'registerwcaptcha'
+                 ),
 		);
 	}
 
@@ -83,6 +96,7 @@ class Eventos extends CActiveRecord
 			'Fecha' => 'Fecha',
 			'CoordX' => 'Coord X',
 			'CoordY' => 'Coord Y',
+			'validacion'=>Yii::t('demo', 'Introduce las dos palabras separadas por un espacio:'),
 		);
 	}
 
