@@ -66,7 +66,8 @@ class EventoController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
-		$model->scenario = 'registerwcaptcha';
+		//Erroracoooo!!!
+		/*$model->scenario = 'registerwcaptcha';
 		if($model->validate())
 		{
 		    // and here is the actual HACKY part
@@ -74,7 +75,7 @@ class EventoController extends Controller
 		 
 		    // save user registration
 		    $model->save();
-		}
+		}*/
 
 		if(isset($_POST['Eventos']))
 		{
