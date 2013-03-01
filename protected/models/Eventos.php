@@ -44,12 +44,14 @@ class Eventos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('idEventos', 'required'),
 			array('idEventos', 'numerical', 'integerOnly'=>true),
 			array('Nombre', 'length', 'max'=>50),
 			array('Descripcion', 'length', 'max'=>150),
 			array('Lugar', 'length', 'max'=>45),
 			array('Fecha', 'safe'),
+			
+			// name, email, subject and body are required
+			array('Nombre, Descripcion, Lugar, Fecha', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('idEventos, Nombre, Descripcion, Lugar, Fecha', 'safe', 'on'=>'search'),

@@ -8,18 +8,22 @@ $this->breadcrumbs=array(
 ?>
 <?php /** @var BootActiveForm $form */
 $model = new Eventos();
-$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
+$form = $this->beginWidget('CActiveForm', array(
     'id'=>'nuevoEvento',
-    'type'=>'horizontal',
-    'method'=>'post',
+    'enableClientValidation'=>true,
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true,
+	),
 )); ?>
  
 <fieldset>
  
     <legend>Nuevo Evento</legend>
  	<!-- Necesito Nombre, Descripcion, Lugar, Fecha, CoordX, Coordy, tags-->
-    <?php echo $form->textFieldRow($model, 'Nombre'); ?>
-    <?php echo $form->textAreaRow($model, 'Descripcion', array('class'=>'span8', 'rows'=>5, )); ?>
+ 	<?php echo $form->labelEx($model,'Nombre'); ?>
+    <?php echo $form->textField($model, 'Nombre'); ?>
+    <?php echo $form->error($model,'Nombre'); ?>
+    <?php echo $form->textArea($model, 'Descripcion', array('class'=>'span8', 'rows'=>5, )); ?>
     <div class="control-group">
     	<label class="control-label">Lugar</label>
     	<div class="controls">
@@ -35,7 +39,17 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 			)); ?>
 		</div>
     </div>
-    <?php echo $form->textFieldRow($model, 'Fecha'); ?>
+    <div class="control-group">
+    	<label class="control-label">Fecha inicio:</label>
+    	<div class="controls">
+		    <?php 
+			$this->widget('application.extensions.timepicker.timepicker', array(
+		    	'model'=>$model,
+		    	'name'=>'Fecha',
+			));
+			?>
+		</div>
+	</div>
    	<div class="control-group">
     	<label class="control-label">Tags</label>
     	<div class="controls">
@@ -64,8 +78,7 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 </fieldset>
  
 <div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'type'=>'primary', 'label'=>'Submit')); ?>
-    <?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset', 'label'=>'Reset')); ?>
+    <?php echo CHtml::submitButton('¡Al turrón!'); ?>
 </div>
  
 <?php $this->endWidget(); ?>
