@@ -89,12 +89,11 @@ class EventoController extends Controller
 		$tags = $controladorTag->GetAll();
 		// Añadimos los eventos que toque al calendario
 		for ($i=0; $i < count($tags); $i++) { 
-			/*$nuevoElemento = array(/*
+			$nuevoElemento = array(
 			                'id'=> $i,
-			                'text'=> $tags[$i]->Etiqueta,/ *
-			                $i => $tags[$i]->Etiqueta,
-			            );*/
-			$data[$i] = $tags[$i]->Etiqueta;
+			                'text'=> $tags[$i]->Etiqueta,
+			            );
+			$data[$i] = $nuevoElemento;
 		}
 
 

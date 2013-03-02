@@ -69,8 +69,8 @@ $form = $this->beginWidget('CActiveForm', array(
     	<label class="control-label">Etiquetas</label>
     	<div class="controls">
 			<?php
-			//$tags=array(array('id'=>'1','text'=>'Satu'),array('id'=>'2','text'=>'Dua'),array('id'=>'3','text'=>'Tiga'));
-
+			// Para que lo autocomplete, el formato del array debe ser este:
+			// $prueba = array(array('id'=>'0','text'=>'c++'),array('id'=>'1','text'=>'java'));
 			echo CHtml::textField('test','',array('id'=>'test'));
 			$this->widget('ext.select2.ESelect2',array(
 			  'selector'=>'#test',
@@ -80,10 +80,6 @@ $form = $this->beginWidget('CActiveForm', array(
 			    'multiple'=>'true'
 			  ),
 			));
-/*
-			foreach ($data as $key => $value) {
-					echo "[".$key."]= ".$value."<br>";
-			}*/
 			?>
 			</div>
     </div>
