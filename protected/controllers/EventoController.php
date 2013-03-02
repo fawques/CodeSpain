@@ -133,6 +133,21 @@ class EventoController extends Controller
 		$dataProvider = new CActiveDataProvider('Eventos');
 		$array_eventos = $dataProvider->getData();
 		return $array_eventos;
+	}
+
+	public function GetByCoordenadas($x,$y)
+	{
+
+		$criteria = new CDbCriteria; 
+		$criteria->addBetweenCondition('CoordX', $x-0.5, $x+0.5, 'AND');
+		$criteria->addBetweenCondition('CoordY', $y-0.5, $y+0.5, 'AND');
+
+		$dataProvider=new CActiveDataProvider('Eventos', array(
+					'criteria'=>$criteria,
+		));
+		$array_eventos = $dataProvider->getData();
+		return $array_eventos;
+
 	}	
 
 	/**

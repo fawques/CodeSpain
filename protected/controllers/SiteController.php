@@ -2,6 +2,7 @@
 
 class SiteController extends Controller
 {
+
 	/**
 	 * Declares class-based actions.
 	 */
@@ -54,12 +55,10 @@ class SiteController extends Controller
 			$data['data'][$i] = $nuevoElemento;
 		}
 
-		$ArrayListaEventos = $this->CrearListaEventos($array_eventos);
-
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'*/
 		//echo json_encode(array('data'=>$data,'ArrayListaEventos' => $ArrayListaEventos));
-		$this->render('index', array('data'=>$data,'ArrayListaEventos' => $ArrayListaEventos));
+		$this->render('index', array('data'=>$data));
 	}
 
 	/**
@@ -120,35 +119,87 @@ class SiteController extends Controller
 		$this->redirect(Yii::app()->homeUrl);
 	}
 
-	private function CrearListaEventos($array)
-	{
-
-		$dataProvider=new CActiveDataProvider(Eventos::model(), array(
-					'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
-					'criteria'=>array(
-						//'condition'=>'cualquier condicion where de tu sql iria aqui',
-					),
-					'pagination'=>array(
-						'pageSize'=>20,
-					),
-					'sort'=>array(
-						'defaultOrder'=>array('nombre'=>true),
-					),
-		));
-
-		return $dataProvider;
-
-
-	}
-
 	public function actionObtenerDatosLista()
 	{
 		$controladorEvento = new EventoController('Eventos');
 		$evento = $controladorEvento->loadModel($_POST["idLista"]);
 		
-		/*list($anyo, $mes, $dia) = explode("-", $evento->Fecha);
+		list($anyo, $mes, $dia) = explode("-", $evento->Fecha);
 
-		echo json_encode(array('latitud' => $evento->CoordX, 'longitud' => $evento->CoordY, 'dia' => $dia, 'mes' => $mes, 'anyo' => $anyo));*/
+		session_start();
+		$_SESSION['coordX'] = $evento->CoordX;
+		$_SESSION['coordY'] = $evento->CoordY;
+
+		echo json_encode(array('latitud' => $evento->CoordX, 'longitud' => $evento->CoordY, 'dia' => $dia, 'mes' => $mes, 'anyo' => $anyo));
+	}
+
+	public function actionObtenerJsonEventos()
+	{
+		$controladorEvento = new EventoController('Eventos');
+		$array_eventos = $controladorEvento->GetByCoordenadas($_POST['CoordX'],$_POST['CoordY']);
+		session_start();
+		$_SESSION['coordX'] = $_POST['CoordX'];
+		$_SESSION['coordY'] = $_POST['CoordY'];
+
+		echo CJSON::encode($array_eventos);
+
+	}
+
+	public function ObtenerDataProvider()
+	{
+		session_start();
+
+		if(isset($_SESSION['coordX']))
+		{
+
+			$coorX = $_SESSION['coordX'];
+			$coorY = $_SESSION['coordY'];
+
+			$criteria = new CDbCriteria; 
+			$criteria->addBetweenCondition('CoordX', $coorX-0.5, $coorX+0.5, 'AND');
+			$criteria->addBetweenCondition('CoordY', $coorY-0.5, $coorY+0.5, 'AND');
+
+			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
+						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
+						'criteria'=>$criteria,
+						'pagination'=>array(
+							'pageSize'=>20,
+						),
+						'sort'=>array(
+							'defaultOrder'=>array('nombre'=>true),
+						),
+			));
+
+			$_SESSION['coordX'] = '';
+			$_SESSION['coordY'] = '';
+			unset($_SESSION['coordX']);
+			unset($_SESSION['coordY']);
+
+			return $dataProvider;	
+		}
+		else
+		{
+			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
+						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
+						'criteria'=>array(
+							//'condition'=>'cualquier condicion where de tu sql iria aqui',
+							//'CoordX BETWEEN ('.$
+						),
+						'pagination'=>array(
+							'pageSize'=>20,
+						),
+						'sort'=>array(
+							'defaultOrder'=>array('nombre'=>true),
+						),
+			));
+
+			return $dataProvider;			
+		}
+
+
+
+
+
 	}
 
 }

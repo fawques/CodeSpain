@@ -13,7 +13,11 @@ function initialize() {
 	                                     position.coords.longitude);
 
 
+
+
 	    map.setCenter(pos);
+	    ObtenerMarkers(pos);
+
 	  }, function() {
 	    handleNoGeolocation(true);
 	  });
@@ -53,7 +57,7 @@ function Geolocalizar()
 			map.setCenter(coordenadas);
 		},
 		error: function(dato){
-			alert("ERROR");
+			alert("ERROR1");
 		}
 	});			
 
@@ -73,25 +77,57 @@ function CentrarEnCoordenadas()
 			dataType: "json",
 			success: function(source){
 
-				//Actualizar mapa
+				//Actualizar mapa y lista de eventos
 				var coordenadas = new google.maps.LatLng(source["latitud"], source["longitud"]);
 				map.setCenter(coordenadas);
+
+				ObtenerMarkers(coordenadas);
+
+				$.fn.yiiGridView.update('evento');
 
 
 				//Actualizar calendario
 				var mes = source['mes'] -1;
 				$('#CalendarioIndex').fullCalendar( 'gotoDate',source['anyo'],mes,source['dia']);
 
-				//Actualizar Lista de eventos
-				
-
 			},
 			error: function(dato){
-				alert("ERROR");
+				alert("ERROR2");
 			}
 		});			
 	}
 }
+
+function ObtenerMarkers(position)
+{
+
+	$.ajax({
+			url: "index.php/site/ObtenerJsonEventos",
+			data: "CoordX=" + position.lat() + "&CoordY=" + position.lng(),
+			type: "POST",
+			dataType: "json",
+			success: function(source){				
+				
+				$.fn.yiiGridView.update('evento');
+
+				for(var i=0;i<source.length;i++)
+				{
+					marker = new google.maps.Marker({
+			          map:map,
+			          draggable:false,
+			          animation: google.maps.Animation.DROP,
+			          position: new google.maps.LatLng(source[i].CoordX, source[i].CoordY)
+			        });
+				}
+
+        		
+			},
+			error: function(dato){
+				alert("ERROR3");
+			}
+		});			
+}
+
 
 google.maps.event.addDomListener(window, 'load', initialize);
 google.maps.event.addDomListener(document.getElementById("target"), 'change', Geolocalizar);

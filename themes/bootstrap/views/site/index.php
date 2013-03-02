@@ -37,7 +37,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
 	'id'=>'evento',
 	'selectableRows'=>1,
 	'selectionChanged'=>'CentrarEnCoordenadas',	// via 1: para mostrar detalles al seleccionar
-    'dataProvider'=>$ArrayListaEventos,
+    'dataProvider'=>$this->ObtenerDataProvider(),
     'columns'=>array(
     	'Nombre','Lugar','Fecha'
 
