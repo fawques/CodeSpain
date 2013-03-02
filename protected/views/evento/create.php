@@ -80,6 +80,10 @@ $form = $this->beginWidget('CActiveForm', array(
 			    'multiple'=>'true'
 			  ),
 			));
+/*
+			foreach ($data as $key => $value) {
+					echo "[".$key."]= ".$value."<br>";
+			}*/
 			?>
 			</div>
     </div>

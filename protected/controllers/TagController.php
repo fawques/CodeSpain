@@ -171,10 +171,8 @@ class TagController extends Controller
 
 	public function GetAll()
 	{
-		echo "hola";
 		$dataProvider = new CActiveDataProvider('Tag');
 		$array_tags = $dataProvider->getData();
-		echo "hola";
 		return $array_tags;
 	}	
 

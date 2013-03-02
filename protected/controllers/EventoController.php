@@ -64,7 +64,7 @@ class EventoController extends Controller
 	{
 		$model=new Eventos;
 
-		$TagController = new TagController('Tag');
+		$controladorTag = new TagController('Tag');
 		$data = array();
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -86,15 +86,15 @@ class EventoController extends Controller
 				$this->redirect(array('view','id'=>$model->idEventos));
 		}
 
-		$tags = $TagController.GetAll();
-echo "hola";
+		$tags = $controladorTag->GetAll();
 		// Añadimos los eventos que toque al calendario
 		for ($i=0; $i < count($tags); $i++) { 
-			$nuevoElemento = array(
+			/*$nuevoElemento = array(/*
 			                'id'=> $i,
-			                'text'=> $tags[$i]->Etiqueta,
-			            );
-			$data['data'][$i] = $nuevoElemento;
+			                'text'=> $tags[$i]->Etiqueta,/ *
+			                $i => $tags[$i]->Etiqueta,
+			            );*/
+			$data[$i] = $tags[$i]->Etiqueta;
 		}
 
 
