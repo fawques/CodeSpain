@@ -31,12 +31,12 @@ $this->pageTitle=Yii::app()->name;
 ?>
 
 <?php 
-
+//session_start();
 $this->widget('bootstrap.widgets.TbGridView', array(
 	'type'=>'bordered',
 	'id'=>'evento',
 	'selectableRows'=>1,
-	'selectionChanged'=>'CentrarEnCoordenadas',	// via 1: para mostrar detalles al seleccionar
+	'selectionChanged'=>'CentrarEnCoordenadasLista',	
     'dataProvider'=>$this->ObtenerDataProvider(),
     'columns'=>array(
     	'Nombre','Lugar','Fecha'
@@ -45,6 +45,5 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'template' => "{items}",
 ));
 
-
-
 ?>
+

@@ -28,6 +28,9 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		session_start();
+		//$_SESSION["provider"] = null;
+		//$_SESSION["provider"] = $this->ObtenerDataProvider();
 		$controlador = new EventoController('Eventos');
 		$array_eventos = $controlador->GetAll();
 
@@ -47,10 +50,11 @@ class SiteController extends Controller
 
 		// Añadimos los eventos que toque al calendario
 		for ($i=0; $i < count($array_eventos); $i++) { 
+			$idEvento = $array_eventos[$i]->idEventos;
 			$nuevoElemento = array(
 			                'title'=> $array_eventos[$i]->Nombre,
 			                'start'=> $array_eventos[$i]->Fecha,
-			                'url'=>'javascript:alert("Hola!");',
+			                'url'=>'javascript:CentrarEnCoordenadasCalendario('.$idEvento.');',
 			            );
 			$data['data'][$i] = $nuevoElemento;
 		}
@@ -126,20 +130,13 @@ class SiteController extends Controller
 		
 		list($anyo, $mes, $dia) = explode("-", $evento->Fecha);
 
-		session_start();
-		$_SESSION['coordX'] = $evento->CoordX;
-		$_SESSION['coordY'] = $evento->CoordY;
-
 		echo json_encode(array('latitud' => $evento->CoordX, 'longitud' => $evento->CoordY, 'dia' => $dia, 'mes' => $mes, 'anyo' => $anyo));
 	}
 
 	public function actionObtenerJsonEventos()
 	{
 		$controladorEvento = new EventoController('Eventos');
-		$array_eventos = $controladorEvento->GetByCoordenadas($_POST['CoordX'],$_POST['CoordY']);
-		session_start();
-		$_SESSION['coordX'] = $_POST['CoordX'];
-		$_SESSION['coordY'] = $_POST['CoordY'];
+		$array_eventos = $controladorEvento->GetAll();
 
 		echo CJSON::encode($array_eventos);
 
@@ -147,18 +144,44 @@ class SiteController extends Controller
 
 	public function ObtenerDataProvider()
 	{
-		session_start();
-
-		if(isset($_SESSION['coordX']))
+		//session_start();
+		if(isset($_SESSION['provider']))
 		{
+			$dataProvider = $_SESSION["provider"];
+			session_unset($_SESSION["provider"]);
+			return $dataProvider;
+		}
+		else
+		{
+			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
+						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
+						'criteria'=>array('condition'=>'idEventos=-1',),
+						'pagination'=>array(
+							'pageSize'=>20,
+						),
+						'sort'=>array(
+							'defaultOrder'=>array('nombre'=>true),
+						),
+			));
+			return $dataProvider;			
+		}
+	}
 
-			$coorX = $_SESSION['coordX'];
-			$coorY = $_SESSION['coordY'];
+	public function actionActualizarLista()
+	{
 
-			$criteria = new CDbCriteria; 
-			$criteria->addBetweenCondition('CoordX', $coorX-0.5, $coorX+0.5, 'AND');
-			$criteria->addBetweenCondition('CoordY', $coorY-0.5, $coorY+0.5, 'AND');
+		$criteria = new CDbCriteria;
+		$i = 0;
+		while(isset($_POST["$i"]))
+		{
+			$coord  = explode("|", $_POST["$i"]);
+			$criteria->addColumnCondition(array('CoordX' => $coord[0], 'CoordY' => $coord[1]), 'AND', 'OR');
+			$i++;
 
+		}
+		$dataProvider;
+		if($i>0)
+		{
 			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
 						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
 						'criteria'=>$criteria,
@@ -169,22 +192,13 @@ class SiteController extends Controller
 							'defaultOrder'=>array('nombre'=>true),
 						),
 			));
-
-			$_SESSION['coordX'] = '';
-			$_SESSION['coordY'] = '';
-			unset($_SESSION['coordX']);
-			unset($_SESSION['coordY']);
-
-			return $dataProvider;	
+					
 		}
 		else
 		{
 			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
 						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
-						'criteria'=>array(
-							//'condition'=>'cualquier condicion where de tu sql iria aqui',
-							//'CoordX BETWEEN ('.$
-						),
+						'criteria'=>array('condition'=>'idEventos=-1',),
 						'pagination'=>array(
 							'pageSize'=>20,
 						),
@@ -192,14 +206,10 @@ class SiteController extends Controller
 							'defaultOrder'=>array('nombre'=>true),
 						),
 			));
-
-			return $dataProvider;			
 		}
 
-
-
-
-
+		session_start();
+		$_SESSION["provider"] = $dataProvider;
 	}
 
 }
