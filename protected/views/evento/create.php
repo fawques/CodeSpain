@@ -98,7 +98,7 @@ $form = $this->beginWidget('CActiveForm', array(
 </fieldset>
  
 <div class="form-actions">
-    <?php echo CHtml::submitButton('¡Al turrón!'); ?>
+    <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 </div>
  
 <?php $this->endWidget(); ?>
