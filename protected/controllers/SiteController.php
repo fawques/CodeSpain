@@ -28,6 +28,7 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/index.css');
 		session_start();
 		//$_SESSION["provider"] = null;
 		//$_SESSION["provider"] = $this->ObtenerDataProvider();
