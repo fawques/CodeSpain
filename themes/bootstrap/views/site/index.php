@@ -35,7 +35,7 @@ $this->pageTitle=Yii::app()->name;
 					            'label'=>'Detalle del evento',
 					            //'imageUrl'=>Yii::app()->request->baseUrl.'/images/email.png',
 					            //'click'=>'function(){alert("'.Yii::app()->baseUrl.'");}',
-					            'url' => '/DetalleEvento',
+					            //'url' => '/DetalleEvento',
 					        ),
 					    ),
 			        ),
