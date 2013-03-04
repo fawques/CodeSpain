@@ -31,9 +31,12 @@
                     ,)*/
                 ,),
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+
             ),
+            
         ),
+        '<form class="navbar-search pull-right" action=""><input type="text" class="search-query span2" placeholder="Buscar eventos"></form>',
     ),
 )); ?>
 

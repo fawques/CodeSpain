@@ -2,6 +2,7 @@
 
 class SiteController extends Controller
 {
+
 	/**
 	 * Declares class-based actions.
 	 */
@@ -27,6 +28,10 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/index.css');
+		session_start();
+		//$_SESSION["provider"] = null;
+		//$_SESSION["provider"] = $this->ObtenerDataProvider();
 		$controlador = new EventoController('Eventos');
 		$array_eventos = $controlador->GetAll();
 
@@ -41,20 +46,23 @@ class SiteController extends Controller
 	               'style'=>'width:350px;margin: 0 auto;',
 	               'class'=>'well well-small',
 	        ),
+	        'id' => 'CalendarioIndex',
 	    );
 
 		// Añadimos los eventos que toque al calendario
 		for ($i=0; $i < count($array_eventos); $i++) { 
+			$idEvento = $array_eventos[$i]->idEventos;
 			$nuevoElemento = array(
 			                'title'=> $array_eventos[$i]->Nombre,
 			                'start'=> $array_eventos[$i]->Fecha,
-			                'url'=>'javascript:alert("Hola!");',
+			                'url'=>'javascript:CentrarEnCoordenadasCalendario('.$idEvento.');',
 			            );
 			$data['data'][$i] = $nuevoElemento;
 		}
 
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'*/
+		//echo json_encode(array('data'=>$data,'ArrayListaEventos' => $ArrayListaEventos));
 		$this->render('index', array('data'=>$data));
 	}
 
@@ -105,46 +113,6 @@ class SiteController extends Controller
 	{
 		$model=new LoginForm;
 		$this->render('login',array('model'=>$model));
-		/*Yii::import('ext.eoauth.*');
- 
-        $ui = new EOAuthUserIdentity(
-                array(
-                    //Set the "scope" to the service you want to use
-                        'scope'=>'https://www.googleapis.com/auth/userinfo.email',
-                        'provider'=>array(
-                                'request'=>'https://www.google.com/accounts/OAuthGetRequestToken',
-                                'authorize'=>'https://www.google.com/accounts/OAuthAuthorizeToken',
-                                'access'=>'https://www.google.com/accounts/OAuthGetAccessToken',
-                        )
-                )
-        );
- 
-        if ($ui->authenticate()) {
-            $user=Yii::app()->user;
-            $user->login($ui);
-            $this->redirect($user->returnUrl);
-        }
-        else throw new CHttpException(401, $ui->error);*/
-
-		/*$model=new LoginForm;
-
-		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
-		{
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-
-		// collect user input data
-		if(isset($_POST['LoginForm']))
-		{
-			$model->attributes=$_POST['LoginForm'];
-			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
-		}
-		// display the login form
-		$this->render('login',array('model'=>$model));*/
 	}
 
 	/**
@@ -155,4 +123,79 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+	public function actionObtenerDatosLista()
+	{
+		$controladorEvento = new EventoController('Eventos');
+		$evento = $controladorEvento->loadModel($_POST["idLista"]);
+		
+		list($anyo, $mes, $dia) = explode("-", $evento->Fecha);
+
+		echo json_encode(array('latitud' => $evento->CoordX, 'longitud' => $evento->CoordY, 'dia' => $dia, 'mes' => $mes, 'anyo' => $anyo));
+	}
+
+	public function actionObtenerJsonEventos()
+	{
+		$controladorEvento = new EventoController('Eventos');
+		$array_eventos = $controladorEvento->GetAll();
+
+		echo CJSON::encode($array_eventos);
+
+	}
+
+	public function ObtenerDataProvider()
+	{
+		//session_start();
+		if(isset($_SESSION['criteria']))
+		{
+			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
+						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
+						'criteria'=>$_SESSION['criteria'],
+						'pagination'=>array(
+							'pageSize'=>4,
+						),
+						'sort'=>array(
+							'defaultOrder'=>array('nombre'=>true),
+						),
+			));
+			return $dataProvider;
+		}
+		else
+		{
+			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
+						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
+						'criteria'=>array('condition'=>'idEventos=-1',),
+						'pagination'=>array(
+							'pageSize'=>4,
+						),
+						'sort'=>array(
+							'defaultOrder'=>array('nombre'=>true),
+						),
+			));
+			return $dataProvider;			
+		}
+	}
+
+	public function actionActualizarLista()
+	{
+
+		$criteria = new CDbCriteria;
+		$i = 0;
+		while(isset($_POST["$i"]))
+		{
+			$coord  = explode("|", $_POST["$i"]);
+			$criteria->addColumnCondition(array('CoordX' => $coord[0], 'CoordY' => $coord[1]), 'AND', 'OR');
+			$i++;
+
+		}
+		$dataProvider;
+		if($i>0)
+		{
+			session_start();
+			$_SESSION["criteria"] = $criteria;
+					
+		}
+		
+	}
+
 }
