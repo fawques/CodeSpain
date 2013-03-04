@@ -52,7 +52,7 @@ class Eventos extends CActiveRecord
 			array('Fecha', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('idEventos, Nombre, Descripcion, Lugar, Fecha, CoordX, CoordY', 'safe', 'on'=>'search'),
+			array('Nombre, Descripcion, Lugar, Fecha, CoordX, CoordY', 'safe', 'on'=>'search'),
 		);
 	}
 

@@ -36,7 +36,9 @@
             ),
             
         ),
-        '<form class="navbar-search pull-right" action=""><input type="text" class="search-query span2" placeholder="Buscar eventos"></form>',
+        '<form id="searchForm" class="navbar-search pull-right" action="">
+            <input type="text" id="busqueda" name="busqueda" class="search-query span2" placeholder="Buscar eventos">
+        </form>',
     ),
 )); ?>
 

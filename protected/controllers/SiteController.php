@@ -28,6 +28,10 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		Yii::app()->clientScript->registerScriptFile(
+        	Yii::app()->baseUrl . '/js/search.js',
+			CClientScript::POS_END
+		);
 		Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/index.css');
 		session_start();
 		//$_SESSION["provider"] = null;
@@ -122,6 +126,18 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+
+	public function actionSearch()
+	{
+		$busqueda = $_POST['busqueda'];
+
+		$controladorEvento = new EventoController('Eventos');
+		$resultados = $controladorEvento->actionSearch($busqueda);
+
+
+
+		echo CJSON::encode(array($resultados));
 	}
 
 	public function actionObtenerDatosLista()
