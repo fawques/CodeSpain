@@ -14,12 +14,6 @@ $this->pageTitle=Yii::app()->name;
 <div class="container-fluid">
 	<div class="row-fluid">
 
-			<h4 style="text-align:center"> Calendario de Eventos</h4>
-			<?php $this->widget('application.extensions.fullcalendar.FullcalendarGraphWidget', 
-				    $data
-			);
-			?>
-
 		<div class="span5">
 			<h4 style="text-align:center"> Lista de Eventos </h4>
 			<?php 
@@ -34,9 +28,17 @@ $this->pageTitle=Yii::app()->name;
 			    	'Nombre','Lugar','Fecha'
 
 			    ),
-			    'template' => "{items}",
+			    //'template' => "{items}",
+			    'enablePagination' => true,
+			    'enableSorting' => false,
 			));
 
+			?>
+
+			<h4 style="text-align:center"> Calendario de Eventos</h4>
+			<?php $this->widget('application.extensions.fullcalendar.FullcalendarGraphWidget', 
+				    $data
+			);
 			?>
 		</div>
 

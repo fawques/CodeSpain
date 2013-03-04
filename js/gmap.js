@@ -60,6 +60,7 @@ function Geolocalizar()
 		success: function(source){
 			var coordenadas = new google.maps.LatLng(source["latitud"], source["longitud"]);
 			map.setCenter(coordenadas);
+			map.setZoom(10);
 			ObtenerMarkers();
 		},
 		error: function(dato){

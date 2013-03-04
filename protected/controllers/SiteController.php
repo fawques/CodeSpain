@@ -146,10 +146,18 @@ class SiteController extends Controller
 	public function ObtenerDataProvider()
 	{
 		//session_start();
-		if(isset($_SESSION['provider']))
+		if(isset($_SESSION['criteria']))
 		{
-			$dataProvider = $_SESSION["provider"];
-			session_unset($_SESSION["provider"]);
+			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
+						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
+						'criteria'=>$_SESSION['criteria'],
+						'pagination'=>array(
+							'pageSize'=>4,
+						),
+						'sort'=>array(
+							'defaultOrder'=>array('nombre'=>true),
+						),
+			));
 			return $dataProvider;
 		}
 		else
@@ -158,7 +166,7 @@ class SiteController extends Controller
 						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
 						'criteria'=>array('condition'=>'idEventos=-1',),
 						'pagination'=>array(
-							'pageSize'=>20,
+							'pageSize'=>4,
 						),
 						'sort'=>array(
 							'defaultOrder'=>array('nombre'=>true),
@@ -183,34 +191,11 @@ class SiteController extends Controller
 		$dataProvider;
 		if($i>0)
 		{
-			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
-						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
-						'criteria'=>$criteria,
-						'pagination'=>array(
-							'pageSize'=>20,
-						),
-						'sort'=>array(
-							'defaultOrder'=>array('nombre'=>true),
-						),
-			));
+			session_start();
+			$_SESSION["criteria"] = $criteria;
 					
 		}
-		else
-		{
-			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
-						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
-						'criteria'=>array('condition'=>'idEventos=-1',),
-						'pagination'=>array(
-							'pageSize'=>20,
-						),
-						'sort'=>array(
-							'defaultOrder'=>array('nombre'=>true),
-						),
-			));
-		}
-
-		session_start();
-		$_SESSION["provider"] = $dataProvider;
+		
 	}
 
 }
