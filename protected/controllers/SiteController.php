@@ -148,6 +148,7 @@ class SiteController extends Controller
 		//session_start();
 		if(isset($_SESSION['criteria']))
 		{
+
 			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
 						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
 						'criteria'=>$_SESSION['criteria'],
@@ -194,6 +195,12 @@ class SiteController extends Controller
 			session_start();
 			$_SESSION["criteria"] = $criteria;
 					
+		}
+		else
+		{
+				session_start();
+				if(isset($_SESSION['criteria']))
+				session_unset($_SESSION['criteria']);
 		}
 		
 	}
