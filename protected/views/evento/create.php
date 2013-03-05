@@ -83,18 +83,19 @@ $form = $this->beginWidget('CActiveForm', array(
 			?>
 			</div>
     </div>
-    	<div class="row">
-	    		<?php echo CHtml::activeLabel($model, 'validacion'); ?>
+    	<div class="row" id="dVal">
+	    		<?php echo $form->labelEx($model,'validacion'); ?>
 				<?php $this->widget('application.extensions.recaptcha.EReCaptcha', 
 				   array('model'=>$model, 'attribute'=>'validacion',
 				         'theme'=>'clean', 'language'=>'es_ES', 
 				         'publicKey'=>'6LemVd0SAAAAALWoJdj_2skhhO22FBpXxPyczwS1')) ?>
-				<?php echo CHtml::error($model, 'validacion'); ?> 
+					<?php echo $form->error($model,'validacion'); ?>
+				<!--<div class="errorMessage" id="errorVal" style="display:none">Introduzca correctamente los parámetros</div>-->
     	</div>
 </fieldset>
  
 <div class="form-actions">
-    <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+    <?php echo CHtml::submitButton("¡Al turron!"); ?>
 </div>
  
 <?php $this->endWidget(); ?>

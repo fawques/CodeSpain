@@ -61,12 +61,6 @@ class Eventos extends CActiveRecord
 			// Please remove those attributes that should not be searched.
 			array('idEventos, Nombre, Descripcion, Lugar, Fecha, CoordX, CoordY', 'safe', 'on'=>'search'),
 			array('idEventos, Nombre, Descripcion, Lugar, Fecha', 'safe', 'on'=>'search'),
-			 array(
-                     'validacion',
-                     'application.extensions.recaptcha.EReCaptchaValidator',
-                     'privateKey'=> '6LemVd0SAAAAAEDQIawNw4SKuq_6S6PK7nLe6NB4', 
-                     'on' => 'registerwcaptcha'
-                 ),
 		);
 	}
 

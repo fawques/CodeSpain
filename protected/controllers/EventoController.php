@@ -69,24 +69,25 @@ class EventoController extends Controller
 		
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
-		//Erroracoooo!!!
-		/*$model->scenario = 'registerwcaptcha';
-		if($model->validate())
-		{
-		    // and here is the actual HACKY part
-		    $model->scenario = NULL;
-		 
-		    // save user registration
-		    $model->save();
-		}*/
 		if(isset($_POST['Eventos']))
 		{
 			$model->attributes=$_POST['Eventos'];
-			$model->scenario = 'registerwcaptcha';
 			if($model->validate()){
-				$model->scenario = NULL;
-				if($model->save())
-					$this->redirect(array('view','id'=>$model->idEventos));
+				$model->scenario = 'registerwcaptcha';
+				if($model->validate(array('validacion'))) { // will validate only one attribute
+					$model->scenario = NULL;
+					if($model->save())
+						$this->redirect(array('view','id'=>$model->idEventos));
+				}
+				else{
+					if($_POST['ajax']==='eventos-form')
+					{
+						echo CActiveForm::validate($model);
+						http://www.yiiframework.com/wiki/49/update-content-in-ajax-with-renderpartial/
+						http://www.yiiframework.com/doc/api/1.1/CHtml#ajaxbutton
+						http://www.yiiframework.com/wiki/87/ajax-update/
+					}
+				}
 			}
 
 		}
