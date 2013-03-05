@@ -66,6 +66,7 @@ class EventoController extends Controller
 
 		$controladorTag = new TagController('Tag');
 		$data = array();
+		
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
 		//Erroracoooo!!!
@@ -78,12 +79,16 @@ class EventoController extends Controller
 		    // save user registration
 		    $model->save();
 		}*/
-
 		if(isset($_POST['Eventos']))
 		{
 			$model->attributes=$_POST['Eventos'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->idEventos));
+			$model->scenario = 'registerwcaptcha';
+			if($model->validate()){
+				$model->scenario = NULL;
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->idEventos));
+			}
+
 		}
 
 		$tags = $controladorTag->GetAll();
@@ -112,13 +117,13 @@ class EventoController extends Controller
 	{
 		$model=$this->loadModel($id);
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		//$this->performAjaxValidation($model);
 
 		if(isset($_POST['Eventos']))
 		{
 			$model->attributes=$_POST['Eventos'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->idEventos));
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->idEventos));
 		}
 		
 
