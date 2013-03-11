@@ -130,14 +130,26 @@ class SiteController extends Controller
 
 	public function actionSearch()
 	{
-		$busqueda = $_POST['busqueda'];
+		$busqueda =$_POST['busqueda'];
 
 		$controladorEvento = new EventoController('Eventos');
 		$resultados = $controladorEvento->actionSearch($busqueda);
 
+		$array_eventos = array();
+		for ($i=0; $i < count($resultados); $i++) { 
+			$nuevoElemento = array(
+                'title'=> $resultados[$i]->Nombre,
+                'desc'=> $resultados[$i]->Descripcion,
+                'start'=> $resultados[$i]->Fecha,
+                'lat' => $resultados[$i]->CoordX,
+                'lng' => $resultados[$i]->CoordY,
+                'url'=>'javascript:CentrarEnCoordenadasCalendario('.$resultados[$i]->idEventos.');',
+            );
+			$array_eventos[$i] = $nuevoElemento;
+		}
 
+		echo json_encode($array_eventos);
 
-		echo CJSON::encode(array($resultados));
 	}
 
 	public function actionObtenerDatosLista()

@@ -1,16 +1,18 @@
 function buscar(){
 
 	var keyword = $('#busqueda').val();
-	alert(keyword);
+	//alert(keyword);
 	$.ajax({
 			url: "index.php/site/search",
 			data: "busqueda=" + keyword,
 			type: "POST",
-			dataType: "text",
+			dataType: "json",
 			success: function(resultados){
+				var listado = new Array();
 				for(i=0; i< resultados.length; i++){
-					alert(resultados[i] + " // hacer cosas");
+					listado.push({name: i, value: resultados[i].lat+'|'+resultados[i].lng});
 				}
+				actualizarLista($.param(listado));
 
 			},
 			error: function(dato){

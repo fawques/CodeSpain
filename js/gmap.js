@@ -149,7 +149,6 @@ function ObtenerMarkers()
 {
 	var markers = markerCluster.getTotalMarkers();
 	var visibleMarkers = new Array();
-	map; // your map
 	var j = 0;
 	for(var i = markers.length, bounds = map.getBounds(); i--;) {
 	    if( bounds.contains(markers[i].getPosition()) ){
@@ -162,9 +161,21 @@ function ObtenerMarkers()
 	    }
 	}
 
+	
+	
+	actualizarLista($.param(visibleMarkers));
+
+
+
+
+}
+
+// llamado desde gmap.js y search.js
+function actualizarLista(elementos){
+
 	$.ajax({
 			url: "index.php/site/ActualizarLista",
-			data: $.param( visibleMarkers ),
+			data: elementos,
 			type: "POST",
 			dataType: "text",
 			async: false,
@@ -175,11 +186,6 @@ function ObtenerMarkers()
 				alert("ERROR4");
 			}
 		});	
-	
-
-
-
-
 
 }
 
