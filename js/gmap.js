@@ -95,7 +95,7 @@ function CentrarEnCoodenadas(id)
 
 			},
 			error: function(dato){
-				alert("ERROR2");
+				//alert("ERROR2");
 			}
 		});			
 	}

@@ -25,8 +25,19 @@ $this->pageTitle=Yii::app()->name;
 				'selectionChanged'=>'CentrarEnCoordenadasLista',	
 			    'dataProvider'=>$this->ObtenerDataProvider(),
 			    'columns'=>array(
-			    	'Nombre','Lugar','Fecha'
+			    	'Nombre','Lugar','Fecha',
+			    	array(
+			            'class'=>'bootstrap.widgets.TbButtonColumn',
+			            'htmlOptions'=>array('style'=>'width: 50px'),
+			            'template' => "{view}",
+			            'buttons'=>array(
+				        	'view' => array(
+				            	'label'=>'Detalle de evento',
+				           		'url'=>'Yii::app()->createUrl("DetalleEvento?id=$data->idEventos")',
+				        	),
+			        	),
 
+			    	),
 			    ),
 			    //'template' => "{items}",
 			    'enablePagination' => true,

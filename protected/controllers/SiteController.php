@@ -30,8 +30,6 @@ class SiteController extends Controller
 	{
 		Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/index.css');
 		session_start();
-		//$_SESSION["provider"] = null;
-		//$_SESSION["provider"] = $this->ObtenerDataProvider();
 		$controlador = new EventoController('Eventos');
 		$array_eventos = $controlador->GetAll();
 
@@ -194,6 +192,14 @@ class SiteController extends Controller
 			session_start();
 			$_SESSION["criteria"] = $criteria;
 					
+		}
+		else
+		{
+			session_start();
+			if(isset($_SESSION["criteria"]))
+			{
+				session_unset($_SESSION["criteria"]);
+			}
 		}
 		
 	}
