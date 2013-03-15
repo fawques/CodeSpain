@@ -63,7 +63,6 @@ class EventoController extends Controller
 	public function actionCreate()
 	{
 		$model=new Eventos;
-
 		$controladorTag = new TagController('Tag');
 		$data = array();
 		
@@ -83,7 +82,12 @@ class EventoController extends Controller
                     }
 				}
 				else{
-                        $expire_date_error = 'Has escrito el recatcha mal. ¡Intentalo de nuevo!';
+						$nombre=$_POST['Eventos']['Nombre'];
+						$descr = $_POST['Eventos']['Descripcion'];
+						$lugar = $_POST['Eventos']['Lugar'];
+						$fecha = $_POST['Eventos']['Fecha'];
+						
+                        $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
                         Yii::app()->user->setFlash('expire_date_error',$expire_date_error); 
 				}
 			}

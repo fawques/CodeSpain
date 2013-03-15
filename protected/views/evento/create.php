@@ -37,7 +37,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	    	<?php echo $form->labelEx($model,'Lugar'); ?>
 	    	<div class="controls">
 		    	<?php $this->widget('bootstrap.widgets.TbTypeahead', array(
-				    'name'=>'WLugar',
+				    'name'=>'Eventos[Lugar]', //sirver para que en el $_Post se pueda coger :)
 				    'options'=>array(
 				        'source'=>array('Madrid', 'Barcelona', 'Valencia', 'Alicante', 'Granada', 'Bilbao', 'San Sebastián', 'A Coruña', 'Santiago de Compostela', 'Sevilla'),
 				        'items'=>4,
@@ -46,7 +46,6 @@ $form = $this->beginWidget('CActiveForm', array(
 				        }",
 				    ),
 				)); ?>
-			</div>
 			<?php echo $form->error($model,'Lugar'); ?>
 	    </div>
 	</div>
@@ -57,41 +56,43 @@ $form = $this->beginWidget('CActiveForm', array(
 			    <?php 
 				$this->widget('application.extensions.timepicker.timepicker', array(
 			    	'model'=>$model,
+			    	'id'=>'Eventos_Fecha',
 			    	'name'=>'Fecha',
 				));
 				?>
 				<?php echo $form->error($model,'Fecha'); ?>
 			</div>
-
 		</div>
 	</div>
-	<div class="control-group">
-    	<label class="control-label">Etiquetas</label>
-    	<div class="controls">
-			<?php
-			// Para que lo autocomplete, el formato del array debe ser este:
-			// $prueba = array(array('id'=>'0','text'=>'c++'),array('id'=>'1','text'=>'java'));
-			echo CHtml::textField('test','',array('id'=>'test'));
-			$this->widget('ext.select2.ESelect2',array(
-			  'selector'=>'#test',
-			  'options'=>array(
-			    'data'=>$data,
-			    'width'=>'200px',
-			    'multiple'=>'true'
-			  ),
-			));
-			?>
+	<div class="row">
+		<div class="control-group">
+	    	<label class="control-label">Etiquetas</label>
+	    	<div class="controls">
+				<?php
+				// Para que lo autocomplete, el formato del array debe ser este:
+				// $prueba = array(array('id'=>'0','text'=>'c++'),array('id'=>'1','text'=>'java'));
+				echo CHtml::textField('test','',array('id'=>'test'));
+				$this->widget('ext.select2.ESelect2',array(
+				  'selector'=>'#test',
+				  'options'=>array(
+				    'data'=>$data,
+				    'width'=>'200px',
+				    'multiple'=>'true'
+				  ),
+				));
+				?>
 			</div>
+	    </div>
+	</div>
+    <div class="row" id="dVal">
+	    	<?php echo $form->labelEx($model,'validacion'); ?>
+			<?php $this->widget('application.extensions.recaptcha.EReCaptcha', 
+				array('model'=>$model, 'attribute'=>'validacion',
+				     'theme'=>'clean', 'language'=>'es_ES', 
+				     'publicKey'=>'6LemVd0SAAAAALWoJdj_2skhhO22FBpXxPyczwS1')) ?>
+			<?php echo $form->error($model,'validacion'); ?>
+			<!--<div class="errorMessage" id="errorVal" style="display:none">Introduzca correctamente los parámetros</div>-->
     </div>
-    	<div class="row" id="dVal">
-	    		<?php echo $form->labelEx($model,'validacion'); ?>
-				<?php $this->widget('application.extensions.recaptcha.EReCaptcha', 
-				   array('model'=>$model, 'attribute'=>'validacion',
-				         'theme'=>'clean', 'language'=>'es_ES', 
-				         'publicKey'=>'6LemVd0SAAAAALWoJdj_2skhhO22FBpXxPyczwS1')) ?>
-					<?php echo $form->error($model,'validacion'); ?>
-				<!--<div class="errorMessage" id="errorVal" style="display:none">Introduzca correctamente los parámetros</div>-->
-    	</div>
 </fieldset>
 
 <?php if(Yii::app()->user->hasFlash('expire_date_error')):?>
