@@ -76,20 +76,24 @@ class EventoController extends Controller
 				$model->scenario = 'registerwcaptcha';
 				if($model->validate(array('validacion'))) { // will validate only one attribute
 					$model->scenario = NULL;
-					if($model->save())
-						$this->redirect(array('view','id'=>$model->idEventos));
+					if($model->save()){
+						$expire_date_error = '¡Evento creado!';
+                        Yii::app()->user->setFlash('expire_date_error',$expire_date_error); 
+                        $this->redirect(array('view','id'=>$model->idEventos));
+                    }
 				}
 				else{
-					if($_POST['ajax']==='eventos-form')
-					{
-						echo CActiveForm::validate($model);
-						http://www.yiiframework.com/wiki/49/update-content-in-ajax-with-renderpartial/
-						http://www.yiiframework.com/doc/api/1.1/CHtml#ajaxbutton
-						http://www.yiiframework.com/wiki/87/ajax-update/
-					}
+                        $expire_date_error = 'Has escrito el recatcha mal. ¡Intentalo de nuevo!';
+                        Yii::app()->user->setFlash('expire_date_error',$expire_date_error); 
 				}
 			}
-
+			else
+			{
+				$error = CActiveForm::validate($model);
+                if($error!='[]')
+                    echo $error;
+                Yii::app()->end();
+            }
 		}
 
 		$tags = $controladorTag->GetAll();
@@ -178,6 +182,11 @@ class EventoController extends Controller
 		$this->render('admin',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionAjax()
+	{
+		$this->renderPartial('ajaxView', array(), false, true);
 	}
 
 	/**

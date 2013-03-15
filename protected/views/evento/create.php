@@ -93,6 +93,13 @@ $form = $this->beginWidget('CActiveForm', array(
 				<!--<div class="errorMessage" id="errorVal" style="display:none">Introduzca correctamente los parámetros</div>-->
     	</div>
 </fieldset>
+
+<?php if(Yii::app()->user->hasFlash('expire_date_error')):?>
+        <div class="alert alert-error">
+        	<button type="button" class="close" data-dismiss="alert">&times;</button>
+            <?php echo Yii::app()->user->getFlash('expire_date_error'); ?>
+        </div>
+<?php endif; ?>
  
 <div class="form-actions">
     <?php echo CHtml::submitButton("¡Al turron!"); ?>
