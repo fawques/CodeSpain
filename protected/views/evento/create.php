@@ -37,7 +37,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	    	<?php echo $form->labelEx($model,'Lugar'); ?>
 	    	<div class="controls">
 		    	<?php $this->widget('bootstrap.widgets.TbTypeahead', array(
-				    'name'=>'Eventos[Lugar]', //sirver para que en el $_Post se pueda coger :)
+				    'name'=>'Eventos[Lugar]', //sirve para que en el $_Post se pueda coger :)
 				    'options'=>array(
 				        'source'=>array('Madrid', 'Barcelona', 'Valencia', 'Alicante', 'Granada', 'Bilbao', 'San Sebastián', 'A Coruña', 'Santiago de Compostela', 'Sevilla'),
 				        'items'=>4,
@@ -81,6 +81,7 @@ $form = $this->beginWidget('CActiveForm', array(
 				  ),
 				));
 				?>
+	    		<?php //echo $form->error($model,'Nombre'); ?> <!-- Habría que ponerlo para validarlo -->
 			</div>
 	    </div>
 	</div>

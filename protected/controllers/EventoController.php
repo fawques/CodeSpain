@@ -67,7 +67,7 @@ class EventoController extends Controller
 		$data = array();
 		
 		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($model);
+		//$this->performAjaxValidation($model);
 		if(isset($_POST['Eventos']))
 		{
 			$model->attributes=$_POST['Eventos'];
@@ -86,9 +86,8 @@ class EventoController extends Controller
 						$descr = $_POST['Eventos']['Descripcion'];
 						$lugar = $_POST['Eventos']['Lugar'];
 						$fecha = $_POST['Eventos']['Fecha'];
-						
                         $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
-                        Yii::app()->user->setFlash('expire_date_error',$expire_date_error); 
+                        Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 				}
 			}
 			else
@@ -99,22 +98,20 @@ class EventoController extends Controller
                 Yii::app()->end();
             }
 		}
-
-		$tags = $controladorTag->GetAll();
-		// Añadimos los eventos que toque al calendario
-		for ($i=0; $i < count($tags); $i++) { 
-			$nuevoElemento = array(
-			                'id'=> $i,
-			                'text'=> $tags[$i]->Etiqueta,
-			            );
-			$data[$i] = $nuevoElemento;
-		}
-
-
-		$this->render('create',array(
-			'model'=>$model,
-			'data'=>$data,
-		));
+			$tags = $controladorTag->GetAll();
+			// Añadimos los eventos que toque al calendario
+			for ($i=0; $i < count($tags); $i++) { 
+				$nuevoElemento = array(
+				                'id'=> $i,
+				                'text'=> $tags[$i]->Etiqueta,
+				            );
+				$data[$i] = $nuevoElemento;
+			}
+			
+			$this->render('create',array(
+				'model'=>$model,
+				'data'=>$data,
+			));
 	}
 
 	/**
