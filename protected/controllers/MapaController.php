@@ -15,6 +15,12 @@ class MapaController extends Controller
         	Yii::app()->baseUrl . '/js/gmap.js',
 			CClientScript::POS_END
 		);
+
+		Yii::app()->clientScript->registerScriptFile(
+        	Yii::app()->baseUrl . '/js/markerclusterer.js',
+			CClientScript::POS_END
+		);
+
 		$this->renderPartial('Index');
 	}
 
