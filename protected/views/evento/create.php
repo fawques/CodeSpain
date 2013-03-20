@@ -75,9 +75,9 @@ $form = $this->beginWidget('CActiveForm', array(
 				$this->widget('ext.select2.ESelect2',array(
 				  'selector'=>'#test',
 				  'options'=>array(
-				    'data'=>$data,
+				    'data'=>$etiquetas,
 				    'width'=>'200px',
-				    'multiple'=>'true'
+				    'multiple'=>'true',
 				  ),
 				));
 				?>

@@ -64,7 +64,7 @@ class EventoController extends Controller
 	{
 		$model=new Eventos;
 		$controladorTag = new TagController('Tag');
-		$data = array();
+		$etiquetas = array();
 		
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
@@ -97,20 +97,19 @@ class EventoController extends Controller
                     echo $error;
                 Yii::app()->end();
             }
-		}
+		}else{
 			$tags = $controladorTag->GetAll();
-			// Añadimos los eventos que toque al calendario
 			for ($i=0; $i < count($tags); $i++) { 
 				$nuevoElemento = array(
 				                'id'=> $i,
 				                'text'=> $tags[$i]->Etiqueta,
 				            );
-				$data[$i] = $nuevoElemento;
+				$etiquetas[$i] = $nuevoElemento;
 			}
-			
+		}
 			$this->render('create',array(
 				'model'=>$model,
-				'data'=>$data,
+				'etiquetas'=>$etiquetas,
 			));
 	}
 
