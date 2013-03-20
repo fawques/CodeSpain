@@ -16,7 +16,17 @@ $form = $this->beginWidget('CActiveForm', array(
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
-)); ?>
+)); 
+
+$model->Nombre = $valores['Nombre'];
+$model->Descripcion = $valores['Descripcion'];
+$model->Lugar = $valores['Lugar'];
+$model->Fecha = $valores['Fecha'];
+$model->tags = $valores['tags'];
+
+
+
+?>
  
 <fieldset>
  
@@ -46,6 +56,7 @@ $form = $this->beginWidget('CActiveForm', array(
 				        }",
 				    ),
 				)); ?>
+
 			<?php echo $form->error($model,'Lugar'); ?>
 	    </div>
 	</div>
