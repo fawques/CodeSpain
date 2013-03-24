@@ -24,6 +24,8 @@ $model->Descripcion = $valores['Descripcion'];
 $model->Lugar = $valores['Lugar'];
 $model->Fecha = $valores['Fecha'];
 $model->tags = $valores['tags'];
+$model->CoordX = $valores['CoordX'];
+$model->CoordY = $valores['CoordY'];
 
 
 
@@ -33,6 +35,16 @@ $model->tags = $valores['tags'];
 <fieldset>
  
     <legend>Nuevo Evento</legend>
+    <div class="row" style="display:none;">
+ 		<?php echo $form->labelEx($model,'CoordX'); ?>
+	    <?php echo $form->textField($model, 'CoordX'); ?>
+	    <?php echo $form->error($model,'CoordX'); ?>
+ 	</div>
+ 	<div class="row" style="display:none;">
+ 		<?php echo $form->labelEx($model,'CoordY'); ?>
+	    <?php echo $form->textField($model, 'CoordY'); ?>
+	    <?php echo $form->error($model,'CoordY'); ?>
+ 	</div>
  	<!-- Necesito Nombre, Descripcion, Lugar, Fecha, CoordX, Coordy, tags-->
  	<div class="row">
  		<?php echo $form->labelEx($model,'Nombre'); ?>

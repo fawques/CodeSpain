@@ -6,9 +6,19 @@ function initialize() {
 	  zoom: 15,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
-
-	// Try HTML5 geolocation
-	if(navigator.geolocation) {
+	var coorX = document.getElementById("Eventos_CoordX").value;
+	var coorY = document.getElementById("Eventos_CoordY").value;
+	if(coorX.length>0){
+		var coordenadas = new google.maps.LatLng(coorX, coorY);
+		map.setCenter(coordenadas);
+		map.setZoom(15);
+			marker = new google.maps.Marker({
+			          map:map,
+			          draggable:false,
+			          animation: google.maps.Animation.DROP,
+			          position: new google.maps.LatLng(coorX, coorY)
+			          });
+	}else if(navigator.geolocation) {
 	  navigator.geolocation.getCurrentPosition(function(position) {
 	    var pos = new google.maps.LatLng(position.coords.latitude,
 	                                     position.coords.longitude);
@@ -56,6 +66,8 @@ function Geolocalizar()
 			  mapTypeId: google.maps.MapTypeId.ROADMAP
 			});
 			var coordenadas = new google.maps.LatLng(source["latitud"], source["longitud"]);
+			document.getElementById("Eventos_CoordX").value=source["latitud"];
+			document.getElementById("Eventos_CoordY").value=source["longitud"];
 			map.setCenter(coordenadas);
 			map.setZoom(15);
 			marker = new google.maps.Marker({

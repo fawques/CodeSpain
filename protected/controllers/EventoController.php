@@ -65,7 +65,7 @@ class EventoController extends Controller
 		$model=new Eventos();
 		$controladorTag = new TagController('Tag');
 		$etiquetas = array();
-		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','Fecha'=>'','tags'=>array());
+		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','Fecha'=>'','tags'=>array());
 		
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
@@ -87,6 +87,8 @@ class EventoController extends Controller
 						$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
 						$valores['Lugar'] = $_POST['Eventos']['Lugar'];
 						$valores['Fecha'] = $_POST['Eventos']['Fecha'];
+						$valores['CoordX'] = $_POST['Eventos']['CoordX'];
+						$valores['CoordY'] = $_POST['Eventos']['CoordY'];
                         $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
                         Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 				}
