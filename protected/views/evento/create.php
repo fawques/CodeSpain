@@ -6,6 +6,7 @@ $this->breadcrumbs=array(
 	'Nuevo',
 );
 ?>
+
 <div class="form">
 
 <?php /** @var BootActiveForm $form */
@@ -28,6 +29,7 @@ $model->tags = $valores['tags'];
 
 ?>
  
+
 <fieldset>
  
     <legend>Nuevo Evento</legend>
@@ -43,22 +45,18 @@ $model->tags = $valores['tags'];
     	<?php echo $form->error($model,'Descripcion'); ?>
     </div>
     <div class="row">
-	    <div class="control-group">
-	    	<?php echo $form->labelEx($model,'Lugar'); ?>
-	    	<div class="controls">
-		    	<?php $this->widget('bootstrap.widgets.TbTypeahead', array(
-				    'name'=>'Eventos[Lugar]', //sirve para que en el $_Post se pueda coger :)
-				    'options'=>array(
-				        'source'=>array('Madrid', 'Barcelona', 'Valencia', 'Alicante', 'Granada', 'Bilbao', 'San Sebastián', 'A Coruña', 'Santiago de Compostela', 'Sevilla'),
-				        'items'=>4,
-				        'matcher'=>"js:function(item) {
-				            return ~item.toLowerCase().indexOf(this.query.toLowerCase());
-				        }",
-				    ),
-				)); ?>
-
-			<?php echo $form->error($model,'Lugar'); ?>
-	    </div>
+	    <?php echo $form->labelEx($model,'Lugar'); ?>
+	    <?php echo $form->textField($model, 'Lugar'); ?>
+		<?php echo $form->error($model,'Lugar'); ?>
+	</div>
+	<div class="row">
+		<div id="contenedorMapa">
+				<?php 
+					Yii::import('mapa');
+					$mapa = new MapaController('mapa');
+					$mapa->actionNuevoEvento();
+				?>
+		</div>
 	</div>
 	<div class="row">
 	    <div class="control-group">
