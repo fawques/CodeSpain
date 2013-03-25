@@ -1,6 +1,8 @@
 var map;
 var markerCluster;
 
+
+
 function initialize() {
 	map = new google.maps.Map(document.getElementById('map_canvas'), {
 	  zoom: 15,
@@ -111,6 +113,7 @@ function CentrarEnCoordenadasLista()
 	var id = $.fn.yiiGridView.getSelection('evento');
 	CentrarEnCoodenadas(id);
 }
+
 
 
 function AnyadirMarkers()

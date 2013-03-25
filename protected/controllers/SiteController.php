@@ -28,6 +28,12 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		
+		Yii::app()->clientScript->registerScriptFile(
+        	'https://maps.googleapis.com/maps/api/js?key=AIzaSyAm4Db2U-kRW0PjdAlvedYt2eEF8sEzfuU&sensor=false&libraries=places',
+			CClientScript::POS_END
+		);
+
 		Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/index.css');
 		session_start();
 		$controlador = new EventoController('Eventos');

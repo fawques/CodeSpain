@@ -4,6 +4,14 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
+<script type="text/javascript">
+	function MostrarModal(data) 
+	{ 
+		$("#DetalleEventosModal .modal-body").html(data);
+		$("#DetalleEventosModal").modal(); 
+	}
+</script>
+
 <h1>¡Bienvenido desarrollador!</h1>
 <br>
 <p>En este proyecto pretendemos aunar todos los posibles eventos existentes en españa para developers tales como <a href="codemotion.es">Code Motion</a>, <a href="www.ignitevlc.com">Ignite Valencia</a>, o cualquier hackaton desarrolado en este, nuestro país. También, nos gustaría promover la asistencia a estos eventos ayudando en la difusión e intentando facilitar una forma más económica de asistir.</p>
@@ -33,7 +41,15 @@ $this->pageTitle=Yii::app()->name;
 			            'buttons'=>array(
 				        	'view' => array(
 				            	'label'=>'Detalle de evento',
-				           		'url'=>'Yii::app()->createUrl("DetalleEvento?id=$data->idEventos")',
+				            	'url'=>'Yii::app()->createUrl("DetalleEvento?id=$data->idEventos")',
+				            	'options'=>array(
+						           	'ajax'=>array(
+	                                	'type'=>'POST',
+	                                	'url'=>"js:$(this).attr('href')",
+	                                	'success'=>'function(data) {MostrarModal(data);}'
+	                            	),
+	                            ),
+				           		
 				        	),
 			        	),
 
@@ -67,6 +83,21 @@ $this->pageTitle=Yii::app()->name;
 	</div>
 </div>
 
+
+<!-- View Popup  -->
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'DetalleEventosModal')); ?>
+<!-- Popup Header -->
+<div class="modal-header">
+	<a class="close" data-dismiss="modal">&times;</a>
+	<h4>Detalles de evento</h4>
+</div>
+<!-- Popup Content -->
+<div class="modal-body">
+
+</div>
+
+<?php $this->endWidget(); ?>
+<!-- View Popup ends -->
 
 
 

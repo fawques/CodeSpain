@@ -4,57 +4,36 @@
 
 <div class="container-fluid">
 	<div class="row-fluid">
-		<div class="span6">
+		<div class="span10">
 			
-			<div class="span5">
+			<div class="span7">
 				<?php echo "<img src='$ModeloEvento->Imagen'/>" ?>
 			</div>
 
 			<div class="span5">
-				<h5> Descripción del evento </h5>
+				<h4> Datos evento </h4>
+				<b>Nombre del Evento:</b> <p><?php echo $ModeloEvento->Nombre ?></p> 
+				<b>Localización:</b> <p><?php echo $ModeloEvento->Lugar ?>
+				<b>Fecha:</b> <p><?php echo date("d-m-Y",strtotime($ModeloEvento->Fecha)); ?></p> 
+			</div>				
+		</div>
+
+		<div class="span10">
+				<h4> Descripción del evento </h4>
 				<?php echo "<p>".$ModeloEvento->Descripcion."</p>" ?>
-			</div>
+		</div>
 
-			<div class="span10">
-				<h5> Datos evento </h5>
-				<p>Nombre del Evento: <?php echo $ModeloEvento->Nombre ?></p> 
-				<p>Localización: <?php echo $ModeloEvento->Lugar ?>
-				<p>Fecha: <?php echo $ModeloEvento->Fecha ?></p> 
-			</div>
+		<div class="span10">
 				
+			<?php  $this->widget('bootstrap.widgets.TbButton', array(
+			    'label'=>'Ver en mapa',
+			    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+			    'size'=>'small', // null, 'large', 'small' or 'mini'
+			    'url'=>'#',
+			    'htmlOptions'=>array('data-dismiss'=>'modal', 'onclick' => "CentrarEnCoodenadas($ModeloEvento->idEventos)"),
+			)); ?>
+
 		</div>
 
-		<div class="span4">
-			<?php
-			
-			Yii::import('ext.EGMap.*');
-			 
-			$gMap = new EGMap();
-			$gMap->zoom = 15;
-			$mapTypeControlOptions = array(
-			  'position'=> EGMapControlPosition::LEFT_BOTTOM,
-			  'style'=>EGMap::MAPTYPECONTROL_STYLE_DROPDOWN_MENU
-			);
-			 
-			$gMap->mapTypeControlOptions= $mapTypeControlOptions;
-			 
-			$gMap->setCenter($ModeloEvento->CoordX, $ModeloEvento->CoordY);
-			 
-			// Create GMapInfoWindows
-			//$info_window_a = new EGMapInfoWindow("<div><h5>$ModeloEvento->Nombre</h5></div>");
-			 
-			// Create marker
-			$marker = new EGMapMarker($ModeloEvento->CoordX, $ModeloEvento->CoordY);
-			//$marker->addHtmlInfoWindow($info_window_a);
-			$gMap->addMarker($marker);
-			 
-			 
-			// enabling marker clusterer just for fun
-			// to view it zoom-out the map
-			$gMap->enableMarkerClusterer(new EGMapMarkerClusterer());
-			 
-			$gMap->renderMap();
-			?>
-		</div>
 	</div>
 </div>

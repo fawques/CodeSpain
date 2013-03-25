@@ -20,7 +20,7 @@ class MapaController extends Controller
         	Yii::app()->baseUrl . '/js/markerclusterer.js',
 			CClientScript::POS_END
 		);
-
+		
 		$this->renderPartial('Index');
 	}
 
