@@ -6,7 +6,7 @@ function initialize() {
 	  zoom: 15,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
-
+	markerCluster = new MarkerClusterer(map);
 	// Try HTML5 geolocation
 	if(navigator.geolocation) {
 	  navigator.geolocation.getCurrentPosition(function(position) {
@@ -39,7 +39,7 @@ function initialize2() {
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
 
-	google.maps.event.addDomListener(map, 'click', AnyadirMarkers);
+	google.maps.event.addDomListener(map, 'click', AnyadirMarkersNuevoEvento);
 	markerCluster = new MarkerClusterer(map);
 
 	// Try HTML5 geolocation
@@ -237,7 +237,7 @@ function ListaMarkers()
 	return visibleMarkers;
 }
 
-function AnyadirMarkers(event)
+function AnyadirMarkersNuevoEvento(event)
 {
 	var lista = ListaMarkers();
 	if(lista.length == 0)
