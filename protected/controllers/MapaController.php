@@ -3,7 +3,7 @@
 class MapaController extends Controller
 {	
 	public $coordenadas;
-	public function actionIndex()
+	public function actionIndex($index)
 	{
 
 		Yii::app()->clientScript->registerScriptFile(
@@ -21,11 +21,32 @@ class MapaController extends Controller
 			CClientScript::POS_END
 		);
 
-		$this->renderPartial('Index');
+		if($index)
+		{
+			Yii::app()->clientScript->registerScript(
+				"index",
+	       		"google.maps.event.addDomListener(window, 'load', initialize);
+				 google.maps.event.addDomListener(document.getElementById('target'), 'change', Geolocalizar);",
+				 CClientScript::POS_END
+			);			
+		}
+		else
+		{
+			Yii::app()->clientScript->registerScript(
+				"detalle",
+       			"google.maps.event.addDomListener(window, 'load', initialize2);
+				 google.maps.event.addDomListener(document.getElementById('Eventos_Lugar'), 'keyup', Geolocalizar);
+				 google.maps.event.addDomListener(document.getElementById('Eventos_Lugar'), 'blur', Geolocalizar);",
+				 CClientScript::POS_END
+			);
+		}
+
+
+		$this->renderPartial('Index',array('index'=>$index));
 	}
 
 
-	public function actionGeolocalizar()
+	/*public function actionGeolocalizar()
 	{
 		Yii::import('ext.EGMap.*');
 		$gMap = new EGMap();
@@ -34,9 +55,9 @@ class MapaController extends Controller
 		$geocoded_address->geocode($gMap->getGMapClient());
 
 		echo json_encode(array('latitud' => $geocoded_address->getLat(), 'longitud' => $geocoded_address->getLng()));
-	}
+	}*/
 
-	public function actionNuevoEvento()
+	/*public function actionNuevoEvento()
 	{
 		Yii::app()->clientScript->registerScriptFile(
         	'https://maps.googleapis.com/maps/api/js?key=AIzaSyAm4Db2U-kRW0PjdAlvedYt2eEF8sEzfuU&sensor=false&libraries=places',
@@ -54,5 +75,5 @@ class MapaController extends Controller
 		);
 
 		$this->renderPartial('Index');
-	}
+	}*/
 }

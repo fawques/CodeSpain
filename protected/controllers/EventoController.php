@@ -62,6 +62,12 @@ class EventoController extends Controller
 	 */
 	public function actionCreate()
 	{
+
+		Yii::app()->clientScript->registerScriptFile(
+        	Yii::app()->baseUrl . '/js/validarNuevoEvento.js',
+			CClientScript::POS_END
+		);
+
 		$model=new Eventos();
 		$controladorTag = new TagController('Tag');
 		$etiquetas = array();

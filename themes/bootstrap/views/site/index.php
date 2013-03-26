@@ -62,7 +62,7 @@ $this->pageTitle=Yii::app()->name;
 				<?php 
 					Yii::import('mapa');
 					$mapa = new MapaController('mapa');
-					$mapa->actionIndex();
+					$mapa->actionIndex(true);
 				?>
 			</div>
 		</div>

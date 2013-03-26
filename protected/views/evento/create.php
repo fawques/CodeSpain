@@ -17,6 +17,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
+	'htmlOptions'=>array('onsubmit'=>'return validarFormulario(this)'),
 )); 
 
 $model->Nombre = $valores['Nombre'];
@@ -66,7 +67,7 @@ $model->CoordY = $valores['CoordY'];
 				<?php 
 					Yii::import('mapa');
 					$mapa = new MapaController('mapa');
-					$mapa->actionNuevoEvento();
+					$mapa->actionIndex(false);
 				?>
 		</div>
 	</div>
