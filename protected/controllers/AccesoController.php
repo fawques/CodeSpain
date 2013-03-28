@@ -6,7 +6,6 @@
 class AccesoController extends Controller
 {
 
-
 	public function actionGoogle()
 	{
         require_once ('protected/vendors/google-api-php-client/src/Google_Client.php');
