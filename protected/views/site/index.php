@@ -22,7 +22,7 @@ $this->pageTitle=Yii::app()->name;
 <div class="container-fluid">
 	<div class="row-fluid">
 
-		<div class="span5">
+		<div class="span6">
 			<h4 style="text-align:center"> Lista de Eventos </h4>
 			<?php 
 			//session_start();
@@ -33,7 +33,10 @@ $this->pageTitle=Yii::app()->name;
 				'selectionChanged'=>'CentrarEnCoordenadasLista',	
 			    'dataProvider'=>$this->ObtenerDataProvider(),
 			    'columns'=>array(
-			    	'Nombre','Lugar','Fecha',
+			    	array('name'=>'Nombre', 'header'=>'Nombre'),
+			    	array('name'=>'Lugar', 'header'=>'Lugar'),
+			    	array('name'=>'FechaIni', 'header'=>'Fecha de inicio'),
+			    	array('name'=>'FechaFin', 'header'=>'Fecha de fin'),
 			    	array(
 			            'class'=>'bootstrap.widgets.TbButtonColumn',
 			            'htmlOptions'=>array('style'=>'width: 50px'),

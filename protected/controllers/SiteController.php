@@ -58,7 +58,8 @@ class SiteController extends Controller
 			$idEvento = $array_eventos[$i]->idEventos;
 			$nuevoElemento = array(
 			                'title'=> $array_eventos[$i]->Nombre,
-			                'start'=> $array_eventos[$i]->Fecha,
+			                'start'=> $array_eventos[$i]->FechaIni,
+			                'end' => $array_eventos[$i]->FechaFin,
 			                'url'=>'javascript:CentrarEnCoordenadasCalendario('.$idEvento.');',
 			            );
 			$data['data'][$i] = $nuevoElemento;
@@ -133,7 +134,7 @@ class SiteController extends Controller
 		$controladorEvento = new EventoController('Eventos');
 		$evento = $controladorEvento->loadModel($_POST["idLista"]);
 		
-		list($anyo, $mes, $dia) = explode("-", $evento->Fecha);
+		list($anyo, $mes, $dia) = explode("-", $evento->FechaIni);
 
 		echo json_encode(array('latitud' => $evento->CoordX, 'longitud' => $evento->CoordY, 'dia' => $dia, 'mes' => $mes, 'anyo' => $anyo));
 	}

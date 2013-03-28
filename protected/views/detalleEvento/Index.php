@@ -13,8 +13,9 @@
 			<div class="span5">
 				<h4> Datos evento </h4>
 				<b>Nombre del Evento:</b> <p><?php echo $ModeloEvento->Nombre ?></p> 
-				<b>Localización:</b> <p><?php echo $ModeloEvento->Lugar ?>
-				<b>Fecha:</b> <p><?php echo date("d-m-Y",strtotime($ModeloEvento->Fecha)); ?></p> 
+				<b>Localización:</b> <p><?php echo $ModeloEvento->Lugar ?></p>
+				<b>Fecha de inicio:</b> <p><?php echo date("d-m-Y",strtotime($ModeloEvento->FechaIni)); ?></p> 
+				<b>Fecha de fin:</b> <p><?php echo date("d-m-Y",strtotime($ModeloEvento->FechaFin)); ?></p> 
 			</div>				
 		</div>
 
