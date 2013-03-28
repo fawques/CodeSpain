@@ -35,8 +35,8 @@ $this->pageTitle=Yii::app()->name;
 			    'columns'=>array(
 			    	array('name'=>'Nombre', 'header'=>'Nombre'),
 			    	array('name'=>'Lugar', 'header'=>'Lugar'),
-			    	array('name'=>'FechaIni', 'header'=>'Fecha de inicio'),
-			    	array('name'=>'FechaFin', 'header'=>'Fecha de fin'),
+			    	array('name'=>'FechaIni', 'header'=>'Fecha de inicio','value'=>'date("d/m/Y", strtotime($data->FechaIni))'),
+			    	array('name'=>'FechaFin', 'header'=>'Fecha de fin','value'=>'date("d/m/Y", strtotime($data->FechaFin))'),
 			    	array(
 			            'class'=>'bootstrap.widgets.TbButtonColumn',
 			            'htmlOptions'=>array('style'=>'width: 50px'),
