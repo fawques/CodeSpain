@@ -64,7 +64,8 @@ $model->CoordY = $valores['CoordY'];
 	</div>
 	<?php if($model->isNewRecord!='1') ?>
 	<div class="row">
-	     <?php echo CHtml::image(Yii::app()->request->baseUrl.'/banner/'.$model->image,"Imagen",array("width"=>200)); ?>
+	     <?php echo CHtml::image(Yii::app()->request->baseUrl.'/images/Eventos/'.$model->Imagen
+	     ,"Imagen",array("width"=>200)); ?>
 	</div>
     <div class="row">
 	    <?php echo $form->labelEx($model,'Lugar'); ?>
@@ -87,8 +88,8 @@ $model->CoordY = $valores['CoordY'];
 			    <?php 
 				$this->widget('application.extensions.timepicker.timepicker', array(
 			    	'model'=>$model,
-			    	'id'=>'Eventos_FechaFin',
-			    	'name'=>'Fecha',
+			    	'id'=>'Eventos_FechaIni',
+			    	'name'=>'FechaIni',
 				));
 				?>
 				<?php echo $form->error($model,'FechaIni'); ?>
@@ -103,7 +104,7 @@ $model->CoordY = $valores['CoordY'];
 				$this->widget('application.extensions.timepicker.timepicker', array(
 			    	'model'=>$model,
 			    	'id'=>'Eventos_FechaFin',
-			    	'name'=>'Fecha',
+			    	'name'=>'FechaFin',
 				));
 				?>
 				<?php echo $form->error($model,'FechaFin'); ?>

@@ -48,7 +48,7 @@ class Eventos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Nombre, Descripcion, Lugar, FechaIni, FechaFin, CoordX, CoordY, Imagen', 'required'),
+			array('Nombre, Descripcion, Lugar, FechaIni, FechaFin, CoordX, CoordY, Imagen', 'required','message'=>'¡El campo no puede ser vacio!'),
 			array('CoordX, CoordY', 'numerical'),
 
 			array('Nombre, Lugar', 'length', 'max'=>50),

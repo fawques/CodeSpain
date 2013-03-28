@@ -3,7 +3,8 @@ function validarFormulario(form)
 	var nombre = form['Eventos_Nombre'].value;
 	var descripcion = form['Eventos_Descripcion'].value;
 	var lugar = form['Eventos_Lugar'].value;
-	var fecha = form['Eventos_Fecha'].value;
+	var fecha = form['Eventos_FechaIni'].value;
+	
 
 	if(nombre == "" || descripcion == "" || lugar == "" || fecha == "")
 	{

@@ -71,15 +71,21 @@ class EventoController extends Controller
 		$model=new Eventos();
 		$controladorTag = new TagController('Tag');
 		$etiquetas = array();
-		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','FechaFin'=>'','FechaIni'=>'','tags'=>array());
+		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','FechaFin'=>'','FechaIni'=>'','Imagen'=>'','tags'=>array());
 		
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
 		if(isset($_POST['Eventos']))
 		{
 			$model->attributes=$_POST['Eventos'];
+			$rnd = md5($_POST['Eventos']['Imagen']);
+			$uploadedFile=CUploadedFile::getInstance($model,'Imagen');
+            $fileName = "{$rnd}-{$uploadedFile}";  // random number + file name
+            $model->Imagen = $fileName;
 			if($model->validate()){
 				$model->scenario = 'registerwcaptcha';
+				$images_path = realpath(Yii::app()->basePath . '/../images/Eventos');
+				$uploadedFile->saveAs($images_path.'/'.$fileName);
 				if($model->validate(array('validacion'))) { // will validate only one attribute
 					$model->scenario = NULL;
 					if($model->save()){
@@ -96,6 +102,7 @@ class EventoController extends Controller
 						$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
 						$valores['CoordX'] = $_POST['Eventos']['CoordX'];
 						$valores['CoordY'] = $_POST['Eventos']['CoordY'];
+						$valores['Imagen'] = $_POST['Eventos']['Imagen'];
                         $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
                         Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 				}
@@ -103,9 +110,19 @@ class EventoController extends Controller
 			else
 			{
 				$error = CActiveForm::validate($model);
-                if($error!='[]')
-                    echo $error;
-                Yii::app()->end();
+				$valores['Nombre']=$_POST['Eventos']['Nombre'];
+				$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
+				$valores['Lugar'] = $_POST['Eventos']['Lugar'];
+				$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
+				$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
+				$valores['CoordX'] = $_POST['Eventos']['CoordX'];
+				$valores['CoordY'] = $_POST['Eventos']['CoordY'];
+				$valores['Imagen'] = $_POST['Eventos']['Imagen'];
+                /*if($error!='[]')
+                {
+                    $expire_date_error = $error;
+                    Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
+                }*/
             }
 		}
 			$tags = $controladorTag->GetAll();
