@@ -71,13 +71,15 @@ class EventoController extends Controller
 		$model=new Eventos();
 		$controladorTag = new TagController('Tag');
 		$etiquetas = array();
-		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','Fecha'=>'','tags'=>array());
+		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','Fecha'=>'','tags'=>'');
 		
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
 		if(isset($_POST['Eventos']))
 		{
 			$model->attributes=$_POST['Eventos'];
+			$array_tags = $_POST['Eventos_tags'];
+			$valor_tags = serialize($array_tags);
 			if($model->validate()){
 				$model->scenario = 'registerwcaptcha';
 				if($model->validate(array('validacion'))) { // will validate only one attribute
@@ -95,6 +97,7 @@ class EventoController extends Controller
 						$valores['Fecha'] = $_POST['Eventos']['Fecha'];
 						$valores['CoordX'] = $_POST['Eventos']['CoordX'];
 						$valores['CoordY'] = $_POST['Eventos']['CoordY'];
+						$valores['tags'] = $valor_tags;
                         $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
                         Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 				}
