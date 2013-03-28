@@ -2,9 +2,23 @@
 
 class DetalleEventoController extends Controller
 {
-	public function actionIndex()
+	public function actionIndex($id)
 	{
-		$this->render('Index');
+
+		if( Yii::app()->request->isAjaxRequest )
+		{
+			$controlador = new EventoController('Eventos');
+			$model = $controlador->loadModel($_GET["id"]);
+			$this->renderPartial('Index', array('ModeloEvento' => $model ),false,true);
+
+		}
+		else
+		{
+			$controlador = new EventoController('Eventos');
+			$model = $controlador->loadModel($_GET["id"]);
+			$this->render('Index', array('ModeloEvento' => $model ));
+		}
+
 	}
 
 	// Uncomment the following methods and override them if needed
