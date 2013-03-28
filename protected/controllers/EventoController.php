@@ -71,17 +71,20 @@ class EventoController extends Controller
 		$model=new Eventos();
 		$controladorTag = new TagController('Tag');
 		$etiquetas = array();
-		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','FechaFin'=>'','FechaIni'=>'','Imagen'=>'','tags'=>array());
+		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','FechaFin'=>'','FechaIni'=>'','Imagen'=>'','tags'=>'');
 		
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
 		if(isset($_POST['Eventos']))
 		{
 			$model->attributes=$_POST['Eventos'];
+
 			$rnd = md5($_POST['Eventos']['Imagen']);
 			$uploadedFile=CUploadedFile::getInstance($model,'Imagen');
             $fileName = "{$rnd}-{$uploadedFile}";  // random number + file name
             $model->Imagen = $fileName;
+			$array_tags = $_POST['Eventos_tags'];
+			$valor_tags = serialize($array_tags);
 			if($model->validate()){
 				$model->scenario = 'registerwcaptcha';
 				$images_path = realpath(Yii::app()->basePath . '/../images/Eventos');
@@ -103,6 +106,7 @@ class EventoController extends Controller
 						$valores['CoordX'] = $_POST['Eventos']['CoordX'];
 						$valores['CoordY'] = $_POST['Eventos']['CoordY'];
 						$valores['Imagen'] = $_POST['Eventos']['Imagen'];
+						$valores['tags'] = $valor_tags;
                         $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
                         Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 				}
