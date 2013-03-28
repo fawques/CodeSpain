@@ -84,4 +84,8 @@ class Tag extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function behaviors(){
+        return array('CSaveRelationsBehavior' => array('class' => 'application.components.CSaveRelationsBehavior'));
+	}
 }

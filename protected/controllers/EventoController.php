@@ -71,7 +71,16 @@ class EventoController extends Controller
 		$model=new Eventos();
 		$controladorTag = new TagController('Tag');
 		$etiquetas = array();
-		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','FechaFin'=>'','FechaIni'=>'','Imagen'=>'','tags'=>array());
+		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','FechaFin'=>'','FechaIni'=>'','Imagen'=>'','tags'=>'');
+
+		$tags = $controladorTag->GetAll();
+		for ($i=0; $i < count($tags); $i++) { 
+			$nuevoElemento = array(
+			                'id'=> $i,
+			                'text'=> $tags[$i]->Etiqueta,
+			            );
+			$etiquetas[$i] = $nuevoElemento;
+		}
 		
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
@@ -82,6 +91,13 @@ class EventoController extends Controller
 			$uploadedFile=CUploadedFile::getInstance($model,'Imagen');
             $fileName = "{$rnd}-{$uploadedFile}";  // random number + file name
             $model->Imagen = 'images/Eventos/'.$fileName;
+            $array_tags = explode(',',$_POST['Eventos_tags']);
+            $tags_strings = array();
+            $i = 0;
+            foreach ($array_tags as $value) {
+				$tags_strings[$i] = $etiquetas[$value]['text'];
+			}
+            $model->setRelationRecords('tags',$tags_strings);
 			if($model->validate()){
 				$model->scenario = 'registerwcaptcha';
 				$images_path = realpath(Yii::app()->basePath . '/../images/Eventos');
@@ -124,14 +140,7 @@ class EventoController extends Controller
                 }*/
             }
 		}
-			$tags = $controladorTag->GetAll();
-			for ($i=0; $i < count($tags); $i++) { 
-				$nuevoElemento = array(
-				                'id'=> $i,
-				                'text'=> $tags[$i]->Etiqueta,
-				            );
-				$etiquetas[$i] = $nuevoElemento;
-			}
+			
 
 			$this->render('create',array(
 				'model'=>$model,
