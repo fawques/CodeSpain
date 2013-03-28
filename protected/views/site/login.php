@@ -34,3 +34,4 @@ $this->breadcrumbs=array(
     'size'=>'small', // null, 'large', 'small' or 'mini'
     'url'=>'javascript:alert("Facebook")',
 )); ?>
+>>>>>>> master

@@ -4,36 +4,111 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<h1><a href="codespain.es"><img src="images/cover.png" class="img"></a></h1>
+<script type="text/javascript">
+	function MostrarModal(data) 
+	{ 
+		$("#DetalleEventosModal .modal-body").html(data);
+		$("#DetalleEventosModal").modal(); 
+	}
+</script>
 
-<div class="btn-toolbar">
-    <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
-        'type'=>'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-        'buttons'=>array(
-            array('label'=>'Home', 'url'=>'#'),
-            array('label'=> 'Noticias', 'url'=>'#'),
-            array('label'=>'F.A.Q.', 'items'=>array(
-                array('label'=>'¿Qué es esto?', 'url'=>'#'),
-                array('label'=>'¿De dónde hemos salido?', 'url'=>'#'),
-                array('label'=>'Are you Open?', 'url'=>'#'),
-            )),
-        ),
-    )); ?>
-</div>
-
-<p>Bienvenido a CodeSpain.</p>
-
-<p>En este proyecto pretendemos aunar todos los posibles eventos existentes en españa para developers tales como <a href="codemotion.es">Code Motion</a>, <a href="http://www.ignitevlc.com/">Ignite Valencia</a>, o cualquier hackaton desarrolado en este, nuestro país. También, nos gustaría promover la asistencia a estos eventos ayudando en la difusión e intentando facilitar una forma más económica de asistir.
+<h1>¡Bienvenido desarrollador!</h1>
+<br>
+<p>En este proyecto pretendemos aunar todos los posibles eventos existentes en españa para developers tales como <a href="http://codemotion.es">Code Motion</a>, o cualquier hackaton desarrolado en este, nuestro país. También, nos gustaría promover la asistencia a estos eventos ayudando en la difusión e intentando facilitar una forma más económica de asistir.</p>
 
 <p>Nos puedes seguir en nuestro Twitter: <a href="https://twitter.com/CodeSpain">CodeSpain</a></p>
 
 
-<?php $this->widget('bootstrap.widgets.TbTabs', array(
-    'type'=>'tabs',
-    'tabs'=>array(
-        array('label'=>'Noticia 1', 'content'=>'Pronto esperamos tener la web
-            operativa y bla bla bla bla', 'active'=>true),
-        array('label'=>'To Escolaneitor', 'content'=>'Escolano judas.'),
-        array('label'=>'To Victoriuous', 'content'=>'Victor putilla.'),
-        ),)); ?>
+<div class="container-fluid">
+	<div class="row-fluid">
+
+		<div class="span6">
+			<h4 style="text-align:center"> Lista de Eventos </h4>
+			<?php 
+			//session_start();
+			$this->widget('bootstrap.widgets.TbGridView', array(
+				'type'=>'bordered',
+				'id'=>'evento',
+				'selectableRows'=>1,
+				'selectionChanged'=>'CentrarEnCoordenadasLista',	
+			    'dataProvider'=>$this->ObtenerDataProvider(),
+			    'columns'=>array(
+			    	array('name'=>'Nombre', 'header'=>'Nombre'),
+			    	array('name'=>'Lugar', 'header'=>'Lugar'),
+			    	array('name'=>'FechaIni', 'header'=>'Fecha de inicio'),
+			    	array('name'=>'FechaFin', 'header'=>'Fecha de fin'),
+			    	array(
+			            'class'=>'bootstrap.widgets.TbButtonColumn',
+			            'htmlOptions'=>array('style'=>'width: 50px'),
+			            'template' => "{view}",
+			            'buttons'=>array(
+				        	'view' => array(
+				            	'label'=>'Detalle de evento',
+				            	'url'=>'Yii::app()->createUrl("DetalleEvento?id=$data->idEventos")',
+				            	'options'=>array(
+						           	'ajax'=>array(
+	                                	'type'=>'POST',
+	                                	'url'=>"js:$(this).attr('href')",
+	                                	'success'=>'function(data) {MostrarModal(data);}'
+	                            	),
+	                            ),
+				           		
+				        	),
+			        	),
+
+			    	),
+			    ),
+			    //'template' => "{items}",
+			    'enablePagination' => true,
+			    'enableSorting' => false,
+			));
+
+			?>
+
+			<h4 style="text-align:center"> Calendario de Eventos</h4>
+			<?php $this->widget('application.extensions.fullcalendar.FullcalendarGraphWidget', 
+				    $data
+			);
+			?>
+		</div>
+
+		<div class="span6">
+			<h4 style="text-align:center"> Mapa de Eventos </h4>
+
+			<div id="contenedorMapa">
+				<?php 
+					Yii::import('mapa');
+					$mapa = new MapaController('mapa');
+					$mapa->actionIndex();
+				?>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- View Popup  -->
+<?php $this->beginWidget('bootstrap.widgets.TbModal', array('id'=>'DetalleEventosModal')); ?>
+<!-- Popup Header -->
+<div class="modal-header">
+	<a class="close" data-dismiss="modal">&times;</a>
+	<h4>Detalles de evento</h4>
+</div>
+<!-- Popup Content -->
+<div class="modal-body">
+
+</div>
+
+<?php $this->endWidget(); ?>
+<!-- View Popup ends -->
+
+
+
+
+
+
+
+
+
+
 
