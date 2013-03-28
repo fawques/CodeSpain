@@ -1,36 +1,10 @@
-<?php
-/* @var $this SiteController */
-/* @var $model LoginForm */
-/* @var $form CActiveForm  */
 
-$this->pageTitle=Yii::app()->name . ' - Login';
-$this->breadcrumbs=array(
-	'Login',
-);
-?>
 
 <h1>Login</h1>
 
 <p>Accede con cualquiera de estos servicios</p>
 
-<?php  $this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'Google',
-    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'small', // null, 'large', 'small' or 'mini'
-    'url'=>array('/acceso/Google'),
-)); ?>
 
-<?php 
-    $this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'Twitter',
-    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'small', // null, 'large', 'small' or 'mini'
-    'url'=>array('/acceso/Twitter'),
-)); ?>
-
-<?php  $this->widget('bootstrap.widgets.TbButton', array(
-    'label'=>'Facebook',
-    'type'=>'primary', // null, 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
-    'size'=>'small', // null, 'large', 'small' or 'mini'
-    'url'=>'javascript:alert("Facebook")',
-)); ?>
+<a href="<?php echo Yii::app()->request->baseUrl."/index.php/acceso/Google" ?>"><img width='50px' height='50px' src="<?php echo Yii::app()->request->baseUrl.'/images/googleIcon.png' ?>"></a>
+<a href="<?php echo Yii::app()->request->baseUrl."/index.php/acceso/Twitter" ?>"><img width='50px' height='50px' src="<?php echo Yii::app()->request->baseUrl.'/images/TwitterIcon.jpg' ?>"></a>
+<a href="<?php echo Yii::app()->request->baseUrl."/index.php/acceso/Facebook" ?>"><img width='50px' height='50px' src="<?php echo Yii::app()->request->baseUrl.'/images/facebookIcon.jpg' ?>"></a>

@@ -65,8 +65,17 @@ class AccesoController extends Controller
           // The access token may have been updated lazily.
           $_SESSION['access_token'] = $client->getAccessToken();
         } else {
-          $authUrl = $client->createAuthUrl();
-          header('Location: ' . $authUrl);
+          if(isset($_GET['error']))
+          {
+            $urlIni = Yii::app()->createUrl("");
+            header("Location: $urlIni");
+          }
+          else
+          {
+            $authUrl = $client->createAuthUrl();
+            header('Location: ' . $authUrl);         
+          }
+
         }
 
 	}
@@ -122,7 +131,8 @@ class AccesoController extends Controller
           $_SESSION['oauth_status'] = 'oldtoken';
           unset($_SESSION['oauth_token']);
           unset($_SESSION['oauth_token_secret']);
-          header('Location: ..');
+          $urlIni = Yii::app()->createUrl("");
+          header("Location: $urlIni");
           return true;
 
         }
@@ -132,7 +142,8 @@ class AccesoController extends Controller
             echo "ok";
             unset($_SESSION['oauth_token']);
             unset($_SESSION['oauth_token_secret']);
-            header('Location: ..');
+            $urlIni = Yii::app()->createUrl("");
+            header("Location: $urlIni");
             return true;
         }
 
@@ -163,9 +174,50 @@ class AccesoController extends Controller
         {
           /* Save HTTP status for error dialog on connnect page.*/
           unset($_SESSION['access_token']);
-          header('Location: ..');
+          $urlIni = Yii::app()->createUrl("");
+          header("Location: $urlIni");
         }
     }
+
+     public function actionFacebook()
+     {
+        require 'protected/vendors/facebook-php-sdk-master/src/facebook.php';
+
+        $facebook = new Facebook(array(
+          'appId'  => '532159653489490',
+          'secret' => '6aef4999e4dee55f07022de18aa14c31',
+        ));
+
+        // Get User ID
+        $user = $facebook->getUser();
+
+        // We may or may not have this data based on whether the user is logged in.
+        //
+        // If we have a $user id here, it means we know the user is logged into
+        // Facebook, but we don't know if the access token is valid. An access
+        // token is invalid if the user logged out of Facebook.
+
+        if ($user) {
+          try {
+            // Proceed knowing you have a logged in user who's authenticated.
+            $user_profile = $facebook->api('/me');
+            $this->GuardarEnBD($user_profile["first_name"],$user_profile["id"]);
+          } catch (FacebookApiException $e) {
+            error_log($e);
+            $user = null;
+          }
+        }
+
+        // Login or logout url will be needed depending on current user state.
+        if ($user) {
+          //$logoutUrl = $facebook->getLogoutUrl();
+        } else {
+          $loginUrl = $facebook->getLoginUrl();
+          header('Location: ' . $loginUrl);
+
+        }
+
+     }
 
     public function GuardarEnBD($nombre,$token)
     {
@@ -187,6 +239,7 @@ class AccesoController extends Controller
             $ctrlUsuarios->Update($model->idUsuarios,$token);
           }
 
-          header('Location: ..');
+          $urlIni = Yii::app()->createUrl("");
+          header("Location: $urlIni");
     }
 }
