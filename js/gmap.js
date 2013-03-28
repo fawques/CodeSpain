@@ -240,20 +240,67 @@ function ListaMarkers()
 	return visibleMarkers;
 }
 
+/*function BorrarMarkers()
+{
+	var markers = markerCluster.getTotalMarkers();
+	for(var i = markers.length, bounds = map.getBounds(); i--;) 
+	{
+		markers[i].setMap(null);
+	}
+}*/
+
 function AnyadirMarkersNuevoEvento(event)
 {
 	var lista = ListaMarkers();
 	if(lista.length == 0)
 	{
+		markerCluster.clearMarkers()
 		var marker = new google.maps.Marker({
 			position: (event.latLng),
 			map: map,
+			draggable: true,
 		});	
-		markerCluster.addMarker(marker);
 
+		google.maps.event.addListener(marker, 'dragend', function() 
+		{
+		    GeolocalizacionInversa(marker.getPosition());
+		});
+
+		markerCluster.addMarker(marker);
+		GeolocalizacionInversa(event.latLng);
 	}
 
 }
+
+
+
+function GeolocalizacionInversa(latlng)
+{
+	var geocoder = new google.maps.Geocoder();
+
+	geocoder.geocode( { 'location': latlng}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) 
+		{
+
+		    var componentes = results[0].address_components;
+		    var direccion ="";
+		    for(i=0;i<3;i++)
+		    {
+		    	if(i==0)
+		    	{
+		    		direccion += componentes[i].short_name;
+		    	}
+		    	else
+		    	{
+		    		direccion += ","+componentes[i].short_name;
+		    	}
+		    	
+		    }
+		    document.getElementById("Eventos_Lugar").value = direccion;
+		} 
+	}); 
+}
+
 
 /*google.maps.event.addDomListener(window, 'load', initialize);
 google.maps.event.addDomListener(document.getElementById('target'), 'change', Geolocalizar);*/
