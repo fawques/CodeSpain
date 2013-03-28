@@ -71,7 +71,7 @@ class EventoController extends Controller
 		$model=new Eventos();
 		$controladorTag = new TagController('Tag');
 		$etiquetas = array();
-		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','Fecha'=>'','tags'=>array());
+		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','FechaFin'=>'','FechaIni'=>'','tags'=>array());
 		
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
@@ -92,7 +92,8 @@ class EventoController extends Controller
 						$valores['Nombre']=$_POST['Eventos']['Nombre'];
 						$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
 						$valores['Lugar'] = $_POST['Eventos']['Lugar'];
-						$valores['Fecha'] = $_POST['Eventos']['Fecha'];
+						$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
+						$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
 						$valores['CoordX'] = $_POST['Eventos']['CoordX'];
 						$valores['CoordY'] = $_POST['Eventos']['CoordY'];
                         $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';

@@ -17,13 +17,14 @@ $form = $this->beginWidget('CActiveForm', array(
 	'clientOptions'=>array(
 		'validateOnSubmit'=>true,
 	),
-	'htmlOptions'=>array('onsubmit'=>'return validarFormulario(this)'),
+	'htmlOptions'=>array('onsubmit'=>'return validarFormulario(this)','enctype' => 'multipart/form-data'),
 )); 
 
 $model->Nombre = $valores['Nombre'];
 $model->Descripcion = $valores['Descripcion'];
 $model->Lugar = $valores['Lugar'];
-$model->Fecha = $valores['Fecha'];
+$model->FechaIni = $valores['FechaIni'];
+$model->FechaFin = $valores['FechaFin'];
 $model->tags = $valores['tags'];
 $model->CoordX = $valores['CoordX'];
 $model->CoordY = $valores['CoordY'];
@@ -46,7 +47,6 @@ $model->CoordY = $valores['CoordY'];
 	    <?php echo $form->textField($model, 'CoordY'); ?>
 	    <?php echo $form->error($model,'CoordY'); ?>
  	</div>
- 	<!-- Necesito Nombre, Descripcion, Lugar, Fecha, CoordX, Coordy, tags-->
  	<div class="row">
  		<?php echo $form->labelEx($model,'Nombre'); ?>
 	    <?php echo $form->textField($model, 'Nombre'); ?>
@@ -57,6 +57,15 @@ $model->CoordY = $valores['CoordY'];
     	<?php echo $form->textArea($model, 'Descripcion', array('class'=>'span8', 'rows'=>5, )); ?>
     	<?php echo $form->error($model,'Descripcion'); ?>
     </div>
+    <div class="row">
+        <?php echo $form->labelEx($model,'Imagen'); ?>
+        <?php echo CHtml::activeFileField($model, 'Imagen'); ?>
+        <?php echo $form->error($model,'Imagen'); ?>
+	</div>
+	<?php if($model->isNewRecord!='1') ?>
+	<div class="row">
+	     <?php echo CHtml::image(Yii::app()->request->baseUrl.'/banner/'.$model->image,"Imagen",array("width"=>200)); ?>
+	</div>
     <div class="row">
 	    <?php echo $form->labelEx($model,'Lugar'); ?>
 	    <?php echo $form->textField($model, 'Lugar'); ?>
@@ -73,16 +82,31 @@ $model->CoordY = $valores['CoordY'];
 	</div>
 	<div class="row">
 	    <div class="control-group">
-	    	<?php echo $form->labelEx($model,'Fecha'); ?>
+	    	<?php echo $form->labelEx($model,'FechaIni'); ?>
 	    	<div class="controls">
 			    <?php 
 				$this->widget('application.extensions.timepicker.timepicker', array(
 			    	'model'=>$model,
-			    	'id'=>'Eventos_Fecha',
+			    	'id'=>'Eventos_FechaFin',
 			    	'name'=>'Fecha',
 				));
 				?>
-				<?php echo $form->error($model,'Fecha'); ?>
+				<?php echo $form->error($model,'FechaIni'); ?>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+	    <div class="control-group">
+	    	<?php echo $form->labelEx($model,'FechaFin'); ?>
+	    	<div class="controls">
+			    <?php 
+				$this->widget('application.extensions.timepicker.timepicker', array(
+			    	'model'=>$model,
+			    	'id'=>'Eventos_FechaFin',
+			    	'name'=>'Fecha',
+				));
+				?>
+				<?php echo $form->error($model,'FechaFin'); ?>
 			</div>
 		</div>
 	</div>
