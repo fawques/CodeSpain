@@ -89,9 +89,8 @@ class EventoController extends Controller
 				if($model->validate(array('validacion'))) { // will validate only one attribute
 					$model->scenario = NULL;
 					if($model->save()){
-						$expire_date_error = '¡Evento creado!';
-                        Yii::app()->user->setFlash('expire_date_error',$expire_date_error); 
-                        Yii::app()->request->redirect('index');
+						$expire_date_correct = '¡Evento creado!';
+                        Yii::app()->user->setFlash('expire_date_correct',$expire_date_correct);
                     }
 				}
 				else{
