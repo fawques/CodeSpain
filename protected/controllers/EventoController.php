@@ -72,6 +72,15 @@ class EventoController extends Controller
 		$controladorTag = new TagController('Tag');
 		$etiquetas = array();
 		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','FechaFin'=>'','FechaIni'=>'','Imagen'=>'','tags'=>'');
+
+		$tags = $controladorTag->GetAll();
+		for ($i=0; $i < count($tags); $i++) { 
+			$nuevoElemento = array(
+			                'id'=> $i,
+			                'text'=> $tags[$i]->Etiqueta,
+			            );
+			$etiquetas[$i] = $nuevoElemento;
+		}
 		
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
@@ -82,8 +91,13 @@ class EventoController extends Controller
 			$uploadedFile=CUploadedFile::getInstance($model,'Imagen');
             $fileName = "{$rnd}-{$uploadedFile}";  // random number + file name
             $model->Imagen = 'images/Eventos/'.$fileName;
-            $array_tags = $_POST['Eventos_tags'];
-			$valor_tags = serialize($array_tags);
+            $array_tags = explode(',',$_POST['Eventos_tags']);
+            $tags_strings = array();
+            $i = 0;
+            foreach ($array_tags as $value) {
+				$tags_strings[$i] = $etiquetas[$value]['text'];
+			}
+            $model->setRelationRecords('tags',$tags_strings);
 			if($model->validate()){
 				$model->scenario = 'registerwcaptcha';
 				$images_path = realpath(Yii::app()->basePath . '/../images/Eventos');
@@ -93,7 +107,7 @@ class EventoController extends Controller
 					if($model->save()){
 						$expire_date_error = '¡Evento creado!';
                         Yii::app()->user->setFlash('expire_date_error',$expire_date_error); 
-                        Yii::app()->request->redirect('index');
+                        //Yii::app()->request->redirect('index');
                     }
 				}
 				else{
@@ -105,7 +119,6 @@ class EventoController extends Controller
 						$valores['CoordX'] = $_POST['Eventos']['CoordX'];
 						$valores['CoordY'] = $_POST['Eventos']['CoordY'];
 						$valores['Imagen'] = $_POST['Eventos']['Imagen'];
-						$valores['tags'] = $valor_tags;
                         $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
                         Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 				}
@@ -128,14 +141,7 @@ class EventoController extends Controller
                 }*/
             }
 		}
-			$tags = $controladorTag->GetAll();
-			for ($i=0; $i < count($tags); $i++) { 
-				$nuevoElemento = array(
-				                'id'=> $i,
-				                'text'=> $tags[$i]->Etiqueta,
-				            );
-				$etiquetas[$i] = $nuevoElemento;
-			}
+			
 
 			$this->render('create',array(
 				'model'=>$model,

@@ -113,7 +113,7 @@ $model->CoordY = $valores['CoordY'];
 				<?php
 				// Para que lo autocomplete, el formato del array debe ser este:
 				// $prueba = array(array('id'=>'0','text'=>'c++'),array('id'=>'1','text'=>'java'));
-				echo CHtml::textField('Eventos_tags',$valores['tags'],array('id'=>'Eventos_tags', 'onSubmit'=>'javascript:"$(#Eventos_tags).val($(#Eventos_tags).val().serialize());"')); //TODO: ESTO NO VA!!! :(
+				echo CHtml::textField('Eventos_tags',$valores['tags'],array('id'=>'Eventos_tags'));
 				$this->widget('ext.select2.ESelect2',array(
 				  'selector'=>'#Eventos_tags',
 				  'options'=>array(
