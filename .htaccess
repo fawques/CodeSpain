@@ -14,12 +14,17 @@ RewriteEngine On
 
 RewriteCond %{REQUEST_URI} ^/login$
 RewriteRule ^(.*)$ /blog/wp-login.php [R,L]
-# this sends everyone else to index.html
+
+# this sends everyone else to index.php
 RewriteCond %{REQUEST_URI} ^/index\.php/$
+RewriteRule ^(.*)$ /index\.php [R,L]
 RewriteCond %{REQUEST_URI} ^/$
-RewriteCond %{REQUEST_URI} ^/index.php/site/index$
-RewriteCond %{REQUEST_URI} ^/index.php/site/index/$
-RewriteCond %{REQUEST_URI} ^/index.php/site/$
-RewriteCond %{REQUEST_URI} ^/index.php/site$
-# Rewrite, so the full URL is not used.
+RewriteRule ^(.*)$ /index\.php [R,L]
+RewriteCond %{REQUEST_URI} ^/index\.php/site/index$
+RewriteRule ^(.*)$ /index\.php [R,L]
+RewriteCond %{REQUEST_URI} ^/index\.php/site/index/$
+RewriteRule ^(.*)$ /index\.php [R,L]
+RewriteCond %{REQUEST_URI} ^/index\.php/site/$
+RewriteRule ^(.*)$ /index\.php [R,L]
+RewriteCond %{REQUEST_URI} ^/index\.php/site$
 RewriteRule ^(.*)$ /index\.php [R,L]
