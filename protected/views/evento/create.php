@@ -62,11 +62,6 @@ $model->CoordY = $valores['CoordY'];
         <?php echo CHtml::activeFileField($model, 'Imagen'); ?>
         <?php echo $form->error($model,'Imagen'); ?>
 	</div>
-	<?php if($model->isNewRecord!='1') ?>
-	<div class="row">
-	     <?php echo CHtml::image(Yii::app()->request->baseUrl.'/images/Eventos/'.$model->Imagen
-	     ,"Imagen",array("width"=>200)); ?>
-	</div>
     <div class="row">
 	    <?php echo $form->labelEx($model,'Lugar'); ?>
 	    <?php echo $form->textField($model, 'Lugar'); ?>
