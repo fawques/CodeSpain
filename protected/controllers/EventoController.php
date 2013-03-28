@@ -78,12 +78,11 @@ class EventoController extends Controller
 		if(isset($_POST['Eventos']))
 		{
 			$model->attributes=$_POST['Eventos'];
-
-			$rnd = md5($_POST['Eventos']['Imagen']);
+			$rnd = md5($_POST['Eventos']['Imagen'].$_POST['Eventos']['FechaIni']);
 			$uploadedFile=CUploadedFile::getInstance($model,'Imagen');
             $fileName = "{$rnd}-{$uploadedFile}";  // random number + file name
-            $model->Imagen = $fileName;
-			$array_tags = $_POST['Eventos_tags'];
+            $model->Imagen = 'images/Eventos/'.$fileName;
+            $array_tags = $_POST['Eventos_tags'];
 			$valor_tags = serialize($array_tags);
 			if($model->validate()){
 				$model->scenario = 'registerwcaptcha';
@@ -94,7 +93,7 @@ class EventoController extends Controller
 					if($model->save()){
 						$expire_date_error = '¡Evento creado!';
                         Yii::app()->user->setFlash('expire_date_error',$expire_date_error); 
-                        $this->redirect(array('view','id'=>$model->idEventos));
+                        $this->redirect(array('index'));
                     }
 				}
 				else{
