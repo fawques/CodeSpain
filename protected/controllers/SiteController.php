@@ -32,10 +32,12 @@ class SiteController extends Controller
         	Yii::app()->baseUrl . '/js/search.js',
 			CClientScript::POS_END
 		);
+		Yii::app()->clientScript->registerScriptFile(
+        	'https://maps.googleapis.com/maps/api/js?key=AIzaSyAm4Db2U-kRW0PjdAlvedYt2eEF8sEzfuU&sensor=false&libraries=places',
+			CClientScript::POS_END
+		);
 		Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/index.css');
 		session_start();
-		//$_SESSION["provider"] = null;
-		//$_SESSION["provider"] = $this->ObtenerDataProvider();
 		$controlador = new EventoController('Eventos');
 		$array_eventos = $controlador->GetAll();
 
@@ -58,7 +60,8 @@ class SiteController extends Controller
 			$idEvento = $array_eventos[$i]->idEventos;
 			$nuevoElemento = array(
 			                'title'=> $array_eventos[$i]->Nombre,
-			                'start'=> $array_eventos[$i]->Fecha,
+			                'start'=> $array_eventos[$i]->FechaIni,
+			                'end' => $array_eventos[$i]->FechaFin,
 			                'url'=>'javascript:CentrarEnCoordenadasCalendario('.$idEvento.');',
 			            );
 			$data['data'][$i] = $nuevoElemento;
@@ -115,8 +118,17 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
-		$model=new LoginForm;
-		$this->render('login',array('model'=>$model));
+		if(Yii::app()->user->isGuest)
+		{
+			$model=new LoginForm;
+			$this->render('login',array('model'=>$model));			
+		}
+		else
+		{
+			$urlIni = Yii::app()->createUrl("");
+            header("Location: $urlIni");
+		}
+
 	}
 
 	/**
@@ -157,7 +169,7 @@ class SiteController extends Controller
 		$controladorEvento = new EventoController('Eventos');
 		$evento = $controladorEvento->loadModel($_POST["idLista"]);
 		
-		list($anyo, $mes, $dia) = explode("-", $evento->Fecha);
+		list($anyo, $mes, $dia) = explode("-", $evento->FechaIni);
 
 		echo json_encode(array('latitud' => $evento->CoordX, 'longitud' => $evento->CoordY, 'dia' => $dia, 'mes' => $mes, 'anyo' => $anyo));
 	}
@@ -226,9 +238,11 @@ class SiteController extends Controller
 		}
 		else
 		{
-				session_start();
-				if(isset($_SESSION['criteria']))
-				session_unset($_SESSION['criteria']);
+			session_start();
+			if(isset($_SESSION["criteria"]))
+			{
+				session_unset($_SESSION["criteria"]);
+			}
 		}
 		
 	}

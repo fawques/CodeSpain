@@ -1,4 +1,3 @@
-
 <div id="search-panel">
   <input id="target" type="search" placeholder="Buscar ubicación">
 </div>

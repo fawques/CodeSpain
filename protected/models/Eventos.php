@@ -8,9 +8,11 @@
  * @property string $Nombre
  * @property string $Descripcion
  * @property string $Lugar
- * @property string $Fecha
+ * @property string $FechaIni
+ * @property string $FechaFin
  * @property double $CoordX
  * @property double $CoordY
+ * @property string $Imagen
  *
  * The followings are the available model relations:
  * @property Usuarios[] $usuarioses
@@ -45,14 +47,14 @@ class Eventos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('Nombre, Descripcion, Lugar, FechaIni, FechaFin, CoordX, CoordY, Imagen', 'required'),
 			array('CoordX, CoordY', 'numerical'),
-			array('Nombre', 'length', 'max'=>50),
-			array('Descripcion', 'length', 'max'=>150),
-			array('Lugar', 'length', 'max'=>45),
-			array('Fecha', 'safe'),
+			array('Nombre, Lugar', 'length', 'max'=>50),
+			array('Descripcion', 'length', 'max'=>250),
+			array('Imagen', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('Nombre, Descripcion, Lugar, Fecha, CoordX, CoordY', 'safe', 'on'=>'search'),
+			array('idEventos, Nombre, Descripcion, Lugar, FechaIni, FechaFin, CoordX, CoordY, Imagen', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -80,9 +82,11 @@ class Eventos extends CActiveRecord
 			'Nombre' => 'Nombre',
 			'Descripcion' => 'Descripcion',
 			'Lugar' => 'Lugar',
-			'Fecha' => 'Fecha',
+			'FechaIni' => 'Fecha Ini',
+			'FechaFin' => 'Fecha Fin',
 			'CoordX' => 'Coord X',
 			'CoordY' => 'Coord Y',
+			'Imagen' => 'Imagen',
 		);
 	}
 
@@ -101,9 +105,11 @@ class Eventos extends CActiveRecord
 		$criteria->compare('Nombre',$this->Nombre,true);
 		$criteria->compare('Descripcion',$this->Descripcion,true);
 		$criteria->compare('Lugar',$this->Lugar,true);
-		$criteria->compare('Fecha',$this->Fecha,true);
+		$criteria->compare('FechaIni',$this->FechaIni,true);
+		$criteria->compare('FechaFin',$this->FechaFin,true);
 		$criteria->compare('CoordX',$this->CoordX);
 		$criteria->compare('CoordY',$this->CoordY);
+		$criteria->compare('Imagen',$this->Imagen,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

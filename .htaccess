@@ -3,8 +3,8 @@
 #RemoveType .html
 #AddType text/html .html
 #Satisfy any
-#Order Deny,Allow
-#Allow from 212.227.112.228
+#Order Allow,Deny
+#Allow from all
 #Deny from all
 #AuthType Basic
 #AuthName "Access to /logs"
@@ -12,18 +12,19 @@
 #Require user u67225760
 RewriteEngine On
 
-# this will allow access for one IP
-# RewriteCond %{REMOTE_ADDR} ^111\.222\.111\.222$
-
 RewriteCond %{REQUEST_URI} ^/login$
 RewriteRule ^(.*)$ /blog/wp-login.php [R,L]
-# this sends everyone else to index.html
-#RewriteCond %{REQUEST_URI} !^/index\.html$
-#RewriteCond %{REQUEST_URI} !^/js/.*$
-#RewriteCond %{REQUEST_URI} !^/css/.*$
-#RewriteCond %{REQUEST_URI} !^/images/.*$
-#RewriteCond %{REQUEST_URI} !^/fonts/.*$
-#RewriteCond %{REQUEST_URI} !^/robots\.txt$
-#RewriteCond %{REQUEST_URI} !^/blog\.txt$
-# Rewrite, so the full URL is not used.
-#RewriteRule ^(.*)$ /index\.html [R,L]
+
+# this sends everyone else to index.php
+RewriteCond %{REQUEST_URI} ^/index\.php/$
+RewriteRule ^(.*)$ /index\.php [R,L]
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^(.*)$ /index\.php [R,L]
+RewriteCond %{REQUEST_URI} ^/index\.php/site/index$
+RewriteRule ^(.*)$ /index\.php [R,L]
+RewriteCond %{REQUEST_URI} ^/index\.php/site/index/$
+RewriteRule ^(.*)$ /index\.php [R,L]
+RewriteCond %{REQUEST_URI} ^/index\.php/site/$
+RewriteRule ^(.*)$ /index\.php [R,L]
+RewriteCond %{REQUEST_URI} ^/index\.php/site$
+RewriteRule ^(.*)$ /index\.php [R,L]
