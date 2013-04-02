@@ -16,7 +16,7 @@ class AccesoController extends Controller
         $client = new Google_Client();
         $client->setClientId('489451579759.apps.googleusercontent.com');
         $client->setClientSecret('vB3LeyMP06S0aHoSw5vYPxJ5');
-        $client->setRedirectUri('http://localhost/CodeSpain/index.php/Acceso/Google');
+        $client->setRedirectUri('http://www.codespain.es/index.php/Acceso/Google');
         $client->setDeveloperKey('AIzaSyAm4Db2U-kRW0PjdAlvedYt2eEF8sEzfuU');
 
         $plus = new Google_PlusService($client);
