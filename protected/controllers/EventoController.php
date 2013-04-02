@@ -55,7 +55,10 @@ class EventoController extends Controller
 			'model'=>$this->loadModel($id),
 		));
 	}
-
+	
+	function extensionCorrecta($exten){
+		return ($exten==='jpg' or $exten==='jpeg' or $exten==='png' or $exten==='gif' or $exten==='bmp' or $exten==='jpg2');
+	}
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -98,28 +101,52 @@ class EventoController extends Controller
 				$tags_strings[$i] = $etiquetas[$value]['text'];
 			}
             $model->setRelationRecords('tags',$tags_strings);
+            $ext=explode('.',$_POST['Eventos']['Imagen']);
+           	//strtolower($ext[1]);
+           	if(sizeof($ext)<=1){
+           		$c="culo de mono";
+           	}
+           	else{
+           		$c=$ext[1];
+           	}
 			if($model->validate()){
-				$model->scenario = 'registerwcaptcha';
-				$images_path = realpath(Yii::app()->basePath . '/../images/Eventos');
-				$uploadedFile->saveAs($images_path.'/'.$fileName);
-				if($model->validate(array('validacion'))) { // will validate only one attribute
-					$model->scenario = NULL;
-					if($model->save()){
-						$expire_date_correct = '¡Evento creado!';
-                        Yii::app()->user->setFlash('expire_date_correct',$expire_date_correct);
-                    }
+				if($this->extensionCorrecta(strtolower($c)))
+				{
+					$model->scenario = 'registerwcaptcha';
+					if($model->validate(array('validacion'))) { // will validate only one attribute
+						$model->scenario = NULL;
+						if($model->save()){
+							$images_path = realpath(Yii::app()->basePath . '/../images/Eventos');
+							$uploadedFile->saveAs($images_path.'/'.$fileName);
+							$expire_date_correct = '¡Evento creado!';
+	                        Yii::app()->user->setFlash('expire_date_correct',$expire_date_correct);
+	                    }
+					}
+					else{
+							$valores['Nombre']=$_POST['Eventos']['Nombre'];
+							$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
+							$valores['Lugar'] = $_POST['Eventos']['Lugar'];
+							$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
+							$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
+							$valores['CoordX'] = $_POST['Eventos']['CoordX'];
+							$valores['CoordY'] = $_POST['Eventos']['CoordY'];
+							$valores['Imagen'] = $_POST['Eventos']['Imagen'];
+	                        $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
+	                        Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
+					}
 				}
-				else{
-						$valores['Nombre']=$_POST['Eventos']['Nombre'];
-						$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
-						$valores['Lugar'] = $_POST['Eventos']['Lugar'];
-						$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
-						$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
-						$valores['CoordX'] = $_POST['Eventos']['CoordX'];
-						$valores['CoordY'] = $_POST['Eventos']['CoordY'];
-						$valores['Imagen'] = $_POST['Eventos']['Imagen'];
-                        $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
-                        Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
+				else
+				{
+					$valores['Nombre']=$_POST['Eventos']['Nombre'];
+					$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
+					$valores['Lugar'] = $_POST['Eventos']['Lugar'];
+					$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
+					$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
+					$valores['CoordX'] = $_POST['Eventos']['CoordX'];
+					$valores['CoordY'] = $_POST['Eventos']['CoordY'];
+					$valores['Imagen'] = $_POST['Eventos']['Imagen'];
+	                $expire_date_error = '¡Formato de imagen incorrecto!';
+	                Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 				}
 			}
 			else
@@ -148,7 +175,6 @@ class EventoController extends Controller
 				'valores'=>$valores,
 			));
 	}
-
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
