@@ -47,7 +47,6 @@ class SiteController extends Controller
 	            'editable'=>false,
 	        ),
 	        'htmlOptions'=>array(
-	               'style'=>'width:350px;margin: 0 auto;',
 	               'class'=>'well well-small',
 	        ),
 	        'id' => 'CalendarioIndex',
