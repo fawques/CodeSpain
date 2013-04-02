@@ -55,30 +55,126 @@ class EventoController extends Controller
 			'model'=>$this->loadModel($id),
 		));
 	}
-
+	
+	function extensionCorrecta($exten){
+		return ($exten==='jpg' or $exten==='jpeg' or $exten==='png' or $exten==='gif' or $exten==='bmp' or $exten==='jpg2');
+	}
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionCreate()
 	{
-		$model=new Eventos;
 
+		Yii::app()->clientScript->registerScriptFile(
+        	Yii::app()->baseUrl . '/js/validarNuevoEvento.js',
+			CClientScript::POS_END
+		);
+
+		$model=new Eventos();
+		$controladorTag = new TagController('Tag');
+		$etiquetas = array();
+		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','FechaFin'=>'','FechaIni'=>'','Imagen'=>'','tags'=>'');
+
+		$tags = $controladorTag->GetAll();
+		for ($i=0; $i < count($tags); $i++) { 
+			$nuevoElemento = array(
+			                'id'=> $i,
+			                'text'=> $tags[$i]->Etiqueta,
+			            );
+			$etiquetas[$i] = $nuevoElemento;
+		}
+		
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
+		$this->performAjaxValidation($model);
 		if(isset($_POST['Eventos']))
 		{
 			$model->attributes=$_POST['Eventos'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->idEventos));
+			$rnd = md5($_POST['Eventos']['Imagen'].date("d-m-Y H:i:s"));
+			$uploadedFile=CUploadedFile::getInstance($model,'Imagen');
+            $fileName = "{$rnd}-{$uploadedFile}";  // random number + file name
+            $model->Imagen = 'images/Eventos/'.$fileName;
+            $array_tags = explode(',',$_POST['Eventos_tags']);
+            $tags_strings = array();
+            $i = 0;
+            foreach ($array_tags as $value) {
+				$tags_strings[$i] = $etiquetas[$value]['text'];
+			}
+            $model->setRelationRecords('tags',$tags_strings);
+            $ext=explode('.',$_POST['Eventos']['Imagen']);
+           	//strtolower($ext[1]);
+           	if(sizeof($ext)<=1){
+           		$c="culo de mono";
+           	}
+           	else{
+           		$c=$ext[1];
+           	}
+			if($model->validate()){
+				if($this->extensionCorrecta(strtolower($c)))
+				{
+					$model->scenario = 'registerwcaptcha';
+					if($model->validate(array('validacion'))) { // will validate only one attribute
+						$model->scenario = NULL;
+						if($model->save()){
+							$images_path = realpath(Yii::app()->basePath . '/../images/Eventos');
+							$uploadedFile->saveAs($images_path.'/'.$fileName);
+							$expire_date_correct = '¡Evento creado!';
+	                        Yii::app()->user->setFlash('expire_date_correct',$expire_date_correct);
+	                    }
+					}
+					else{
+							$valores['Nombre']=$_POST['Eventos']['Nombre'];
+							$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
+							$valores['Lugar'] = $_POST['Eventos']['Lugar'];
+							$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
+							$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
+							$valores['CoordX'] = $_POST['Eventos']['CoordX'];
+							$valores['CoordY'] = $_POST['Eventos']['CoordY'];
+							$valores['Imagen'] = $_POST['Eventos']['Imagen'];
+	                        $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
+	                        Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
+					}
+				}
+				else
+				{
+					$valores['Nombre']=$_POST['Eventos']['Nombre'];
+					$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
+					$valores['Lugar'] = $_POST['Eventos']['Lugar'];
+					$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
+					$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
+					$valores['CoordX'] = $_POST['Eventos']['CoordX'];
+					$valores['CoordY'] = $_POST['Eventos']['CoordY'];
+					$valores['Imagen'] = $_POST['Eventos']['Imagen'];
+	                $expire_date_error = '¡Formato de imagen incorrecto!';
+	                Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
+				}
+			}
+			else
+			{
+				$error = CActiveForm::validate($model);
+				$valores['Nombre']=$_POST['Eventos']['Nombre'];
+				$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
+				$valores['Lugar'] = $_POST['Eventos']['Lugar'];
+				$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
+				$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
+				$valores['CoordX'] = $_POST['Eventos']['CoordX'];
+				$valores['CoordY'] = $_POST['Eventos']['CoordY'];
+				$valores['Imagen'] = $_POST['Eventos']['Imagen'];
+                /*if($error!='[]')
+                {
+                    $expire_date_error = $error;
+                    Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
+                }*/
+            }
 		}
+			
 
-		$this->render('create',array(
-			'model'=>$model,
-		));
+			$this->render('create',array(
+				'model'=>$model,
+				'etiquetas'=>$etiquetas,
+				'valores'=>$valores,
+			));
 	}
-
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -87,16 +183,16 @@ class EventoController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
 		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		//$this->performAjaxValidation($model);
 
 		if(isset($_POST['Eventos']))
 		{
 			$model->attributes=$_POST['Eventos'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->idEventos));
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->idEventos));
 		}
+		
 
 		$this->render('update',array(
 			'model'=>$model,
@@ -150,6 +246,11 @@ class EventoController extends Controller
 		));
 	}
 
+	public function actionAjax()
+	{
+		$this->renderPartial('ajaxView', array(), false, true);
+	}
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
@@ -175,4 +276,7 @@ class EventoController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+	
+
 }

@@ -23,7 +23,5 @@ $this->pageTitle=Yii::app()->name;
 	<p>Pues s&iacute;, as&iacute; es. Est&aacute; web es Open Source, de hecho, si quieres o, simplemente tienes curiosidad, por ver c&oacute;mo se ha realizado y c&oacute;mo est&aacute; hecha la misma, puedes ser ir: o bien, a nuestro <a href="codespain.es/blog">blog</a> o, por otro lado, puedes ir a nuestro <a href="https://github.com/fawques/CodeSpain">repositorio</a>.</p>
 </div>
 <br>
-<div>
-	<h2>Tipos de eventos</h2>
-</div>
 <br>
+

@@ -17,8 +17,8 @@ $this->pageTitle=Yii::app()->name . ' - About';
         <img src="../../images/escolanix-1.jpg" class="img-circle caption" alt="Adri&aacute;n Escolano D&iacute;az">
       </div>
       <div class="span10 caption">
-        <h3>Chiribitas</h3>
-        Adri&aacute;n Escolano D&iacute;az, es un estudiante de Ingenier&iacute;a Inform&aacute;tica de la UA, apasionado de la tecnolog&iacute;a,el deporte y el frikismo en general. Es un friki en toda regla, y hasta su sistema operativo principal es friki... Usa Arch Linux, &iexcl;ya me direis! Por lo dem&aacute;s es un poco sosete, pero si le das cerveza o un ordenador ya mola un poco m&aacute;s. &iexcl;Ah! Se me olvidaba, &eacute;l se ha encargado de la BD, con esto creo que queda todo dicho.
+        <h3>Escolano</h3>
+        Adri&aacuten Escolano D&iacuteaz, es un estudiante de Ingenier&iacutea Inform&aacutetica de la UA, apasionado de la tecnolog&iacutea,el deporte y el frikismo en general. Es un friki en toda regla, y hasta su sistema operativo principal es friki... Usa Arch Linux, ¡ya me direis! Por lo dem&aacutes es un poco sosete, pero si le das cerveza o un ordenador ya mola un poco m&aacutes. ¡Ah! Se me olvidaba, &eacutel se ha encargado de la BD, con esto creo que queda todo dicho.
       </div>
     </div>
   </li>

@@ -21,6 +21,7 @@
  */
 class Eventos extends CActiveRecord
 {
+	public $validacion;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -47,11 +48,16 @@ class Eventos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Nombre, Descripcion, Lugar, FechaIni, FechaFin, CoordX, CoordY, Imagen', 'required'),
+			array('Nombre, Descripcion, Lugar, FechaIni, FechaFin, CoordX, CoordY, Imagen', 'required','message'=>'¡El campo no puede ser vacio!'),
 			array('CoordX, CoordY', 'numerical'),
 			array('Nombre, Lugar', 'length', 'max'=>50),
 			array('Descripcion', 'length', 'max'=>250),
 			array('Imagen', 'length', 'max'=>100),
+			array('validacion',
+                     'application.extensions.recaptcha.EReCaptchaValidator',
+                     'privateKey'=> '6LemVd0SAAAAAEDQIawNw4SKuq_6S6PK7nLe6NB4', 
+                     'on' => 'registerwcaptcha'
+                 ),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('idEventos, Nombre, Descripcion, Lugar, FechaIni, FechaFin, CoordX, CoordY, Imagen', 'safe', 'on'=>'search'),
@@ -86,6 +92,7 @@ class Eventos extends CActiveRecord
 			'FechaFin' => 'Fecha Fin',
 			'CoordX' => 'Coord X',
 			'CoordY' => 'Coord Y',
+			'validacion'=>Yii::t('demo', 'Introduce las dos palabras separadas por un espacio:'),
 			'Imagen' => 'Imagen',
 		);
 	}
@@ -114,5 +121,9 @@ class Eventos extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function behaviors(){
+        return array('CSaveRelationsBehavior' => array('class' => 'application.components.CSaveRelationsBehavior'));
 	}
 }
