@@ -6,21 +6,21 @@
 class AccesoController extends Controller
 {
 
-
 	public function actionGoogle()
 	{
         require_once ('protected/vendors/google-api-php-client/src/Google_Client.php');
-        require_once ('protected/vendors/google-api-php-client/src/contrib/Google_PlusService.php');
+        require_once ('protected/vendors/google-api-php-client/src/contrib/Google_Oauth2Service.php');
 
         session_start();
         
         $client = new Google_Client();
         $client->setClientId('489451579759.apps.googleusercontent.com');
         $client->setClientSecret('vB3LeyMP06S0aHoSw5vYPxJ5');
-        $client->setRedirectUri('http://localhost/CodeSpain/index.php/Acceso/Google');
+        $client->setRedirectUri('http://www.codespain.es/index.php/Acceso/Google');
+        //$client->setRedirectUri('http://localhost/CodeSpain/index.php/Acceso/Google');
         $client->setDeveloperKey('AIzaSyAm4Db2U-kRW0PjdAlvedYt2eEF8sEzfuU');
 
-        $plus = new Google_PlusService($client);
+        $plus = new Google_Oauth2Service($client);
 
         if (isset($_REQUEST['logout'])) {
           unset($_SESSION['access_token']);
@@ -37,19 +37,19 @@ class AccesoController extends Controller
         }
 
         if ($client->getAccessToken()) {
-          $me = $plus->people->get('me');
+          $me = $plus->userinfo_v2_me->get();
 
           // These fields are currently filtered through the PHP sanitize filters.
           // See http://www.php.net/manual/en/filter.filters.sanitize.php
           //$url = filter_var($me['url'], FILTER_VALIDATE_URL);
           //$img = filter_var($me['image']['url'], FILTER_VALIDATE_URL);
-          $name = filter_var($me['displayName'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+          $mail = filter_var($me['email'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
           //$personMarkup = "<a rel='me' href='$url'>$name</a><div><img src='$img'></div>";
 
 
           /*Insertar en BD*/
           $decode = json_decode($_SESSION['access_token'], true);
-          $this->GuardarEnBD($name,$decode['access_token']);
+          $this->GuardarEnBD($mail,$decode['access_token']);
 
           /*$optParams = array('maxResults' => 100);
           $activities = $plus->activities->listActivities('me', 'public', $optParams);
@@ -65,8 +65,17 @@ class AccesoController extends Controller
           // The access token may have been updated lazily.
           $_SESSION['access_token'] = $client->getAccessToken();
         } else {
-          $authUrl = $client->createAuthUrl();
-          header('Location: ' . $authUrl);
+          if(isset($_GET['error']))
+          {
+            $urlIni = Yii::app()->createUrl("");
+            header("Location: $urlIni");
+          }
+          else
+          {
+            $authUrl = $client->createAuthUrl();
+            header('Location: ' . $authUrl);         
+          }
+
         }
 
 	}
@@ -122,17 +131,18 @@ class AccesoController extends Controller
           $_SESSION['oauth_status'] = 'oldtoken';
           unset($_SESSION['oauth_token']);
           unset($_SESSION['oauth_token_secret']);
-          header('Location: ..');
+          $urlIni = Yii::app()->createUrl("");
+          header("Location: $urlIni");
           return true;
 
         }
 
         if (!isset($_REQUEST['oauth_verifier']))
         {
-            echo "ok";
             unset($_SESSION['oauth_token']);
             unset($_SESSION['oauth_token_secret']);
-            header('Location: ..');
+            $urlIni = Yii::app()->createUrl("");
+            header("Location: $urlIni");
             return true;
         }
 
@@ -157,15 +167,61 @@ class AccesoController extends Controller
           $_SESSION['status'] = 'verified';
 
           $user = $connection->get('account/verify_credentials');
-          $this->GuardarEnBD($user->name,$access_token["oauth_token_secret"]);
+          $this->GuardarEnBD($user->screen_name,$access_token["oauth_token_secret"]);
           
         } else 
         {
           /* Save HTTP status for error dialog on connnect page.*/
           unset($_SESSION['access_token']);
-          header('Location: ..');
+          $urlIni = Yii::app()->createUrl("");
+          header("Location: $urlIni");
         }
     }
+
+     public function actionFacebook()
+     {
+        require 'protected/vendors/facebook-php-sdk-master/src/facebook.php';
+
+        $facebook = new Facebook(array(
+          'appId'  => '532159653489490',
+          'secret' => '6aef4999e4dee55f07022de18aa14c31',
+        ));
+
+        // Get User ID
+        $user = $facebook->getUser();
+
+        // We may or may not have this data based on whether the user is logged in.
+        //
+        // If we have a $user id here, it means we know the user is logged into
+        // Facebook, but we don't know if the access token is valid. An access
+        // token is invalid if the user logged out of Facebook.
+
+        if ($user) {
+          try {
+            // Proceed knowing you have a logged in user who's authenticated.
+            $user_profile = $facebook->api('/me');
+            $this->GuardarEnBD($user_profile["email"],$user_profile["id"]);
+          } catch (FacebookApiException $e) {
+            error_log($e);
+            $user = null;
+          }
+        }
+
+        // Login or logout url will be needed depending on current user state.
+        if ($user) {
+          //$logoutUrl = $facebook->getLogoutUrl();
+        } else {
+
+          $params = array(
+            'scope' => 'email'
+          );
+
+          $loginUrl = $facebook->getLoginUrl($params);
+          header('Location: ' . $loginUrl);
+
+        }
+
+     }
 
     public function GuardarEnBD($nombre,$token)
     {
@@ -187,6 +243,7 @@ class AccesoController extends Controller
             $ctrlUsuarios->Update($model->idUsuarios,$token);
           }
 
-          header('Location: ..');
+          $urlIni = Yii::app()->createUrl("");
+          header("Location: $urlIni");
     }
 }

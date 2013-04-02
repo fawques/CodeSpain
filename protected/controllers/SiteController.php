@@ -116,8 +116,17 @@ class SiteController extends Controller
 	 */
 	public function actionLogin()
 	{
-		$model=new LoginForm;
-		$this->render('login',array('model'=>$model));
+		if(Yii::app()->user->isGuest)
+		{
+			$model=new LoginForm;
+			$this->render('login',array('model'=>$model));			
+		}
+		else
+		{
+			$urlIni = Yii::app()->createUrl("");
+            header("Location: $urlIni");
+		}
+
 	}
 
 	/**

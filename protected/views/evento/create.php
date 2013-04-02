@@ -28,7 +28,7 @@ $model->FechaFin = $valores['FechaFin'];
 $model->tags = $valores['tags'];
 $model->CoordX = $valores['CoordX'];
 $model->CoordY = $valores['CoordY'];
-
+$model->Imagen=$valores['Imagen'];
 
 
 ?>
@@ -140,7 +140,7 @@ $model->CoordY = $valores['CoordY'];
 </fieldset>
 
 <?php if(Yii::app()->user->hasFlash('expire_date_error')):?>
-        <div class="alert alert-error">
+        <div class="alert-error">
         	<button type="button" class="close" data-dismiss="alert">&times;</button>
             <?php echo Yii::app()->user->getFlash('expire_date_error'); ?>
         </div>

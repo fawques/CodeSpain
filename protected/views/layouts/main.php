@@ -35,7 +35,7 @@
                 array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
 
             ),
-            
+
         ),
         '<form class="navbar-search pull-right" action=""><input type="text" class="search-query span2" placeholder="Buscar eventos"></form>',
     ),
@@ -56,7 +56,7 @@
 	<div id="footer">
 	       <br>
            <hr>
-           Created and designed by <a href="http://twitter.com/fawques">Victor Guzman</a>, <a href="http://twitter.com/AzureFlameK1t3">Adri&aacuten Escolano</a> y <a href="http://twitter.com/Pablo_1990">Pablo Vicente.</a>
+           Created and designed by <a href="http://twitter.com/fawques">Victor Guzman</a>, <a href="http://twitter.com/AzureFlameK1t3">Adri&aacute;n Escolano</a> y <a href="http://twitter.com/Pablo_1990">Pablo Vicente.</a>
 	</div><!-- footer -->
 
 </div><!-- page -->

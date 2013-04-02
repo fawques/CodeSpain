@@ -50,7 +50,6 @@ class Eventos extends CActiveRecord
 		return array(
 			array('Nombre, Descripcion, Lugar, FechaIni, FechaFin, CoordX, CoordY, Imagen', 'required','message'=>'¡El campo no puede ser vacio!'),
 			array('CoordX, CoordY', 'numerical'),
-
 			array('Nombre, Lugar', 'length', 'max'=>50),
 			array('Descripcion', 'length', 'max'=>250),
 			array('Imagen', 'length', 'max'=>100),

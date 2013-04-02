@@ -83,7 +83,7 @@ class EventoController extends Controller
 		}
 		
 		// Uncomment the following line if AJAX validation is needed
-		//$this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 		if(isset($_POST['Eventos']))
 		{
 			$model->attributes=$_POST['Eventos'];

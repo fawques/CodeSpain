@@ -67,20 +67,31 @@ function initialize2() {
 
 
 function handleNoGeolocation(errorFlag) {
-	if (errorFlag) {
+	/*if (errorFlag) {
 	  var content = 'Error: The Geolocation service failed.';
 	} else {
 	  var content = 'Error: Your browser doesn\'t support geolocation.';
-	}
+	}*/
 
-	var options = {
+	/*var options = {
 	  map: map,
 	  position: new google.maps.LatLng(60, 105),
 	  content: content
-	};
+	};*/
 
-	var infowindow = new google.maps.InfoWindow(options);
-	map.setCenter(options.position);
+	var pos = new google.maps.LatLng(40.4167754,
+	                                     -3.7037902);
+
+
+	AnyadirMarkers();
+
+	google.maps.event.addListener(map,'dragend',ObtenerMarkers);
+	google.maps.event.addListener(map,'zoom_changed',ObtenerMarkers);
+
+	map.setCenter(pos);
+	map.setZoom(5);
+	
+	ObtenerMarkers();
 }
 
 function Geolocalizar(elemento)
