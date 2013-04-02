@@ -149,11 +149,14 @@ $model->Imagen=$valores['Imagen'];
 
 <?php if(Yii::app()->user->hasFlash('expire_date_correct')):?>
         <div class="alert alert-success">
-        	<button type="button" class="close" data-dismiss="alert">&times;</button>
+        	
             <?php echo Yii::app()->user->getFlash('expire_date_correct'); ?>
         </div>
 <?php endif; ?>
-
+<!--<div id="divError" class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	¡Debe poner un marker en el mapa!
+</div>-->
  
 <div class="form-actions">
     <?php echo CHtml::submitButton("¡Al turron!"); ?>
