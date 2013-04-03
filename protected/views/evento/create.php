@@ -1,12 +1,3 @@
-<?php
-/* @var $this EventosController */
-
-$this->breadcrumbs=array(
-	'Evento'=>array('/evento'),
-	'Nuevo',
-);
-?>
-
 <div class="form">
 
 <?php /** @var BootActiveForm $form */
