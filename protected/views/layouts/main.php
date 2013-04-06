@@ -39,7 +39,7 @@
             ),
 
         ),
-        '<form class="navbar-search pull-right" action=""><input type="text" class="search-query span2" placeholder="Buscar eventos"></form>',
+        '<form class="navbar-search pull-right" action=""><input title="Buscar Eventos" type="text" class="search-query span2" placeholder="Buscar eventos"></form>',
     ),
 )); ?>
 
