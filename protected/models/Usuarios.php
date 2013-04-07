@@ -8,10 +8,11 @@
  * @property string $Nombre
  * @property string $Token
  * @property integer $Preferencias_idPreferencias
- * @property integer $Eventos_idEventos
  *
  * The followings are the available model relations:
  * @property Eventos[] $eventoses
+ * @property Eventos[] $eventoses1
+ * @property Preferencias[] $preferenciases
  */
 class Usuarios extends CActiveRecord
 {
@@ -42,12 +43,12 @@ class Usuarios extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Nombre', 'required'),
-			array('Preferencias_idPreferencias, Eventos_idEventos', 'numerical', 'integerOnly'=>true),
+			array('Preferencias_idPreferencias', 'numerical', 'integerOnly'=>true),
 			array('Nombre', 'length', 'max'=>50),
 			array('Token', 'length', 'max'=>250),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('idUsuarios, Nombre, Token, Preferencias_idPreferencias, Eventos_idEventos', 'safe', 'on'=>'search'),
+			array('idUsuarios, Nombre, Token, Preferencias_idPreferencias', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,6 +61,8 @@ class Usuarios extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'eventoses' => array(self::MANY_MANY, 'Eventos', 'Reportar(Usuarios_idUsuarios, Eventos_idEventos)'),
+			'eventoses1' => array(self::HAS_MANY, 'Eventos', 'idUsuarioCrear'),
+			'preferenciases' => array(self::HAS_MANY, 'Preferencias', 'Usuarios_idUsuarios'),
 		);
 	}
 
@@ -73,7 +76,6 @@ class Usuarios extends CActiveRecord
 			'Nombre' => 'Nombre',
 			'Token' => 'Token',
 			'Preferencias_idPreferencias' => 'Preferencias Id Preferencias',
-			'Eventos_idEventos' => 'Eventos Id Eventos',
 		);
 	}
 
@@ -92,7 +94,6 @@ class Usuarios extends CActiveRecord
 		$criteria->compare('Nombre',$this->Nombre,true);
 		$criteria->compare('Token',$this->Token,true);
 		$criteria->compare('Preferencias_idPreferencias',$this->Preferencias_idPreferencias);
-		$criteria->compare('Eventos_idEventos',$this->Eventos_idEventos);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

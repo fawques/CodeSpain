@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 28-03-2013 a las 11:31:39
+-- Tiempo de generación: 07-04-2013 a las 13:07:55
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -44,22 +44,26 @@ CREATE TABLE IF NOT EXISTS `Eventos` (
   `idEventos` int(10) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(50) NOT NULL,
   `Descripcion` varchar(250) NOT NULL,
-  `Lugar` varchar(50) NOT NULL,
+  `Lugar` varchar(250) NOT NULL,
   `FechaIni` date NOT NULL,
   `FechaFin` date NOT NULL,
   `CoordX` double NOT NULL,
   `CoordY` double NOT NULL,
   `Imagen` varchar(100) NOT NULL,
-  PRIMARY KEY (`idEventos`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `Web` varchar(150) DEFAULT NULL,
+  `idUsuarioCrear` int(11) NOT NULL,
+  PRIMARY KEY (`idEventos`),
+  KEY `fk_Eventos_Usuarios_Crear_idx` (`idUsuarioCrear`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Volcado de datos para la tabla `Eventos`
 --
 
-INSERT INTO `Eventos` (`idEventos`, `Nombre`, `Descripcion`, `Lugar`, `FechaIni`, `FechaFin`, `CoordX`, `CoordY`, `Imagen`) VALUES
-(1, 'CodeSpain', 'Web de eventos de desarrollo', 'Universidad de Alicante', '2013-03-06', '0000-00-00', 38.387024, -0.511551000000054, 'images/Eventos/codespain.jpg'),
-(4, 'Nuevo evento', 'kvadmaklmvklamvdlkam', 'Madrid', '2013-03-16', '0000-00-00', 40.416632788688474, -3.695526123046875, '');
+INSERT INTO `Eventos` (`idEventos`, `Nombre`, `Descripcion`, `Lugar`, `FechaIni`, `FechaFin`, `CoordX`, `CoordY`, `Imagen`, `Web`, `idUsuarioCrear`) VALUES
+(5, 'ascasc', 'ascsac', 'A-31,Alicante,A', '2013-04-25', '2013-04-27', 38.3355298863129, -0.5071520805358887, 'images/Eventos/13c4c9ead14f0a9adcd838d96bacef4b-codespainLogo-300x238.jpg', 'sacasc', 2),
+(6, 'dfvsdv', 'dsvsdvsdv', '55O,Ctra. Oca', '2013-04-06', '2013-04-17', 38.33903069630875, -0.5348110198974609, 'images/Eventos/fa02a5e4c4027ecb41fdb121b14d7894-codespainLogo-300x238.jpg', 'sdvsdvsdv', 2),
+(7, 'CodeSpain', 'La web de los desarrolladores', '83,Calle Alicante,San Vicente del Raspeig', '2013-04-14', '2013-04-21', 38.38683011196378, -0.511314868927002, 'images/Eventos/09adea13fd318e745ae5b262c7e8e688-codespainLogo-300x238.jpg', 'www.codespain.es', 2);
 
 -- --------------------------------------------------------
 
@@ -74,6 +78,15 @@ CREATE TABLE IF NOT EXISTS `Eventos_has_Tag` (
   KEY `fk_Eventos_has_Tag_Tag1_idx` (`Tag_Etiqueta`),
   KEY `fk_Eventos_has_Tag_Eventos1_idx` (`Eventos_idEventos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `Eventos_has_Tag`
+--
+
+INSERT INTO `Eventos_has_Tag` (`Eventos_idEventos`, `Tag_Etiqueta`) VALUES
+(5, 'php'),
+(6, 'php'),
+(7, 'php');
 
 -- --------------------------------------------------------
 
@@ -125,6 +138,13 @@ CREATE TABLE IF NOT EXISTS `Tag` (
   PRIMARY KEY (`Etiqueta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `Tag`
+--
+
+INSERT INTO `Tag` (`Etiqueta`) VALUES
+('php');
+
 -- --------------------------------------------------------
 
 --
@@ -136,19 +156,17 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
   `Nombre` varchar(50) NOT NULL,
   `Token` varchar(250) DEFAULT NULL,
   `Preferencias_idPreferencias` int(11) DEFAULT NULL,
-  `Eventos_idEventos` int(11) DEFAULT NULL,
   PRIMARY KEY (`idUsuarios`),
   UNIQUE KEY `Nombre_UNIQUE` (`Nombre`),
-  KEY `fk_Usuarios_Preferencias1_idx` (`Preferencias_idPreferencias`),
-  KEY `fk_Usuarios_Eventos1_idx` (`Eventos_idEventos`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  KEY `fk_Usuarios_Preferencias1_idx` (`Preferencias_idPreferencias`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `Usuarios`
 --
 
-INSERT INTO `Usuarios` (`idUsuarios`, `Nombre`, `Token`, `Preferencias_idPreferencias`, `Eventos_idEventos`) VALUES
-(1, 'Adrian Escolano', 'ya29.AHES6ZSOQSDRHj_Ho0RR0xpW2VBsNNiDgZXELUCBZ5hb497bbAX-8g', NULL, NULL);
+INSERT INTO `Usuarios` (`idUsuarios`, `Nombre`, `Token`, `Preferencias_idPreferencias`) VALUES
+(2, 'bl4ckf4lk0n@gmail.com', '100000709893463', NULL);
 
 --
 -- Restricciones para tablas volcadas
@@ -160,6 +178,12 @@ INSERT INTO `Usuarios` (`idUsuarios`, `Nombre`, `Token`, `Preferencias_idPrefere
 ALTER TABLE `Asistir`
   ADD CONSTRAINT `fk_Usuarios_has_Eventos_Eventos1` FOREIGN KEY (`Eventos_idEventos`) REFERENCES `Eventos` (`idEventos`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_Usuarios_has_Eventos_Usuarios1` FOREIGN KEY (`Usuarios_idUsuarios`) REFERENCES `Usuarios` (`idUsuarios`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `Eventos`
+--
+ALTER TABLE `Eventos`
+  ADD CONSTRAINT `fk_Eventos_Usuarios_Crear` FOREIGN KEY (`idUsuarioCrear`) REFERENCES `Usuarios` (`idUsuarios`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `Eventos_has_Tag`
