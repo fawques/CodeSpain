@@ -97,9 +97,12 @@ class EventoController extends Controller
             $array_tags = explode(',',$_POST['Eventos_tags']);
             $tags_strings = array();
             $i = 0;
-            foreach ($array_tags as $value) {
-				$tags_strings[$i] = $etiquetas[$value]['text'];
-			}
+	           	foreach ($array_tags as $value) {
+	           		if(is_numeric($value))
+	           		{
+	           			$tags_strings[$i] = $etiquetas[$value]['text'];
+	           		}
+				}
             $model->setRelationRecords('tags',$tags_strings);
             $ext = pathinfo($uploadedFile, PATHINFO_EXTENSION);
 			if($model->validate()){
