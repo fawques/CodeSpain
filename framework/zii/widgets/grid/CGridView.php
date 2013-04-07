@@ -421,7 +421,7 @@ class CGridView extends CBaseListView
 	{
 		if($this->dataProvider->getItemCount()>0 || $this->showTableOnEmpty)
 		{
-			echo "<table class=\"{$this->itemsCssClass}\">\n";
+			echo "<table class=\"{$this->itemsCssClass}\" caption=\"Lista de eventos\" summary=\"Eventos mostrados según mapa o búsqueda en los cuales habrá: Nombre, lugar dónde se realizan, y el rango de fechas.\">\n";
 			$this->renderTableHeader();
 			ob_start();
 			$this->renderTableBody();

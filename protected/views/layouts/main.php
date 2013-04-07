@@ -1,12 +1,11 @@
 <?php /* @var $this Controller */ ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-es">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="language" content="en" />
+	<meta name="language" content="es-es" />
 
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/faq.css" />
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
@@ -34,15 +33,12 @@
                 array('label'=>'Nuevo Evento', 'url'=>array('/evento/create'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
-                
-
             ),
-
         ),
         '<form class="navbar-search pull-right" action="" id="searchForm">
             <div class="input-append">
-                <input title="Buscar Eventos" type="search" class="search-query span2" placeholder="Buscar eventos" id="busqueda">
-                <button type="submit" class="btn" >
+                <input title="Buscar Eventos" type="search" class="span2" placeholder="Buscar eventos" id="busqueda">
+                <button type="submit" class="btn">
                     <i class="icon-search icon-large"></i>
                 </button>
             </div>

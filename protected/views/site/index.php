@@ -13,10 +13,12 @@ $this->pageTitle=Yii::app()->name;
 </script>
 
 <h1>&iexcl;Bienvenido desarrollador!</h1>
+<h2 style="display:none;">Eventos Para desarrolladores</h2>
+<h3 style="display:none;">Buscar Eventos</h3>
 <br>
-<p>En este proyecto pretendemos aunar todos los posibles eventos existentes en espa&ntilde;a para developers tales como <a href="http://codemotion.es">Code Motion</a>, o cualquier hackaton desarrollado en este, nuestro pa&iacute;s. Tambi&eacute;n, nos gustar&iacute;a promover la asistencia a estos eventos ayudando en la difusi&oacute;n e intentando facilitar una forma m&aacute;s econ&oacute;mica de asistir.</p>
+<p>En este proyecto pretendemos aunar todos los posibles eventos existentes en espa&ntilde;a para developers tales como <a href="http://codemotion.es" alt="enlace a Code Motion">Code Motion</a>, o cualquier hackaton desarrollado en este, nuestro pa&iacute;s. Tambi&eacute;n, nos gustar&iacute;a promover la asistencia a estos eventos ayudando en la difusi&oacute;n e intentando facilitar una forma m&aacute;s econ&oacute;mica de asistir.</p>
 
-<p>Nos puedes seguir en nuestro Twitter: <a href="https://twitter.com/CodeSpain">CodeSpain</a></p>
+<p>Nos puedes seguir en nuestro <a href="https://twitter.com/CodeSpain" alt="Twitter de CodeSpain">Twitter</a></p>
 
 
 <div class="container-fluid">
@@ -37,6 +39,7 @@ $this->pageTitle=Yii::app()->name;
 			    	array('name'=>'Lugar', 'header'=>'Lugar'),
 			    	array('name'=>'FechaIni', 'header'=>'Fecha de inicio','value'=>'date("d/m/Y", strtotime($data->FechaIni))'),
 			    	array('name'=>'FechaFin', 'header'=>'Fecha de fin','value'=>'date("d/m/Y", strtotime($data->FechaFin))'),
+			    	array('name'=>'Web', 'header'=>'Web', 'value' => 'CHtml::link($data->Web, "http://".$data->Web, array("target"=>"_blank"))','type'  => 'raw',),
 			    	array(
 			            'class'=>'bootstrap.widgets.TbButtonColumn',
 			            'htmlOptions'=>array('style'=>'width: 50px'),
@@ -57,6 +60,7 @@ $this->pageTitle=Yii::app()->name;
 			        	),
 
 			    	),
+
 			    ),
 			    //'template' => "{items}",
 			    'enablePagination' => true,
