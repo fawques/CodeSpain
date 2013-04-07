@@ -18,10 +18,10 @@
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.TbMenu',
+            'htmlOptions'=>array('class'=>'pull-left'),
             'items'=>array(
-                array('label'=>'Home', 'url'=>array('../')),
-                array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-                array('label'=>'Contact', 'url'=>array('/site/contact')),
+                array('label'=>'Inicio', 'url'=>array('../')),
+                
                 array('label'=>'F.A.Q.', 'url'=>array('/site/page', 'view'=>'faq')
                     /* ========== No he conseguido que vaya el scroll automático al punto concreto, lo dejo comentado ============= */
                     /*'items'=>array(
@@ -31,28 +31,35 @@
                     ,)*/
                 ,),
                 array('label'=>'Nuevo Evento', 'url'=>array('/evento/create'), 'visible'=>!Yii::app()->user->isGuest),
-                array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+                '<li class="divider"/>',
+                array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+                array('label'=>'Contacto', 'url'=>array('/site/contact')),
+                '<li class="divider"/>',
             ),
         ),
-        '<form class="navbar-search pull-right" action="" id="searchForm">
+        '<form class="navbar-search pull-left" action="" id="searchForm">
             <div class="input-append">
-                <input title="Buscar Eventos" type="search" class="span2" placeholder="Buscar eventos" id="busqueda">
+                <input title="Buscar Eventos" type="search" class="span3" placeholder="Buscar eventos" id="busqueda">
                 <button type="submit" class="btn">
                     <i class="icon-search icon-large"></i>
                 </button>
             </div>
         </form>',
+        array(
+            'class'=>'bootstrap.widgets.TbMenu',
+            'htmlOptions'=>array('class'=>'pull-right'),
+            'items'=>array(
+                array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+            ),
+        ),  
+        
+
+        
     ),
 )); ?>
 
 <div class="container" id="page">
-
-	<?php if(isset($this->breadcrumbs)):?>
-		<?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
-			'links'=>$this->breadcrumbs,
-		)); ?><!-- breadcrumbs -->
-	<?php endif?>
 
 	<?php echo $content; ?>
 
