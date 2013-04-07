@@ -255,7 +255,13 @@ class EventoController extends Controller
 	public function actionSearch($keyword)
 	{
 
-		$model=Eventos::model()->findAllByAttributes(array("Nombre"=>$keyword));
+		$model=Eventos::model()->findAllByAttributes(
+	        array(),
+	        $condition  = 'Nombre = :keyword OR Descripcion = :keyword',
+	        $params     = array(
+	                ':keyword' => $keyword,
+	        )
+		);
 
 		$dato = $model;
 		return $dato;

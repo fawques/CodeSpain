@@ -39,7 +39,14 @@
             ),
 
         ),
-        '<form class="navbar-search pull-right" action=""><div class="input-append"><input title="Buscar Eventos" type="search" class="search-query span2" placeholder="Buscar eventos"><button type="submit" class="btn"><i class="icon-search icon-large"></i></button></div></form>',
+        '<form class="navbar-search pull-right" action="" id="searchForm">
+            <div class="input-append">
+                <input title="Buscar Eventos" type="search" class="search-query span2" placeholder="Buscar eventos" id="busqueda">
+                <button type="submit" class="btn" >
+                    <i class="icon-search icon-large"></i>
+                </button>
+            </div>
+        </form>',
     ),
 )); ?>
 

@@ -151,7 +151,8 @@ class SiteController extends Controller
 			$nuevoElemento = array(
                 'title'=> $resultados[$i]->Nombre,
                 'desc'=> $resultados[$i]->Descripcion,
-                'start'=> $resultados[$i]->Fecha,
+                'start'=> $resultados[$i]->FechaIni,
+                'end'=> $resultados[$i]->FechaFin,
                 'lat' => $resultados[$i]->CoordX,
                 'lng' => $resultados[$i]->CoordY,
                 'url'=>'javascript:CentrarEnCoordenadasCalendario('.$resultados[$i]->idEventos.');',
