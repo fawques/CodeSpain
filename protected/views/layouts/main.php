@@ -30,14 +30,11 @@
                     array('label'=>'¿OpenSource?', 'url'=>array('/site/page', 'view'=>'faq', 'id'=>'ctOpen'))
                     ,)*/
                 ,),
-                
-                '<li class="divider"/>',
                 array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 array('label'=>'Contacto', 'url'=>array('/site/contact')),
-                '<li class="divider"/>',
             ),
         ),
-        '<form class="navbar-search pull-left" action="" id="searchForm">
+        '<form class="navbar-search pull-right" action="" id="searchForm">
             <div class="input-append">
                 <input title="Buscar Eventos" type="search" class="span3" placeholder="Buscar eventos" id="busqueda">
                 <button type="submit" class="btn">
@@ -47,7 +44,7 @@
         </form>',
         array(
             'class'=>'bootstrap.widgets.TbMenu',
-            'htmlOptions'=>array('class'=>'pull-right'),
+            'htmlOptions'=>array('class'=>'pull-left'),
             'items'=>array(
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
