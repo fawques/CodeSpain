@@ -19,7 +19,7 @@ CodeSpain es una aplicación web que permite a los desarrolladores encontrar fá
     
 <h2>INSTALACION</h2>
 Primeramente hay que instalar un sevidor web con php y una base de datos mysql, según la plataforma que elijas te dejamos un link para cada una de ellas:
-- Linux: [Link]("http://codespain.es/blog/software-a-instalar/" "Link hacia cómo instalar en linux")
-- Windows: [Link] ("http://ajbalmon.wordpress.com/2008/06/25/instalando-xampp-en-windows/" "Link hacia cómo instalar en Windows")
-- Mac: [Link]("http://lecheconsoja.blogspot.com.es/2011/03/como-instalar-xampp-en-mac-os-x.html" "Link hacia cómo instalar en Mac")
+- Linux: [Link](http://codespain.es/blog/software-a-instalar/ "Link hacia cómo instalar en linux")
+- Windows: [Link] (http://ajbalmon.wordpress.com/2008/06/25/instalando-xampp-en-windows "Link hacia cómo instalar en Windows")
+- Mac: [Link](http://lecheconsoja.blogspot.com.es/2011/03/como-instalar-xampp-en-mac-os-x.html "Link hacia cómo instalar en Mac")
 
