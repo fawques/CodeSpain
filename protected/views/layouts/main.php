@@ -1,6 +1,6 @@
 <?php /* @var $this Controller */ ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es-es" lang="es-es">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-es">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="es-es" />
@@ -33,10 +33,7 @@
                 array('label'=>'Nuevo Evento', 'url'=>array('/evento/create'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
-                
-
             ),
-
         ),
         '<form class="navbar-search pull-right" action=""><div class="input-append"><input title="Buscar Eventos" type="search" class="span2" placeholder="Buscar eventos"><button type="submit" class="btn"><i class="icon-search icon-large"></i></button></div></form>',
     ),
