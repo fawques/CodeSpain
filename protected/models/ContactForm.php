@@ -20,7 +20,7 @@ class ContactForm extends CFormModel
 	{
 		return array(
 			// nombre, email, asunto and mensaje are required
-			array('nombre, email, asunto, mensaje', 'required'),
+			array('nombre, email, asunto, mensaje', 'required','message'=>'¡El campo no puede ser vacio!'),
 			// email has to be a valid email address
 			array('email', 'email'),
 			// verifyCode needs to be entered correctly
