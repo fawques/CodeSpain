@@ -103,6 +103,7 @@ class EventoController extends Controller
             $model->setRelationRecords('tags',$tags_strings);
             $ext = pathinfo($uploadedFile, PATHINFO_EXTENSION);
 			if($model->validate()){
+				if(!empty($tags_strings)){
 				if($this->extensionCorrecta(strtolower($ext)))
 				{
 					$model->scenario = 'registerwcaptcha';
@@ -141,6 +142,18 @@ class EventoController extends Controller
 	                $expire_date_error = '¡Formato de imagen incorrecto!';
 	                Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 				}
+			}else{
+				$valores['Nombre']=$_POST['Eventos']['Nombre'];
+				$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
+				$valores['Lugar'] = $_POST['Eventos']['Lugar'];
+				$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
+				$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
+				$valores['CoordX'] = $_POST['Eventos']['CoordX'];
+				$valores['CoordY'] = $_POST['Eventos']['CoordY'];
+				$valores['Imagen'] = $uploadedFile;
+                $expire_date_error = '¡Etiqueta el evento!';
+                Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
+			}
 			}
 			else
 			{
