@@ -197,7 +197,8 @@ function AnyadirMarkers()
 			          map:map,
 			          draggable:false,
 			          animation: google.maps.Animation.DROP,
-			          position: new google.maps.LatLng(source[i].CoordX, source[i].CoordY)
+			          position: new google.maps.LatLng(source[i].CoordX, source[i].CoordY),
+			          icon: 'https://chart.googleapis.com/chart?chst=d_map_pin_letter_withshadow&chld='+source[i].idEventos+'|FF0000|000000'
 			        });
 
 			        markers.push(marker);

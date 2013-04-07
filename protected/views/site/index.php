@@ -35,6 +35,7 @@ $this->pageTitle=Yii::app()->name;
 				'selectionChanged'=>'CentrarEnCoordenadasLista',
 			    'dataProvider'=>$this->ObtenerDataProvider(),
 			    'columns'=>array(
+			    	array('name'=>'idEventos', 'header'=>'#'),
 			    	array('name'=>'Nombre', 'header'=>'Nombre'),
 			    	array('name'=>'Lugar', 'header'=>'Lugar'),
 			    	array('name'=>'FechaIni', 'header'=>'Fecha de inicio','value'=>'date("d/m/Y", strtotime($data->FechaIni))'),
