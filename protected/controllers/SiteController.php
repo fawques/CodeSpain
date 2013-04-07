@@ -172,16 +172,18 @@ class SiteController extends Controller
 							'defaultOrder'=>array('nombre'=>true),
 						),
 			));
+
+			if(isset($_SESSION["criteria"]))
+			{
+				session_unset($_SESSION["criteria"]);
+			}
+
 			return $dataProvider;
 		}
 		else
 		{
 			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
 						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
-						'criteria'=>array('condition'=>'idEventos=-1',),
-						'pagination'=>array(
-							'pageSize'=>4,
-						),
 						'sort'=>array(
 							'defaultOrder'=>array('nombre'=>true),
 						),

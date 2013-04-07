@@ -51,6 +51,7 @@ $this->pageTitle=Yii::app()->name;
 				            	'options'=>array(
 						           	'ajax'=>array(
 	                                	'type'=>'POST',
+	                                	'async'=>'false',
 	                                	'url'=>"js:$(this).attr('href')",
 	                                	'success'=>'function(data) {MostrarModal(data);}'
 	                            	),

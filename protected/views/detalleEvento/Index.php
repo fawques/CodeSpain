@@ -20,6 +20,8 @@
 				<p><?php echo date("d-m-Y",strtotime($ModeloEvento->FechaIni)); ?></p>
 				<b>Fecha de fin:</b>
 				<p><?php echo date("d-m-Y",strtotime($ModeloEvento->FechaFin)); ?></p>
+				<b>Página Web</b>
+				<p><a target="blank" href="<?php echo 'http://'.$ModeloEvento->Web; ?>"><?php echo $ModeloEvento->Web; ?></a></p>
 			</div>
 		</div>
 
