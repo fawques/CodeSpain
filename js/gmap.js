@@ -250,6 +250,27 @@ function ListaMarkers()
 	}
 	return visibleMarkers;
 }
+	
+	
+	//actualizarLista($.param(visibleMarkers));
+
+// llamado desde gmap.js y search.js
+function actualizarLista(elementos){
+
+	$.ajax({
+			url: "index.php/site/ActualizarLista",
+			data: elementos,
+			type: "POST",
+			dataType: "text",
+			async: false,
+			success: function(source){				
+				$.fn.yiiGridView.update('evento');
+			},
+			error: function(dato){
+				alert("ERROR4");
+			}
+		});	
+}
 
 /*function BorrarMarkers()
 {

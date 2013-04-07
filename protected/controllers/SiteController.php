@@ -28,12 +28,14 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		
+		Yii::app()->clientScript->registerScriptFile(
+        	Yii::app()->baseUrl . '/js/search.js',
+			CClientScript::POS_END
+		);
 		Yii::app()->clientScript->registerScriptFile(
         	'https://maps.googleapis.com/maps/api/js?key=AIzaSyAm4Db2U-kRW0PjdAlvedYt2eEF8sEzfuU&sensor=false&libraries=places',
 			CClientScript::POS_END
 		);
-
 		Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/index.css');
 		session_start();
 		$controlador = new EventoController('Eventos');
@@ -135,6 +137,31 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+
+	public function actionSearch()
+	{
+		$busqueda =$_POST['busqueda'];
+
+		$controladorEvento = new EventoController('Eventos');
+		$resultados = $controladorEvento->actionSearch($busqueda);
+
+		$array_eventos = array();
+		for ($i=0; $i < count($resultados); $i++) { 
+			$nuevoElemento = array(
+                'title'=> $resultados[$i]->Nombre,
+                'desc'=> $resultados[$i]->Descripcion,
+                'start'=> $resultados[$i]->FechaIni,
+                'end'=> $resultados[$i]->FechaFin,
+                'lat' => $resultados[$i]->CoordX,
+                'lng' => $resultados[$i]->CoordY,
+                'url'=>'javascript:CentrarEnCoordenadasCalendario('.$resultados[$i]->idEventos.');',
+            );
+			$array_eventos[$i] = $nuevoElemento;
+		}
+
+		echo json_encode($array_eventos);
+
 	}
 
 	public function actionObtenerDatosLista()
