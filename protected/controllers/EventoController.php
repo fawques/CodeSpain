@@ -74,7 +74,7 @@ class EventoController extends Controller
 		$model=new Eventos();
 		$controladorTag = new TagController('Tag');
 		$etiquetas = array();
-		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','FechaFin'=>'','FechaIni'=>'','Imagen'=>'','tags'=>'');
+		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','FechaFin'=>'','FechaIni'=>'','Imagen'=>'','tags'=>'','Web'=>'','idUsuarioCrear'=>'');
 
 		$tags = $controladorTag->GetAll();
 		for ($i=0; $i < count($tags); $i++) { 
@@ -84,6 +84,7 @@ class EventoController extends Controller
 			            );
 			$etiquetas[$i] = $nuevoElemento;
 		}
+		$valores['idUsuarioCrear'] = Yii::app()->user->getId();
 		
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -106,7 +107,9 @@ class EventoController extends Controller
             $model->setRelationRecords('tags',$tags_strings);
             $ext = pathinfo($uploadedFile, PATHINFO_EXTENSION);
 			if($model->validate()){
+
 				if(!empty($tags_strings)){
+
 				if($this->extensionCorrecta(strtolower($ext)))
 				{
 					$model->scenario = 'registerwcaptcha';
@@ -128,6 +131,8 @@ class EventoController extends Controller
 							$valores['CoordX'] = $_POST['Eventos']['CoordX'];
 							$valores['CoordY'] = $_POST['Eventos']['CoordY'];
 							$valores['Imagen'] = $uploadedFile;
+							$valores['Web'] = $_POST['Eventos']['Web'];
+							$valores['idUsuarioCrear'] = Yii::app()->user->getId();
 	                        $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
 	                        Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 					}
@@ -142,6 +147,8 @@ class EventoController extends Controller
 					$valores['CoordX'] = $_POST['Eventos']['CoordX'];
 					$valores['CoordY'] = $_POST['Eventos']['CoordY'];
 					$valores['Imagen'] = $uploadedFile;
+					$valores['Web'] = $_POST['Eventos']['Web'];
+					$valores['idUsuarioCrear'] = Yii::app()->user->getId();
 	                $expire_date_error = '¡Formato de imagen incorrecto!';
 	                Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 				}
@@ -169,6 +176,9 @@ class EventoController extends Controller
 				$valores['CoordX'] = $_POST['Eventos']['CoordX'];
 				$valores['CoordY'] = $_POST['Eventos']['CoordY'];
 				$valores['Imagen'] = $uploadedFile;
+				$valores['Web'] = $_POST['Eventos']['Web'];
+				$valores['idUsuarioCrear'] = Yii::app()->user->getId();
+
                 /*if($error!='[]')
                 {
                     $expire_date_error = $error;

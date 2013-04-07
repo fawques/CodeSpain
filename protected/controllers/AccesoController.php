@@ -225,10 +225,7 @@ class AccesoController extends Controller
 
     public function GuardarEnBD($nombre,$token)
     {
-          $identity=new UserIdentity($nombre,$token);
 
-          $login=Yii::app()->user;
-          $login->login($identity);
 
 
           $ctrlUsuarios = new UsuariosController('usuarios');
@@ -242,6 +239,13 @@ class AccesoController extends Controller
           {
             $ctrlUsuarios->Update($model->idUsuarios,$token);
           }
+
+          $identity=new UserIdentity($nombre,$token);
+
+          $identity->authenticate();
+
+          $login=Yii::app()->user;
+          $login->login($identity);
 
           $urlIni = Yii::app()->createUrl("");
           header("Location: $urlIni");

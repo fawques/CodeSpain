@@ -20,6 +20,8 @@ $model->tags = $valores['tags'];
 $model->CoordX = $valores['CoordX'];
 $model->CoordY = $valores['CoordY'];
 $model->Imagen=$valores['Imagen'];
+$model->Web=$valores['Web'];
+$model->idUsuarioCrear=$valores['idUsuarioCrear'];
 
 
 ?>
@@ -38,6 +40,11 @@ $model->Imagen=$valores['Imagen'];
 	    <?php echo $form->textField($model, 'CoordY'); ?>
 	    <?php echo $form->error($model,'CoordY'); ?>
  	</div>
+	<div class="row" style="display:none;">
+ 		<?php echo $form->labelEx($model,'idUsuarioCrear'); ?>
+	    <?php echo $form->textField($model, 'idUsuarioCrear'); ?>
+	    <?php echo $form->error($model,'idUsuarioCrear'); ?>
+ 	</div>
  	<div class="row">
  		<?php echo $form->labelEx($model,'Nombre'); ?>
 	    <?php echo $form->textField($model, 'Nombre'); ?>
@@ -47,6 +54,11 @@ $model->Imagen=$valores['Imagen'];
  		<?php echo $form->labelEx($model,'Descripcion'); ?>
     	<?php echo $form->textArea($model, 'Descripcion', array('class'=>'span8', 'rows'=>5, )); ?>
     	<?php echo $form->error($model,'Descripcion'); ?>
+    </div>
+ 	<div class="row">
+ 		<?php echo $form->labelEx($model,'Web'); ?>
+    	<?php echo $form->textField($model, 'Web'); ?>
+    	<?php echo $form->error($model,'Web'); ?>
     </div>
     <div class="row">
         <?php echo $form->labelEx($model,'Imagen'); ?>

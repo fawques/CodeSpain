@@ -13,9 +13,12 @@
  * @property double $CoordX
  * @property double $CoordY
  * @property string $Imagen
+ * @property string $Web
+ * @property integer $idUsuarioCrear
  *
  * The followings are the available model relations:
  * @property Usuarios[] $usuarioses
+ * @property Usuarios $idUsuarioCrear0
  * @property Tag[] $tags
  * @property Oficiales $oficiales
  */
@@ -48,19 +51,21 @@ class Eventos extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Nombre, Descripcion, Lugar, FechaIni, FechaFin, CoordX, CoordY, Imagen', 'required','message'=>'¡El campo no puede ser vacio!'),
+			array('Nombre, Descripcion, Lugar, FechaIni, FechaFin, CoordX, CoordY, Imagen, idUsuarioCrear', 'required'),
+			array('idUsuarioCrear', 'numerical', 'integerOnly'=>true),
 			array('CoordX, CoordY', 'numerical'),
 			array('Nombre, Lugar', 'length', 'max'=>50),
 			array('Descripcion', 'length', 'max'=>250),
 			array('Imagen', 'length', 'max'=>100),
+			array('Web', 'length', 'max'=>150),
 			array('validacion',
-                     'application.extensions.recaptcha.EReCaptchaValidator',
-                     'privateKey'=> '6LemVd0SAAAAAEDQIawNw4SKuq_6S6PK7nLe6NB4', 
-                     'on' => 'registerwcaptcha'
-                 ),
+                 'application.extensions.recaptcha.EReCaptchaValidator',
+                 'privateKey'=> '6LemVd0SAAAAAEDQIawNw4SKuq_6S6PK7nLe6NB4', 
+                 'on' => 'registerwcaptcha'
+             ),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('idEventos, Nombre, Descripcion, Lugar, FechaIni, FechaFin, CoordX, CoordY, Imagen', 'safe', 'on'=>'search'),
+			array('idEventos, Nombre, Descripcion, Lugar, FechaIni, FechaFin, CoordX, CoordY, Imagen, Web, idUsuarioCrear', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,6 +78,7 @@ class Eventos extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'usuarioses' => array(self::MANY_MANY, 'Usuarios', 'Reportar(Eventos_idEventos, Usuarios_idUsuarios)'),
+			'idUsuarioCrear0' => array(self::BELONGS_TO, 'Usuarios', 'idUsuarioCrear'),
 			'tags' => array(self::MANY_MANY, 'Tag', 'Eventos_has_Tag(Eventos_idEventos, Tag_Etiqueta)'),
 			'oficiales' => array(self::HAS_ONE, 'Oficiales', 'Eventos_idEventos'),
 		);
@@ -92,8 +98,10 @@ class Eventos extends CActiveRecord
 			'FechaFin' => 'Fecha Fin',
 			'CoordX' => 'Coord X',
 			'CoordY' => 'Coord Y',
-			'validacion'=>Yii::t('demo', 'Introduce las dos palabras separadas por un espacio:'),
 			'Imagen' => 'Imagen',
+			'Web' => 'Web',
+			'idUsuarioCrear' => 'Id Usuario Crear',
+			'validacion'=>Yii::t('demo', 'Introduce las dos palabras separadas por un espacio:'),
 		);
 	}
 
@@ -117,6 +125,8 @@ class Eventos extends CActiveRecord
 		$criteria->compare('CoordX',$this->CoordX);
 		$criteria->compare('CoordY',$this->CoordY);
 		$criteria->compare('Imagen',$this->Imagen,true);
+		$criteria->compare('Web',$this->Web,true);
+		$criteria->compare('idUsuarioCrear',$this->idUsuarioCrear);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
