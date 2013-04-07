@@ -5,16 +5,16 @@ $this->pageTitle=Yii::app()->name;
 ?>
 
 <script type="text/javascript">
-	function MostrarModal(data) 
-	{ 
+	function MostrarModal(data)
+	{
 		$("#DetalleEventosModal .modal-body").html(data);
-		$("#DetalleEventosModal").modal(); 
+		$("#DetalleEventosModal").modal();
 	}
 </script>
 
-<h1>¡Bienvenido desarrollador!</h1>
+<h1>&iexcl;Bienvenido desarrollador!</h1>
 <br>
-<p>En este proyecto pretendemos aunar todos los posibles eventos existentes en españa para developers tales como <a href="http://codemotion.es">Code Motion</a>, o cualquier hackaton desarrolado en este, nuestro país. También, nos gustaría promover la asistencia a estos eventos ayudando en la difusión e intentando facilitar una forma más económica de asistir.</p>
+<p>En este proyecto pretendemos aunar todos los posibles eventos existentes en espa&ntilde;a para developers tales como <a href="http://codemotion.es">Code Motion</a>, o cualquier hackaton desarrollado en este, nuestro pa&iacute;s. Tambi&eacute;n, nos gustar&iacute;a promover la asistencia a estos eventos ayudando en la difusi&oacute;n e intentando facilitar una forma m&aacute;s econ&oacute;mica de asistir.</p>
 
 <p>Nos puedes seguir en nuestro Twitter: <a href="https://twitter.com/CodeSpain">CodeSpain</a></p>
 
@@ -23,14 +23,14 @@ $this->pageTitle=Yii::app()->name;
 	<div class="row-fluid">
 
 		<div class="span6">
-			<h4 style="text-align:center"> Lista de Eventos </h4>
-			<?php 
+			<h4 class="pagination-centered"> Lista de Eventos </h4>
+			<?php
 			//session_start();
 			$this->widget('bootstrap.widgets.TbGridView', array(
 				'type'=>'bordered',
 				'id'=>'evento',
 				'selectableRows'=>1,
-				'selectionChanged'=>'CentrarEnCoordenadasLista',	
+				'selectionChanged'=>'CentrarEnCoordenadasLista',
 			    'dataProvider'=>$this->ObtenerDataProvider(),
 			    'columns'=>array(
 			    	array('name'=>'Nombre', 'header'=>'Nombre'),
@@ -52,7 +52,7 @@ $this->pageTitle=Yii::app()->name;
 	                                	'success'=>'function(data) {MostrarModal(data);}'
 	                            	),
 	                            ),
-				           		
+
 				        	),
 			        	),
 
@@ -65,18 +65,18 @@ $this->pageTitle=Yii::app()->name;
 
 			?>
 
-			<h4 style="text-align:center"> Calendario de Eventos</h4>
-			<?php $this->widget('application.extensions.fullcalendar.FullcalendarGraphWidget', 
+			<h4 class="pagination-centered"> Calendario de Eventos</h4>
+			<?php $this->widget('application.extensions.fullcalendar.FullcalendarGraphWidget',
 				    $data
 			);
 			?>
 		</div>
 
 		<div class="span6">
-			<h4 style="text-align:center"> Mapa de Eventos </h4>
+			<h4 class="pagination-centered"> Mapa de Eventos </h4>
 
 			<div id="contenedorMapa">
-				<?php 
+				<?php
 					Yii::import('mapa');
 					$mapa = new MapaController('mapa');
 					$mapa->actionIndex(true);

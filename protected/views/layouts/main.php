@@ -1,4 +1,3 @@
-
 <?php /* @var $this Controller */ ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -21,7 +20,7 @@
         array(
             'class'=>'bootstrap.widgets.TbMenu',
             'items'=>array(
-                array('label'=>'Home', 'url'=>array('/site/index')),
+                array('label'=>'Home', 'url'=>array('../')),
                 array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
                 array('label'=>'Contact', 'url'=>array('/site/contact')),
                 array('label'=>'F.A.Q.', 'url'=>array('/site/page', 'view'=>'faq')
@@ -32,13 +31,15 @@
                     array('label'=>'¿OpenSource?', 'url'=>array('/site/page', 'view'=>'faq', 'id'=>'ctOpen'))
                     ,)*/
                 ,),
+                array('label'=>'Nuevo Evento', 'url'=>array('/evento/create'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
                 array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
+                
 
             ),
-            
+
         ),
-        '<form class="navbar-search pull-right" action=""><input type="text" class="search-query span2" placeholder="Buscar eventos"></form>',
+        '<form class="navbar-search pull-right" action=""><div class="input-append"><input title="Buscar Eventos" type="search" class="search-query span2" placeholder="Buscar eventos"><button type="submit" class="btn"><i class="icon-search icon-large"></i></button></div></form>',
     ),
 )); ?>
 
@@ -57,7 +58,7 @@
 	<div id="footer">
 	       <br>
            <hr>
-           Created and designed by <a href="http://twitter.com/fawques">Victor Guzman</a>, <a href="http://twitter.com/AzureFlameK1t3">Adri&aacuten Escolano</a> y <a href="http://twitter.com/Pablo_1990">Pablo Vicente.</a>
+           Created and designed by <a href="http://twitter.com/fawques">Victor Guzman</a>, <a href="http://twitter.com/AzureFlameK1t3">Adri&aacute;n Escolano</a> y <a href="http://twitter.com/Pablo_1990">Pablo Vicente.</a>
 	</div><!-- footer -->
 
 </div><!-- page -->

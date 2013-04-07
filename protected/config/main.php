@@ -11,7 +11,8 @@ return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'theme'=>'bootstrap',
 	'name'=>'CodeSpain',
-	
+	'language'=>'es',
+
 	// preloading 'log' component
 	'preload'=>array('log'),
 
