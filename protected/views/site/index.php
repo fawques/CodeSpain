@@ -24,7 +24,7 @@ $this->pageTitle=Yii::app()->name;
 <div class="container-fluid">
 	<div class="row-fluid">
 
-		<div class="span6">
+		<div class="span7">
 			<h4 class="pagination-centered"> Lista de Eventos </h4>
 			<?php
 			//session_start();
@@ -35,6 +35,7 @@ $this->pageTitle=Yii::app()->name;
 				'selectionChanged'=>'CentrarEnCoordenadasLista',
 			    'dataProvider'=>$this->ObtenerDataProvider(),
 			    'columns'=>array(
+			    	array('name'=>'idEventos', 'header'=>''),
 			    	array('name'=>'Nombre', 'header'=>'Nombre'),
 			    	array('name'=>'Lugar', 'header'=>'Lugar'),
 			    	array('name'=>'FechaIni', 'header'=>'Fecha de inicio','value'=>'date("d/m/Y", strtotime($data->FechaIni))'),
@@ -51,6 +52,7 @@ $this->pageTitle=Yii::app()->name;
 				            	'options'=>array(
 						           	'ajax'=>array(
 	                                	'type'=>'POST',
+	                                	'async'=>'false',
 	                                	'url'=>"js:$(this).attr('href')",
 	                                	'success'=>'function(data) {MostrarModal(data);}'
 	                            	),
@@ -76,7 +78,7 @@ $this->pageTitle=Yii::app()->name;
 			?>
 		</div>
 
-		<div class="span6">
+		<div class="span5">
 			<h4 class="pagination-centered"> Mapa de Eventos </h4>
 
 			<div id="contenedorMapa">
