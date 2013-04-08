@@ -14,7 +14,8 @@ $this->breadcrumbs=array(
  
     <legend>Contacta con nosotros</legend>
     <p>
-	Cuelquier cosa que quieras preguntar estamos abiertos, sólo tienes que completar este lindo formulario.
+	Cualquier cosa que quieras preguntar estamos abiertos, sólo tienes que completar este lindo formulario.
+	Para reportar bugs, también puedes abrir un nuevo issue en nuestro <a href="https://github.com/fawques/CodeSpain/issues">repositorio</a>.
 	</p>
 <?php if(Yii::app()->user->hasFlash('contact')): ?>
 
@@ -75,7 +76,6 @@ $this->breadcrumbs=array(
 	</div>
 
 <?php $this->endWidget(); ?>
-
 </div><!-- form -->
 
 <?php endif; ?>

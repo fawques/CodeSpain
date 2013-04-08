@@ -15,3 +15,15 @@ CodeSpain es una aplicación web que permite a los desarrolladores encontrar fá
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    
+<h2>INSTALACION</h2>
+Primeramente hay que instalar un sevidor web con php y una base de datos mysql, según la plataforma que elijas te dejamos un link para cada una de ellas:
+- Linux: [Link](http://codespain.es/blog/software-a-instalar/ "Link hacia cómo instalar en linux")
+- Windows: [Link] (http://ajbalmon.wordpress.com/2008/06/25/instalando-xampp-en-windows "Link hacia cómo instalar en Windows")
+- Mac: [Link](http://lecheconsoja.blogspot.com.es/2011/03/como-instalar-xampp-en-mac-os-x.html "Link hacia cómo instalar en Mac")
+
+Con esto instalado, ahora toca descargarse el proyecto y para más comodidad descargalo y extraelo directamente en la carpeta pública del servidor web que normalmente se llama htdocs (en caso de ubuntu se llama '/opt/lampp/htdocs/').
+
+Descargado el proyecto y extraido aquí, te vas a un navegador y pones: "localhost/Nombre_Carpeta" (dónde esté el proyecto extraido, si es en raíz de htdocs, sin añadir nada). Y voila! Ya tienes nuestro proyecto en local.
+
