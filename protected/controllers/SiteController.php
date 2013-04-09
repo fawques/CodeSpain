@@ -28,14 +28,6 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-
-
-          $identity=new UserIdentity("bl4ckf4lk0n@gmail.com","123456789");
-
-          $identity->authenticate();
-
-          $login=Yii::app()->user;
-          $login->login($identity);
 		Yii::app()->clientScript->registerScriptFile(
         	Yii::app()->baseUrl . '/js/search.js',
 			CClientScript::POS_END
