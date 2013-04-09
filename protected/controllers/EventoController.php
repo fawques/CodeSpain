@@ -91,7 +91,6 @@ class EventoController extends Controller
 		$this->performAjaxValidation($model);
 		if(isset($_POST['Eventos']))
 		{
-			echo json_encode($_POST['Eventos']);
 			$tagsOK = false;
 			$model->attributes=$_POST['Eventos'];
 			$uploadedFile=CUploadedFile::getInstance($model,'Imagen');
