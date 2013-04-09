@@ -16,7 +16,7 @@ class EventoController extends Controller
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
-		);
+			);
 	}
 
 	/**
@@ -30,19 +30,19 @@ class EventoController extends Controller
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
-			),
+				),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
 				'users'=>array('@'),
-			),
+				),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
-			),
+				),
 			array('deny',  // deny all users
 				'users'=>array('*'),
-			),
-		);
+				),
+			);
 	}
 
 	/**
@@ -53,7 +53,7 @@ class EventoController extends Controller
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
-		));
+			));
 	}
 	
 	function extensionCorrecta($exten){
@@ -67,21 +67,22 @@ class EventoController extends Controller
 	{
 
 		Yii::app()->clientScript->registerScriptFile(
-        	Yii::app()->baseUrl . '/js/validarNuevoEvento.js',
+			Yii::app()->baseUrl . '/js/validarNuevoEvento.js',
 			CClientScript::POS_END
-		);
+			);
 
 		$model=new Eventos();
 		$controladorTag = new TagController('Tag');
+		$modeloRelacion = new EventosHasTag();
 		$etiquetas = array();
 		$valores = array('Nombre'=>'','Descripcion'=>'','Lugar'=>'','CoordX'=>'','CoordY'=>'','FechaFin'=>'','FechaIni'=>'','Imagen'=>'','tags'=>'','Web'=>'','idUsuarioCrear'=>'');
 
 		$tags = $controladorTag->GetAll();
 		for ($i=0; $i < count($tags); $i++) { 
 			$nuevoElemento = array(
-			                'id'=> $i,
-			                'text'=> $tags[$i]->Etiqueta,
-			            );
+				'id'=> $i,
+				'text'=> $tags[$i]->Etiqueta,
+				);
 			$etiquetas[$i] = $nuevoElemento;
 		}
 		$valores['idUsuarioCrear'] = Yii::app()->user->getId();
@@ -90,6 +91,7 @@ class EventoController extends Controller
 		$this->performAjaxValidation($model);
 		if(isset($_POST['Eventos']))
 		{
+			$tagsOK = false;
 			$model->attributes=$_POST['Eventos'];
 			$uploadedFile=CUploadedFile::getInstance($model,'Imagen');
 			$rnd = md5($uploadedFile.date("d-m-Y H:i:s"));
@@ -97,87 +99,62 @@ class EventoController extends Controller
             $model->Imagen = 'images/Eventos/'.$fileName;
             $array_tags = explode(',',$_POST['Eventos_tags']);
             $tags_strings = array();
-            $i = 0;
-	           	foreach ($array_tags as $value) {
-	           		if(is_numeric($value))
-	           		{
-	           			$tags_strings[$i] = $etiquetas[$value]['text'];
-	           		}
-				}
-            $model->setRelationRecords('tags',$tags_strings);
+            
+            foreach ($array_tags as $value) {
+	        	if(is_numeric($value))
+	        	{
+	        		$tagsOK = true;
+	        	}else{
+	        		echo "OUCH";
+	        	}
+	        }
+            //$model->setRelationRecords('tags',$tags_strings);
             $ext = pathinfo($uploadedFile, PATHINFO_EXTENSION);
-			if($model->validate()){
+            if($model->validate()){
 
-				if(!empty($tags_strings)){
+            	if($tagsOK == true){
 
-				if($this->extensionCorrecta(strtolower($ext)))
-				{
-					$model->scenario = 'registerwcaptcha';
-					if($model->validate(array('validacion'))) { // will validate only one attribute
-						$model->scenario = NULL;
-						if($model->save()){
-							$images_path = realpath(Yii::app()->basePath . '/../images/Eventos');
-							$uploadedFile->saveAs($images_path.'/'.$fileName);
-							$expire_date_correct = '¡Evento creado!';
-	                        Yii::app()->user->setFlash('expire_date_correct',$expire_date_correct);
-	                    }
+            		if($this->extensionCorrecta(strtolower($ext)))
+            		{
+            			$model->scenario = 'registerwcaptcha';
+						if($model->validate(array('validacion'))) { // will validate only one attribute
+							$model->scenario = NULL;
+							if($model->save()){
+								$modeloRelacion->Eventos_idEventos = $model->idEventos;
+								foreach ($array_tags as $value) {
+									$modeloRelacion->setIsNewRecord(true);
+									$modeloRelacion->Tag_Etiqueta = $etiquetas[$value]['text'];
+									$modeloRelacion->insert();
+								}
+
+								$images_path = realpath(Yii::app()->basePath . '/../images/Eventos');
+								$uploadedFile->saveAs($images_path.'/'.$fileName);
+								$expire_date_correct = '¡Evento creado!';
+								Yii::app()->user->setFlash('expire_date_correct',$expire_date_correct);
+							}
+						}
+						else{
+							restaurarDatos();
+							$expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
+							Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
+						}
 					}
-					else{
-							$valores['Nombre']=$_POST['Eventos']['Nombre'];
-							$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
-							$valores['Lugar'] = $_POST['Eventos']['Lugar'];
-							$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
-							$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
-							$valores['CoordX'] = $_POST['Eventos']['CoordX'];
-							$valores['CoordY'] = $_POST['Eventos']['CoordY'];
-							$valores['Imagen'] = $uploadedFile;
-							$valores['Web'] = $_POST['Eventos']['Web'];
-							$valores['idUsuarioCrear'] = Yii::app()->user->getId();
-	                        $expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
-	                        Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
+					else
+					{
+						restaurarDatos();
+						$expire_date_error = '¡Formato de imagen incorrecto!';
+						Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 					}
+				}else{
+					restaurarDatos();
+					$expire_date_error = '¡Etiqueta el evento!';
+					Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 				}
-				else
-				{
-					$valores['Nombre']=$_POST['Eventos']['Nombre'];
-					$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
-					$valores['Lugar'] = $_POST['Eventos']['Lugar'];
-					$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
-					$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
-					$valores['CoordX'] = $_POST['Eventos']['CoordX'];
-					$valores['CoordY'] = $_POST['Eventos']['CoordY'];
-					$valores['Imagen'] = $uploadedFile;
-					$valores['Web'] = $_POST['Eventos']['Web'];
-					$valores['idUsuarioCrear'] = Yii::app()->user->getId();
-	                $expire_date_error = '¡Formato de imagen incorrecto!';
-	                Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
-				}
-			}else{
-				$valores['Nombre']=$_POST['Eventos']['Nombre'];
-				$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
-				$valores['Lugar'] = $_POST['Eventos']['Lugar'];
-				$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
-				$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
-				$valores['CoordX'] = $_POST['Eventos']['CoordX'];
-				$valores['CoordY'] = $_POST['Eventos']['CoordY'];
-				$valores['Imagen'] = $uploadedFile;
-                $expire_date_error = '¡Etiqueta el evento!';
-                Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
-			}
 			}
 			else
 			{
 				$error = CActiveForm::validate($model);
-				$valores['Nombre']=$_POST['Eventos']['Nombre'];
-				$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
-				$valores['Lugar'] = $_POST['Eventos']['Lugar'];
-				$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
-				$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
-				$valores['CoordX'] = $_POST['Eventos']['CoordX'];
-				$valores['CoordY'] = $_POST['Eventos']['CoordY'];
-				$valores['Imagen'] = $uploadedFile;
-				$valores['Web'] = $_POST['Eventos']['Web'];
-				$valores['idUsuarioCrear'] = Yii::app()->user->getId();
+				restaurarDatos();
 
                 /*if($error!='[]')
                 {
@@ -185,15 +162,15 @@ class EventoController extends Controller
                     Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
                 }*/
             }
-		}
-			
+        }
 
-			$this->render('create',array(
-				'model'=>$model,
-				'etiquetas'=>$etiquetas,
-				'valores'=>$valores,
-			));
-	}
+
+        $this->render('create',array(
+        	'model'=>$model,
+        	'etiquetas'=>$etiquetas,
+        	'valores'=>$valores,
+        	));
+    }
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -208,14 +185,14 @@ class EventoController extends Controller
 		if(isset($_POST['Eventos']))
 		{
 			$model->attributes=$_POST['Eventos'];
-				if($model->save())
-					$this->redirect(array('view','id'=>$model->idEventos));
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->idEventos));
 		}
 		
 
 		$this->render('update',array(
 			'model'=>$model,
-		));
+			));
 	}
 
 	/**
@@ -240,7 +217,7 @@ class EventoController extends Controller
 		$dataProvider=new CActiveDataProvider('Eventos');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-		));
+			));
 	}
 
 	public function GetAll()
@@ -262,19 +239,19 @@ class EventoController extends Controller
 
 		$this->render('admin',array(
 			'model'=>$model,
-		));
+			));
 	}
 
 	public function actionSearch($keyword)
 	{
 
 		$model=Eventos::model()->findAllByAttributes(
-	        array(),
-	        $condition  = 'Nombre = :keyword OR Descripcion = :keyword',
-	        $params     = array(
-	                ':keyword' => $keyword,
-	        )
-		);
+			array(),
+			$condition  = 'Nombre = :keyword OR Descripcion = :keyword',
+			$params     = array(
+				':keyword' => $keyword,
+				)
+			);
 
 		$dato = $model;
 		return $dato;
@@ -308,6 +285,19 @@ class EventoController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	private function restaurarDatos(){
+		$valores['Nombre']=$_POST['Eventos']['Nombre'];
+		$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
+		$valores['Lugar'] = $_POST['Eventos']['Lugar'];
+		$valores['FechaIni'] = $_POST['Eventos']['FechaIni'];
+		$valores['FechaFin'] = $_POST['Eventos']['FechaFin'];
+		$valores['CoordX'] = $_POST['Eventos']['CoordX'];
+		$valores['CoordY'] = $_POST['Eventos']['CoordY'];
+		$valores['Imagen'] = $uploadedFile;
+		$valores['Web'] = $_POST['Eventos']['Web'];
+		$valores['idUsuarioCrear'] = Yii::app()->user->getId();
 	}
 
 	
