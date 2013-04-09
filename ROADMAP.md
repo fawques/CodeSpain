@@ -15,3 +15,5 @@ Esperamos también mejorar y que se más accesible, tanto este roadmap (+ chulac
 Si tienes alguna idea o aporte ponlo aquí! Estaremos encantados de recibir ayuda.
 
 Un saludo y suerte!
+
+P.D: Aquí teneis nuestro trello, para ver el desarrollo: https://trello.com/board/codespain/5127cb5fd5c690da430057f3
