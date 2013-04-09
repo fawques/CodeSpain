@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `Eventos` (
   `idUsuarioCrear` int(11) NOT NULL,
   PRIMARY KEY (`idEventos`),
   KEY `fk_Eventos_Usuarios_Crear_idx` (`idUsuarioCrear`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
