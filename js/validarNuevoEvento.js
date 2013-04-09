@@ -1,3 +1,5 @@
+$("#Eventos_tags_em_").hide();
+
 function validarFormulario(form)
 {
 	var nombre = form['Eventos_Nombre'].value;
@@ -5,8 +7,17 @@ function validarFormulario(form)
 	var lugar = form['Eventos_Lugar'].value;
 	var fecha1 = form['Eventos_FechaIni'].value;
 	var fecha2 = form['Eventos_FechaFin'].value;
+	var tags = form['Eventos_tags'].value;
+	var tagsOK = true;
 
-	if(nombre == "" || descripcion == "" || lugar == "" || fecha1 == "" || fecha2 == "")
+	if(tags == ""){
+		$("#divEtiquetas").addClass('error');
+		$("#divEtiquetas2").addClass('error');
+		$("#Eventos_tags_em_").show();
+		tagsOK = false;
+	}
+
+	if(nombre == "" || descripcion == "" || lugar == "" || fecha1 == "" || fecha2 == "" || !tagsOK)
 	{
 		return false;
 	}

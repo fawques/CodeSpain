@@ -109,10 +109,13 @@ $model->idUsuarioCrear=$valores['idUsuarioCrear'];
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row" id="divEtiquetas">
 		<div class="control-group">
-	    	<label class="control-label">Etiquetas</label>
-	    	<div class="controls">
+			<label class="required" for="Eventos_tags">
+				Etiquetas
+				<span class="required">*</span>
+			</label>
+	    	<div class="controls" id="divEtiquetas2">
 				<?php
 				// Para que lo autocomplete, el formato del array debe ser este:
 				// $prueba = array(array('id'=>'0','text'=>'c++'),array('id'=>'1','text'=>'java'));
@@ -127,7 +130,7 @@ $model->idUsuarioCrear=$valores['idUsuarioCrear'];
 				));
 
 				?>
-	    		<?php //echo $form->error($model,'Nombre'); ?> <!-- Habría que ponerlo para validarlo -->
+	    		<br/><div id="Eventos_tags_em_" class="errorMessage">¡El campo no puede ser vacio!</div>
 			</div>
 	    </div>
 	</div>
