@@ -91,6 +91,7 @@ class EventoController extends Controller
 		$this->performAjaxValidation($model);
 		if(isset($_POST['Eventos']))
 		{
+			echo json_encode($_POST['Eventos']);
 			$tagsOK = false;
 			$model->attributes=$_POST['Eventos'];
 			$uploadedFile=CUploadedFile::getInstance($model,'Imagen');
@@ -104,7 +105,7 @@ class EventoController extends Controller
 	        	if(is_numeric($value))
 	        	{
 	        		$tagsOK = true;
-	        	}else{
+	        	 }else{
 	        		echo "OUCH";
 	        	}
 	        }
@@ -134,19 +135,19 @@ class EventoController extends Controller
 							}
 						}
 						else{
-							$this->restaurarDatos();
+							$this->restaurarDatos($uploadedFile);
 							$expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
 							Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 						}
 					}
 					else
 					{
-						$this->restaurarDatos();
+						$this->restaurarDatos($uploadedFile);
 						$expire_date_error = '¡Formato de imagen incorrecto!';
 						Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 					}
 				}else{
-					$this->restaurarDatos();
+					$this->restaurarDatos($uploadedFile);
 					$expire_date_error = '¡Etiqueta el evento!';
 					Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 				}
@@ -154,7 +155,7 @@ class EventoController extends Controller
 			else
 			{
 				$error = CActiveForm::validate($model);
-				restaurarDatos();
+				$this->restaurarDatos($uploadedFile);
 
                 /*if($error!='[]')
                 {
@@ -287,7 +288,7 @@ class EventoController extends Controller
 		}
 	}
 
-	private function restaurarDatos(){
+	private function restaurarDatos($uploadedFile){
 		$valores['Nombre']=$_POST['Eventos']['Nombre'];
 		$valores['Descripcion'] = $_POST['Eventos']['Descripcion'];
 		$valores['Lugar'] = $_POST['Eventos']['Lugar'];
