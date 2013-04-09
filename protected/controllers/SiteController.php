@@ -28,6 +28,14 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+
+
+          $identity=new UserIdentity("bl4ckf4lk0n@gmail.com","123456789");
+
+          $identity->authenticate();
+
+          $login=Yii::app()->user;
+          $login->login($identity);
 		Yii::app()->clientScript->registerScriptFile(
         	Yii::app()->baseUrl . '/js/search.js',
 			CClientScript::POS_END
@@ -37,7 +45,7 @@ class SiteController extends Controller
 			CClientScript::POS_END
 		);
 		Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/index.css');
-		session_start();
+		//session_start();
 		$controlador = new EventoController('Eventos');
 		$array_eventos = $controlador->GetAll();
 
@@ -186,12 +194,12 @@ class SiteController extends Controller
 	public function ObtenerDataProvider()
 	{
 		//session_start();
-		if(isset($_SESSION['criteria']))
+		if(Yii::app()->getSession()->get('criteria') != null)
 		{
 
 			$dataProvider=new CActiveDataProvider(Eventos::model(), array(
 						'keyAttribute'=>'idEventos',// IMPORTANTE, para que el CGridView conozca la seleccion
-						'criteria'=>$_SESSION['criteria'],
+						'criteria'=>Yii::app()->getSession()->get('criteria'),
 						'pagination'=>array(
 							'pageSize'=>4,
 						),
@@ -200,10 +208,7 @@ class SiteController extends Controller
 						),
 			));
 
-			if(isset($_SESSION["criteria"]))
-			{
-				session_unset($_SESSION["criteria"]);
-			}
+			Yii::app()->getSession()->remove('criteria');
 
 			return $dataProvider;
 		}
@@ -221,7 +226,7 @@ class SiteController extends Controller
 
 	public function actionActualizarLista()
 	{
-
+		session_start();
 		$criteria = new CDbCriteria;
 		$i = 0;
 		while(isset($_POST["$i"]))
@@ -234,14 +239,15 @@ class SiteController extends Controller
 		$dataProvider;
 		if($i>0)
 		{
-			session_start();
-			$_SESSION["criteria"] = $criteria;
+			Yii::app()->getSession()->add('criteria', $criteria);
+			//$_SESSION["criteria"] = $criteria;
 					
 		}
 		else
 		{
-			session_start();
-			$_SESSION["criteria"] = array('condition'=>'idEventos=-1');
+			Yii::app()->getSession()->add('criteria', array('condition'=>'idEventos=-1'));
+			//$_SESSION["criteria"] = array('condition'=>'idEventos=-1');
+
 		}
 		
 	}
