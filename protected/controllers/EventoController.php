@@ -134,19 +134,19 @@ class EventoController extends Controller
 							}
 						}
 						else{
-							restaurarDatos();
+							$this->restaurarDatos();
 							$expire_date_error = 'Has escrito el recaptcha mal. ¡Intentalo de nuevo!';
 							Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 						}
 					}
 					else
 					{
-						restaurarDatos();
+						$this->restaurarDatos();
 						$expire_date_error = '¡Formato de imagen incorrecto!';
 						Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 					}
 				}else{
-					restaurarDatos();
+					$this->restaurarDatos();
 					$expire_date_error = '¡Etiqueta el evento!';
 					Yii::app()->user->setFlash('expire_date_error',$expire_date_error);
 				}
