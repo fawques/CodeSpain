@@ -241,10 +241,7 @@ class SiteController extends Controller
 		else
 		{
 			session_start();
-			if(isset($_SESSION["criteria"]))
-			{
-				session_unset($_SESSION["criteria"]);
-			}
+			$_SESSION["criteria"] = array('condition'=>'idEventos=-1');
 		}
 		
 	}
