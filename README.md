@@ -1,5 +1,6 @@
 <h1>CodeSpain</h1>
 CodeSpain es una aplicación web que permite a los desarrolladores encontrar fácilmente eventos de desarrollo en España.
+Visita nuestro Roadmap en docs/roadmap.md y si te interesa lo que ves, siempre puede ayudarnos o darnos feedback! :D
 
 
 <h2>LICENCIA</h2>
