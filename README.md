@@ -12,31 +12,31 @@ El árbol de directorios del proyecto puede ser algo complejo, ya que depende en
             <td >Esquemas para generar la Base de Datos</td>
         </tr>
         <tr>
-            <td ><a href="/fawques/CodeSpain/tree/master/assets">assets</a></td>
+            <td ><a href="assets">assets</a></td>
             <td >Librerías y recursos externos</td>
         </tr>
         <tr>
-            <td ><a href="/fawques/CodeSpain/tree/master/css">css</a></td>
+            <td ><a href="css">css</a></td>
             <td >Retoques de css</td>
         </tr>
         <tr>
-            <td ><a href="/fawques/CodeSpain/tree/master/docs">docs</a></td>
+            <td ><a href="docs">docs</a></td>
             <td >Documentación</td>
         </tr>
         <tr>
-            <td ><a href="/fawques/CodeSpain/tree/master/framework">framework</a></td>
+            <td ><a href="framework">framework</a></td>
             <td >Código del framework. Incluido para facilitar la instalación</td>
         </tr>
         <tr>
-            <td ><a href="/fawques/CodeSpain/tree/master/images">images</a></td>
+            <td ><a href="images">images</a></td>
             <td >Imágenes usadas en la aplicación</td>
         </tr>
         <tr>
-            <td ><a href="/fawques/CodeSpain/tree/master/js">js</a></td>
+            <td ><a href="js">js</a></td>
             <td >Código JavaScript para la aplicación</td>
         </tr>
         <tr>
-            <td ><a href="/fawques/CodeSpain/tree/master/protected">protected</a></td>
+            <td ><a href="protected">protected</a></td>
             <td >Carpeta principal del proyecto. Esta carpeta no debe ser pública una vez subida al servidor.</td>
         </tr>
         <tr>
@@ -44,34 +44,34 @@ El árbol de directorios del proyecto puede ser algo complejo, ya que depende en
                 <table cellspacing="0" cellpadding="0" >
                     <tbody data-url="/fawques/CodeSpain/tree-commits/master/protected" >
                         <tr>
-                            <td ><a href="/fawques/CodeSpain/tree/master/protected/components">components</a></td>
+                            <td ><a href="protected/components">components</a></td>
                         </tr>
                         <tr>
-                            <td ><a href="/fawques/CodeSpain/tree/master/protected/config">config</a></td>
+                            <td ><a href="protected/config">config</a></td>
                         </tr>
                         <tr>
-                            <td ><a href="/fawques/CodeSpain/tree/master/protected/controllers">controllers</a></td>
+                            <td ><a href="protected/controllers">controllers</a></td>
                         </tr>
                         <tr>
-                            <td ><a href="/fawques/CodeSpain/tree/master/protected/data">data</a></td>
+                            <td ><a href="protected/data">data</a></td>
                         </tr>
                         <tr>
-                            <td ><a href="/fawques/CodeSpain/tree/master/protected/extensions">extensions</a></td>
+                            <td ><a href="protected/extensions">extensions</a></td>
                         </tr>
                         <tr>
-                            <td ><a href="/fawques/CodeSpain/tree/master/protected/models">models</a></td>
+                            <td ><a href="protected/models">models</a></td>
                         </tr>
                         <tr>
-                            <td ><a href="/fawques/CodeSpain/tree/master/protected/runtime">runtime</a></td>
+                            <td ><a href="protected/runtime">runtime</a></td>
                         </tr>
                         <tr>
-                            <td ><a href="/fawques/CodeSpain/tree/master/protected/tests">tests</a></td>
+                            <td ><a href="protected/tests">tests</a></td>
                         </tr>
                         <tr>
-                            <td ><a href="/fawques/CodeSpain/tree/master/protected/vendors">vendors</a></td>
+                            <td ><a href="protected/vendors">vendors</a></td>
                         </tr>
                         <tr>
-                            <td ><a href="/fawques/CodeSpain/tree/master/protected/views">views</a></td>
+                            <td ><a href="protected/views">views</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -113,11 +113,12 @@ El árbol de directorios del proyecto puede ser algo complejo, ya que depende en
         </tr>
         <tr>
             
-            <td ><a href="/fawques/CodeSpain/tree/master/themes">themes</a></td>
+            <td ><a href="themes">themes</a></td>
             <td >Carpeta de personalización de temas. Necesaria para incluir Yii-Boostrap</td>
         </tr>
     </tbody>
 </table>
+
 
 
 Dependencias
