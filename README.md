@@ -4,7 +4,121 @@ Visita nuestro [Roadmap](docs/ROADMAP.md) y si te interesa lo que ves, siempre p
 
 <h2>Árbol de directorios</h2>
 El árbol de directorios del proyecto puede ser algo complejo, ya que depende en buena parte del código de [Yii Framework](http://www.yiiframework.com/). Esta es la estructura de directorios y su función:
-  _En proceso_
+
+<table cellspacing="0" cellpadding="0" >
+    <tbody>
+        <tr>
+            <td ><a href="/fawques/CodeSpain/tree/master/BD">BD</a></td>
+            <td >Esquemas para generar la Base de Datos</td>
+        </tr>
+        <tr>
+            <td ><a href="/fawques/CodeSpain/tree/master/assets">assets</a></td>
+            <td >Librerías y recursos externos</td>
+        </tr>
+        <tr>
+            <td ><a href="/fawques/CodeSpain/tree/master/css">css</a></td>
+            <td >Retoques de css</td>
+        </tr>
+        <tr>
+            <td ><a href="/fawques/CodeSpain/tree/master/docs">docs</a></td>
+            <td >Documentación</td>
+        </tr>
+        <tr>
+            <td ><a href="/fawques/CodeSpain/tree/master/framework">framework</a></td>
+            <td >Código del framework. Incluido para facilitar la instalación</td>
+        </tr>
+        <tr>
+            <td ><a href="/fawques/CodeSpain/tree/master/images">images</a></td>
+            <td >Imágenes usadas en la aplicación</td>
+        </tr>
+        <tr>
+            <td ><a href="/fawques/CodeSpain/tree/master/js">js</a></td>
+            <td >Código JavaScript para la aplicación</td>
+        </tr>
+        <tr>
+            <td ><a href="/fawques/CodeSpain/tree/master/protected">protected</a></td>
+            <td >Carpeta principal del proyecto. Esta carpeta no debe ser pública una vez subida al servidor.</td>
+        </tr>
+        <tr>
+            <td >
+                <table cellspacing="0" cellpadding="0" >
+                    <tbody data-url="/fawques/CodeSpain/tree-commits/master/protected" >
+                        <tr>
+                            <td ><a href="/fawques/CodeSpain/tree/master/protected/components">components</a></td>
+                        </tr>
+                        <tr>
+                            <td ><a href="/fawques/CodeSpain/tree/master/protected/config">config</a></td>
+                        </tr>
+                        <tr>
+                            <td ><a href="/fawques/CodeSpain/tree/master/protected/controllers">controllers</a></td>
+                        </tr>
+                        <tr>
+                            <td ><a href="/fawques/CodeSpain/tree/master/protected/data">data</a></td>
+                        </tr>
+                        <tr>
+                            <td ><a href="/fawques/CodeSpain/tree/master/protected/extensions">extensions</a></td>
+                        </tr>
+                        <tr>
+                            <td ><a href="/fawques/CodeSpain/tree/master/protected/models">models</a></td>
+                        </tr>
+                        <tr>
+                            <td ><a href="/fawques/CodeSpain/tree/master/protected/runtime">runtime</a></td>
+                        </tr>
+                        <tr>
+                            <td ><a href="/fawques/CodeSpain/tree/master/protected/tests">tests</a></td>
+                        </tr>
+                        <tr>
+                            <td ><a href="/fawques/CodeSpain/tree/master/protected/vendors">vendors</a></td>
+                        </tr>
+                        <tr>
+                            <td ><a href="/fawques/CodeSpain/tree/master/protected/views">views</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td >
+                <table cellspacing="0" cellpadding="0" >
+                    <tr>
+                        <td >Contiene componentes (como widgets o utilidades)</td>
+                    </tr>
+                    <tr>
+                        <td >Contiene los archivos de configuración principales</td>
+                    </tr>
+                    <tr>
+                        <td >Contiene los controladores de la aplicación</td>
+                    </tr>
+                    <tr>
+                        <td >Contiene la base de datos usada por el proyecto</td>
+                    </tr>
+                    <tr>
+                        <td >Contiene extensiones externas incluidas en el proyecto. Cada una de ellas funciona para Yii como una aplicación separada.</td>
+                    </tr>
+                    <tr>
+                        <td >Contiene los modelos de datos de la aplicaci</td>
+                    </tr>
+                    <tr>
+                        <td >Se utiliza en tiempo de ejecución en el servidor</td>
+                    </tr>
+                    <tr>
+                        <td >Contiene los tests</td>
+                    </tr>
+                    <tr>
+                        <td >Contiene plugins externos</td>
+                    </tr>
+                    <tr>
+                        <td >Contiene las vistas de la aplicación</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            
+            <td ><a href="/fawques/CodeSpain/tree/master/themes">themes</a></td>
+            <td >Carpeta de personalización de temas. Necesaria para incluir Yii-Boostrap</td>
+        </tr>
+    </tbody>
+</table>
+
 
 Dependencias
 ------------------
