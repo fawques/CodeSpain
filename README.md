@@ -8,7 +8,7 @@ El árbol de directorios del proyecto puede ser algo complejo, ya que depende en
 <table cellspacing="0" cellpadding="0" >
     <tbody>
         <tr>
-            <td ><a href="tree/master/BD">BD</a></td>
+            <td ><a href="BD">BD</a></td>
             <td >Esquemas para generar la Base de Datos</td>
         </tr>
         <tr>
